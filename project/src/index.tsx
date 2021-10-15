@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
-
-const PLACE_COUNT = 312;
+import { mockOffers } from './mocks/offers';
+import { mockReviews } from './mocks/reviews';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App placeCount={PLACE_COUNT} />
+    <App
+      offers={mockOffers}
+      reviews={mockReviews}
+    />
   </React.StrictMode>,
   document.getElementById('root'));

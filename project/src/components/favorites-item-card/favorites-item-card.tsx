@@ -1,27 +1,25 @@
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types/offer';
 
-type placeCardProps = {
+type FavoriteItemCardProps = {
   offer: Offer,
 }
 
-// добавить стейт из 5 пункта дз
-
-function PlaceCard({ offer }: placeCardProps): JSX.Element {
+function FavoriteItemCardComponent({ offer }: FavoriteItemCardProps): JSX.Element {
   const { type, title, price, rating, isPremium, isFavorite, previewImage, id } = offer;
-  const bookmarkButtonClass = isFavorite ? 'property__bookmark-button property__bookmark-button--active button'
-    : 'property__bookmark-button button';
-  const getPremiumMark = isPremium ? <div className="place-card__mark"><span>Premium</span></div> : '';
+  const bookmarkButtonClass = isFavorite
+    ? 'place-card__bookmark-button place-card__bookmark-button--active button'
+    : 'place-card__bookmark-button button';
 
   return (
-    <article className="cities__place-card place-card">
-      {getPremiumMark}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+    <article className="favorites__card place-card">
+      {isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ''}
+      <div className="favorites__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/:${id}`}>
-          <img className="place-card__image" src={previewImage} width="260" height="200" alt="" />
+          <img className="place-card__image" src={previewImage} width="150" height="110" alt="" />
         </Link>
       </div>
-      <div className="place-card__info">
+      <div className="favorites__card-info place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
@@ -45,8 +43,8 @@ function PlaceCard({ offer }: placeCardProps): JSX.Element {
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
-    </article >
+    </article>
   );
 }
 
-export default PlaceCard;
+export default FavoriteItemCardComponent;

@@ -1,7 +1,7 @@
-import { Offer } from '../types/offer';
+import { Offers } from '../types/offers';
 import { nanoid } from '@reduxjs/toolkit';
 
-export const mockOffers: Offer[] = [
+export const mockOffers: Offers = [
   {
     bedrooms: 3,
     city: {
@@ -10,7 +10,7 @@ export const mockOffers: Offer[] = [
         longitude: 4.895168,
         zoom: 10,
       },
-      name: 'Amsterdam',
+      name: 'Paris',
     },
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
@@ -22,7 +22,7 @@ export const mockOffers: Offer[] = [
     },
     id: nanoid(),
     images: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/studio-01.jpg', 'img/apartment-01.jpg'],
-    isFavorite: false,
+    isFavorite: true,
     isPremium: false,
     location: {
       latitude: 52.35514938496378,
@@ -31,7 +31,7 @@ export const mockOffers: Offer[] = [
     },
     maxAdults: 6,
     previewImage: 'img/apartment-02.jpg',
-    price: 120,
+    price: 1200,
     rating: 4.8,
     title: 'Beautiful & luxurious studio at great location',
     type: 'apartment',
@@ -99,8 +99,8 @@ export const mockOffers: Offer[] = [
     },
     maxAdults: 2,
     previewImage: 'img/apartment-02.jpg',
-    price: 100,
-    rating: 3.8,
+    price: 1000,
+    rating: 4.2,
     title: 'The process of getting used to each other, everything is great.',
     type: 'house',
   },
@@ -134,7 +134,7 @@ export const mockOffers: Offer[] = [
     maxAdults: 14,
     previewImage: 'img/apartment-01.jpg',
     price: 180,
-    rating: 4.9,
+    rating: 2.5,
     title: 'Young people lose their strength.',
     type: 'hotel',
   },

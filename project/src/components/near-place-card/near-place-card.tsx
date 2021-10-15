@@ -1,24 +1,23 @@
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types/offer';
 
-type placeCardProps = {
-  offer: Offer,
+type NearPlaceCardProps = {
+  nearOffer: Offer,
 }
 
-// добавить стейт из 5 пункта дз
-
-function PlaceCard({ offer }: placeCardProps): JSX.Element {
-  const { type, title, price, rating, isPremium, isFavorite, previewImage, id } = offer;
-  const bookmarkButtonClass = isFavorite ? 'property__bookmark-button property__bookmark-button--active button'
-    : 'property__bookmark-button button';
+function NearPlaceCardComponent({ nearOffer }: NearPlaceCardProps): JSX.Element {
+  const { type, title, price, rating, isPremium, isFavorite, previewImage, id } = nearOffer;
+  const bookmarkButtonClass = isFavorite
+    ? 'place-card__bookmark-button place-card__bookmark-button--active button'
+    : 'place-card__bookmark-button button';
   const getPremiumMark = isPremium ? <div className="place-card__mark"><span>Premium</span></div> : '';
 
   return (
-    <article className="cities__place-card place-card">
+    <article className="near-places__card place-card">
       {getPremiumMark}
-      <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={`/offer/:${id}`}>
-          <img className="place-card__image" src={previewImage} width="260" height="200" alt="" />
+      <div className="near-places__image-wrapper place-card__image-wrapper">
+        <Link to={`/offer/${id}`}>
+          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place view" />
         </Link>
       </div>
       <div className="place-card__info">
@@ -29,7 +28,7 @@ function PlaceCard({ offer }: placeCardProps): JSX.Element {
           </div>
           <button className={bookmarkButtonClass} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
+              <use xlinkHref="#icon-bookmark" />
             </svg>
             <span className="visually-hidden">{`${isFavorite ? 'In' : 'To'} bookmarks`}</span>
           </button>
@@ -41,12 +40,12 @@ function PlaceCard({ offer }: placeCardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/:${id}`}>{title}</Link>
+          <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
-    </article >
+    </article>
   );
 }
 
-export default PlaceCard;
+export default NearPlaceCardComponent;
