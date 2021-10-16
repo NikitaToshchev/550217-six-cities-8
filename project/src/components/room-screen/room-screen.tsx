@@ -1,20 +1,30 @@
-import { Offers } from '../../types/offers';
-import { Reviews } from '../../types/reviews';
 import { Offer } from '../../types/offer';
+import { Review } from '../../types/review';
 import HeaderComponet from '../header/header';
 import RoomGalleryComponent from '../room-gallary/room-gallary';
 import RoomGoodsComponent from '../room-goods/room-goods';
 import ReviewsComponent from '../reviews/reviews';
 import NearPlacesComponent from '../near-places/near-places';
+import { useParams } from 'react-router-dom';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 type RoomScreenProps = {
-  offer: Offer;
-  reviews: Reviews,
-  nearOffers: Offers,
+  offers: Offer[];
+  reviews: Review[],
+  nearOffers: Offer[],
   authorizationStatus: string,
 }
 
-function RoomScreen({ offer, reviews, nearOffers, authorizationStatus }: RoomScreenProps): JSX.Element {
+function RoomScreen({ offers, reviews, nearOffers, authorizationStatus }: RoomScreenProps): JSX.Element {
+
+  const { id } = useParams() as { id: string };
+
+  const offer = offers.find((item) => item.id === id) as Offer;
+
+  if (!offer) {
+    return <NotFoundScreen />;
+  }
+
   const { images, isFavorite, title, isPremium, host, price, rating, bedrooms, maxAdults, type, goods, description } = offer;
   const { name, avatarUrl, isPro } = host;
   const bookmarkButtonClass = isFavorite ? 'property__bookmark-button property__bookmark-button--active button'
@@ -31,7 +41,7 @@ function RoomScreen({ offer, reviews, nearOffers, authorizationStatus }: RoomScr
           {images.length > 0 && <RoomGalleryComponent images={images} />}
           <div className="property__container container">
             <div className="property__wrapper">
-              {isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ''}
+              {isPremium ? <div className="property__mark"><span>Premium</span></div> : ''}
               <div className="property__name-wrapper">
                 <h1 className="property__name">{title}</h1>
                 <button className={bookmarkButtonClass} type="button">

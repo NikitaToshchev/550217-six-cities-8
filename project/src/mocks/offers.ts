@@ -1,7 +1,7 @@
-import { Offers } from '../types/offers';
+import { Offer } from '../types/offer';
 import { nanoid } from '@reduxjs/toolkit';
 
-export const mockOffers: Offers = [
+export const mockOffers: Offer[] = [
   {
     bedrooms: 3,
     city: {

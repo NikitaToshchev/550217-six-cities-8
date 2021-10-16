@@ -1,8 +1,8 @@
-import { Reviews } from '../../types/reviews';
+import { Review } from '../../types/review';
 import ReviewsListComponent from '../reviews-list/reviews-list';
 import ReviewsNewComponent from '../reviews-new/reviews-new';
 type ReviewsProprs = {
-  reviews: Reviews,
+  reviews: Review[],
   authorizationStatus: string,
 }
 

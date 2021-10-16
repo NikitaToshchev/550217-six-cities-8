@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import { Offers } from '../../types/offers';
+import { Offer } from '../../types/offer';
 import FavoritesItemCardComponent from '../favorites-item-card/favorites-item-card';
 
 type FavoritesItemProps = {
-  offers: Offers;
+  offers: Offer[];
   city: string,
 }
 

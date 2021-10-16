@@ -3,21 +3,23 @@ import { Offer } from '../../types/offer';
 
 type placeCardProps = {
   offer: Offer,
+  handleActiveCard: (offer: Offer | null) => void,
 }
 
-// добавить стейт из 5 пункта дз
-
-function PlaceCard({ offer }: placeCardProps): JSX.Element {
+function PlaceCard({ offer, handleActiveCard }: placeCardProps): JSX.Element {
   const { type, title, price, rating, isPremium, isFavorite, previewImage, id } = offer;
-  const bookmarkButtonClass = isFavorite ? 'property__bookmark-button property__bookmark-button--active button'
-    : 'property__bookmark-button button';
+  const bookmarkButtonClass = isFavorite ? 'place-card__bookmark-button--active place-card__bookmark-button button'
+    : 'place-card__bookmark-button button';
   const getPremiumMark = isPremium ? <div className="place-card__mark"><span>Premium</span></div> : '';
 
   return (
-    <article className="cities__place-card place-card">
+    <article className="cities__place-card place-card"
+      onMouseEnter={() => handleActiveCard(offer)}
+      onMouseLeave={() => handleActiveCard(null)}
+    >
       {getPremiumMark}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={`/offer/:${id}`}>
+        <Link to={`/offer/${id}`}>
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="" />
         </Link>
       </div>
@@ -41,7 +43,7 @@ function PlaceCard({ offer }: placeCardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/:${id}`}>{title}</Link>
+          <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

@@ -7,21 +7,18 @@ import FavoritesScreen from '../favorites-screen/favorites-screen';
 import RoomScreen from '../room-screen/room-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
-import { Offers } from '../../types/offers';
-import { Reviews } from '../../types/reviews';
+import { Offer } from '../../types/offer';
+import { Review } from '../../types/review';
 
 type AppProps = {
-  offers: Offers,
-  reviews: Reviews,
+  offers: Offer[],
+  reviews: Review[],
 }
 
 function App({ offers, reviews }: AppProps): JSX.Element {
   const favoritesOffers = offers.filter((offer) => offer.isFavorite);
-
   const nearOffers = offers.slice(0, 3);
-  // добавить хук с id
-  // const offer = offers.find((item) => item.id === id);
-  const offer = offers[0];
+
   return (
     <BrowserRouter>
       <Switch>
@@ -40,7 +37,7 @@ function App({ offers, reviews }: AppProps): JSX.Element {
         </PrivateRoute>
         <Route exact path={AppRoute.Room}>
           <RoomScreen
-            offer={offer}
+            offers={offers}
             reviews={reviews}
             nearOffers={nearOffers}
             authorizationStatus={AuthorizationStatus.Auth}

@@ -1,7 +1,7 @@
 import { nanoid } from '@reduxjs/toolkit';
-import { Reviews } from '../types/reviews';
+import { Review } from '../types/review';
 
-export const mockReviews: Reviews = [
+export const mockReviews: Review[] = [
   {
     comment: 'Nice place',
     date: '2019-05-08T14:13:56.569Z',

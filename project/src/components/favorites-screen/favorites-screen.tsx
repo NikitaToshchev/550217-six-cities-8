@@ -1,11 +1,11 @@
 import FooterComponet from '../footer/footer';
 import HeaderComponet from '../header/header';
-import { Offers } from '../../types/offers';
+import { Offer } from '../../types/offer';
 import FavoritesEmptyComponent from '../favorites-empty/favorites-empty';
 import FavoritesComponent from '../favorites/favorites';
 
 type FavoritesScreenProps = {
-  offers: Offers;
+  offers: Offer[];
 }
 
 function FavoritesScreen({ offers }: FavoritesScreenProps): JSX.Element {

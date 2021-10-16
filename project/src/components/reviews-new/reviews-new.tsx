@@ -1,7 +1,7 @@
 import { FormEvent, useState, ChangeEvent } from 'react';
 
 function ReviewNewComponent(): JSX.Element {
-  const [rating, setRating] = useState('1');
+  const [, setRating] = useState('1');
   const [review, setReview] = useState('');
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>): void => {

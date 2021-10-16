@@ -2,10 +2,10 @@ import HeaderComponet from '../header/header';
 import SortingComponent from '../sorting/sorting';
 import PlaceCardListComponent from '../place-card-list/place-card-list';
 import MenuCitiesComponent from '../menu-cities/menu-cities';
-import { Offers } from '../../types/offers';
+import { Offer } from '../../types/offer';
 
 type MainScreenProps = {
-  offers: Offers;
+  offers: Offer[];
 }
 
 function MainScreen({ offers }: MainScreenProps): JSX.Element {
