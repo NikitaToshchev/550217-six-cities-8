@@ -3,6 +3,7 @@ import SortingComponent from '../sorting/sorting';
 import PlaceCardListComponent from '../place-card-list/place-card-list';
 import MenuCitiesComponent from '../menu-cities/menu-cities';
 import { Offer } from '../../types/offer';
+import Map from '../map/map';
 
 type MainScreenProps = {
   offers: Offer[];
@@ -23,7 +24,9 @@ function MainScreen({ offers }: MainScreenProps): JSX.Element {
               <PlaceCardListComponent offers={offers} />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <Map offers={offers} />
+              </section>
             </div>
           </div>
         </div>

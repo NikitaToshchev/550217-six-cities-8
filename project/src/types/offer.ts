@@ -1,14 +1,15 @@
+export type City = {
+  location: {
+    latitude: number,
+    longitude: number,
+    zoom: number,
+  },
+  name: string,
+}
+
 export type Offer = {
   bedrooms: number,
-  city: {
-    name: string,
-    location: {
-      latitude: number,
-      longitude: number,
-      zoom: number,
-    },
-  },
-
+  city: City,
   description: string,
   goods: string[],
   host: {
