@@ -6,11 +6,11 @@ export const mockOffers: Offer[] = [
     bedrooms: 3,
     city: {
       location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
+        latitude: 52.377956,
+        longitude: 4.897070,
         zoom: 10,
       },
-      name: 'Paris',
+      name: 'Amsterdam',
     },
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
@@ -25,8 +25,8 @@ export const mockOffers: Offer[] = [
     isFavorite: true,
     isPremium: false,
     location: {
-      latitude: 52.35514938496378,
-      longitude: 4.673877537499948,
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
       zoom: 8,
     },
     maxAdults: 6,
@@ -40,11 +40,11 @@ export const mockOffers: Offer[] = [
     bedrooms: 6,
     city: {
       location: {
-        latitude: 48.864716,
-        longitude: 2.349014,
+        latitude: 52.377956,
+        longitude: 4.897070,
         zoom: 10,
       },
-      name: 'Paris',
+      name: 'Amsterdam',
     },
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Paris.',
     goods: ['Heating', 'Kitchen', 'Coffee machine', 'Dishwasher'],
@@ -59,8 +59,8 @@ export const mockOffers: Offer[] = [
     isFavorite: true,
     isPremium: true,
     location: {
-      latitude: 48.8647161234136,
-      longitude: 2.349014124531,
+      latitude: 52.369553943508,
+      longitude: 4.85309666406198,
       zoom: 8,
     },
     maxAdults: 14,
@@ -74,11 +74,11 @@ export const mockOffers: Offer[] = [
     bedrooms: 2,
     city: {
       location: {
-        latitude: 53.551086,
-        longitude: 9.993682,
+        latitude: 52.377956,
+        longitude: 4.897070,
         zoom: 10,
       },
-      name: 'Hamburg',
+      name: 'Amsterdam',
     },
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Hamburg.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Dishwasher'],
@@ -93,8 +93,8 @@ export const mockOffers: Offer[] = [
     isFavorite: false,
     isPremium: true,
     location: {
-      latitude: 53.551086,
-      longitude: 9.993682,
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
       zoom: 8,
     },
     maxAdults: 2,
@@ -108,11 +108,11 @@ export const mockOffers: Offer[] = [
     bedrooms: 2,
     city: {
       location: {
-        latitude: 50.935173,
-        longitude: 6.953101,
+        latitude: 52.377956,
+        longitude: 4.897070,
         zoom: 10,
       },
-      name: 'Cologne',
+      name: 'Amsterdam',
     },
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Cologne.',
     goods: ['Heating', 'Coffee machine', 'Dishwasher'],
@@ -127,8 +127,8 @@ export const mockOffers: Offer[] = [
     isFavorite: true,
     isPremium: false,
     location: {
-      latitude: 50.935173,
-      longitude: 6.953101,
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
       zoom: 8,
     },
     maxAdults: 14,
