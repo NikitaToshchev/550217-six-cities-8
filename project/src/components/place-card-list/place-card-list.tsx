@@ -3,9 +3,7 @@ import { Offer } from '../../types/offer';
 
 type placeCardListProps = {
   offers: Offer[],
-  // handleActiveCard?: (offer: Offer | null) => void;
   handleActiveCard: (offer: Offer | null) => void;
-
 }
 
 function PlaceCardListComponent({ offers, handleActiveCard }: placeCardListProps): JSX.Element {
