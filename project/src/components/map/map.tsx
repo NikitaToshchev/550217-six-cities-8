@@ -46,7 +46,7 @@ function Map({ offers }: MapProps): JSX.Element {
 
   return (
     <div
-      style={{ minHeight: '100%' }}
+      style={{ minHeight: '100%', width: '100%' }}
       ref={mapRef}
     >
     </div>

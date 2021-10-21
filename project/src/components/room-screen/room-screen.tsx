@@ -7,6 +7,7 @@ import ReviewsComponent from '../reviews/reviews';
 import NearPlacesComponent from '../near-places/near-places';
 import { useParams } from 'react-router-dom';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import Map from '../map/map';
 
 type RoomScreenProps = {
   offers: Offer[];
@@ -95,7 +96,9 @@ function RoomScreen({ offers, reviews, nearOffers, authorizationStatus }: RoomSc
               <ReviewsComponent reviews={reviews} authorizationStatus={authorizationStatus} />
             </div>
           </div>
-          <section className="property__map map"></section>
+          <section className="property__map map">
+            <Map offers={nearOffers} />
+          </section>
         </section>
         <NearPlacesComponent nearOffers={nearOffers} />
       </main>
