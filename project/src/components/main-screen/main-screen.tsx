@@ -4,12 +4,19 @@ import PlaceCardListComponent from '../place-card-list/place-card-list';
 import MenuCitiesComponent from '../menu-cities/menu-cities';
 import { Offer } from '../../types/offer';
 import Map from '../map/map';
+import { useState } from 'react';
 
 type MainScreenProps = {
   offers: Offer[];
 }
 
 function MainScreen({ offers }: MainScreenProps): JSX.Element {
+  const [activeCard, setActiveCard] = useState<Offer | null>(null);
+
+  const handleActiveCard = (offer: Offer | null): void => {
+    setActiveCard(offer);
+  };
+
   return (
     <div className="page page--gray page--main">
       <HeaderComponet />
@@ -21,11 +28,17 @@ function MainScreen({ offers }: MainScreenProps): JSX.Element {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offers.length} places to stay in Amsterdam</b>
               <SortingComponent />
-              <PlaceCardListComponent offers={offers} />
+              <PlaceCardListComponent
+                offers={offers}
+                handleActiveCard={handleActiveCard}
+              />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map offers={offers} />
+                <Map
+                  offers={offers}
+                  activeCard={activeCard}
+                />
               </section>
             </div>
           </div>

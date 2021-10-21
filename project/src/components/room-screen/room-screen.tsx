@@ -7,6 +7,8 @@ import ReviewsComponent from '../reviews/reviews';
 import NearPlacesComponent from '../near-places/near-places';
 import { useParams } from 'react-router-dom';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import Map from '../map/map';
+import { useState } from 'react';
 
 type RoomScreenProps = {
   offers: Offer[];
@@ -18,8 +20,12 @@ type RoomScreenProps = {
 function RoomScreen({ offers, reviews, nearOffers, authorizationStatus }: RoomScreenProps): JSX.Element {
 
   const { id } = useParams() as { id: string };
-
   const offer = offers.find((item) => item.id === id) as Offer;
+
+  const [activeCard, setActiveCard] = useState<Offer | null>(null);
+  const handleActiveCard = (card: Offer | null): void => {
+    setActiveCard(card);
+  };
 
   if (!offer) {
     return <NotFoundScreen />;
@@ -95,9 +101,17 @@ function RoomScreen({ offers, reviews, nearOffers, authorizationStatus }: RoomSc
               <ReviewsComponent reviews={reviews} authorizationStatus={authorizationStatus} />
             </div>
           </div>
-          <section className="property__map map"></section>
+          <section className="property__map map">
+            <Map
+              offers={nearOffers}
+              activeCard={activeCard}
+            />
+          </section>
         </section>
-        <NearPlacesComponent nearOffers={nearOffers} />
+        <NearPlacesComponent
+          nearOffers={nearOffers}
+          handleActiveCard={handleActiveCard}
+        />
       </main>
     </div>
   );
