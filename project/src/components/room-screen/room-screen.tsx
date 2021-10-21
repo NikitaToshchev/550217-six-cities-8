@@ -21,6 +21,8 @@ function RoomScreen({ offers, reviews, nearOffers, authorizationStatus }: RoomSc
   const { id } = useParams() as { id: string };
 
   const offer = offers.find((item) => item.id === id) as Offer;
+  // прокинуть сюда
+  const activeCard = null;
 
   if (!offer) {
     return <NotFoundScreen />;
@@ -97,7 +99,10 @@ function RoomScreen({ offers, reviews, nearOffers, authorizationStatus }: RoomSc
             </div>
           </div>
           <section className="property__map map">
-            <Map offers={nearOffers} />
+            <Map
+              offers={nearOffers}
+              activeCard={activeCard}
+            />
           </section>
         </section>
         <NearPlacesComponent nearOffers={nearOffers} />
