@@ -7,10 +7,11 @@ import Map from '../map/map';
 import { useState } from 'react';
 
 type MainScreenProps = {
-  offers: Offer[];
+  offers: Offer[],
+  cities: string[],
 }
 
-function MainScreen({ offers }: MainScreenProps): JSX.Element {
+function MainScreen({ cities, offers }: MainScreenProps): JSX.Element {
   const [activeCard, setActiveCard] = useState<Offer | null>(null);
 
   const handleActiveCard = (offer: Offer | null): void => {
@@ -21,7 +22,7 @@ function MainScreen({ offers }: MainScreenProps): JSX.Element {
     <div className="page page--gray page--main">
       <HeaderComponet />
       <main className="page__main page__main--index">
-        <MenuCitiesComponent />
+        <MenuCitiesComponent cities={cities} />
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">

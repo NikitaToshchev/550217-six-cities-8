@@ -13,9 +13,10 @@ import { Review } from '../../types/review';
 type AppProps = {
   offers: Offer[],
   reviews: Review[],
+  cities: string[],
 }
 
-function App({ offers, reviews }: AppProps): JSX.Element {
+function App({ offers, reviews, cities }: AppProps): JSX.Element {
   const favoritesOffers = offers.filter((offer) => offer.isFavorite);
   const nearOffers = offers.slice(0, 3);
 
@@ -23,7 +24,10 @@ function App({ offers, reviews }: AppProps): JSX.Element {
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.Main}>
-          <MainScreen offers={offers} />
+          <MainScreen
+            offers={offers}
+            cities={cities}
+          />
         </Route>
         <Route exact path={AppRoute.SignIn}>
           <SignInScreen />
