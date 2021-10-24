@@ -1,18 +1,9 @@
-import { Offer } from './offer';
-
+import { changeCity, fillingOffers } from '../store/action';
 export enum ActionType {
   ChangeCity = 'changeCity',
   FillingOffers = 'fillingOffers',
 }
 
-export type ChangeCityAction = {
-  type: ActionType.ChangeCity,
-  payload: string,
-};
-
-export type FillingOffersAction = {
-  type: ActionType.FillingOffers,
-  payload: Offer[],
-};
-
-export type Actions = ChangeCityAction | FillingOffersAction;
+export type Actions =
+  | ReturnType<typeof changeCity>
+  | ReturnType<typeof fillingOffers>;

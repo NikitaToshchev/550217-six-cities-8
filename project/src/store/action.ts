@@ -1,16 +1,12 @@
 import { Offer } from '../types/offer';
-import { ActionType, ChangeCityAction, FillingOffersAction } from '../types/actions';
+import { ActionType } from '../types/actions';
 
-// изменение города
-
-export const changeCity = (city: string): ChangeCityAction => ({
+export const changeCity = (city: string) => ({
   type: ActionType.ChangeCity,
   payload: city,
-});
+} as const);
 
-// заполнение списка предложений по аренде
-
-export const fillingOffers = (offers: Offer[]): FillingOffersAction => ({
+export const fillingOffers = (offers: Offer[]) => ({
   type: ActionType.FillingOffers,
   payload: offers,
-});
+} as const);
