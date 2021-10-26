@@ -9,21 +9,38 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import { Offer } from '../../types/offer';
 import { Review } from '../../types/review';
+import { connect, ConnectedProps } from 'react-redux';
+import { State } from '../../types/state';
 
 type AppProps = {
   offers: Offer[],
   reviews: Review[],
+  cities: string[],
 }
 
-function App({ offers, reviews }: AppProps): JSX.Element {
+const mapStateToProps = ({ currentCity, offers }: State) => ({
+  currentCity,
+  offers,
+});
+
+const connector = connect(mapStateToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = PropsFromRedux & AppProps;
+
+function App({ offers, reviews, cities, currentCity }: ConnectedComponentProps): JSX.Element {
   const favoritesOffers = offers.filter((offer) => offer.isFavorite);
   const nearOffers = offers.slice(0, 3);
+  const offersByCity = offers.filter((offer) => offer.city.name === currentCity);
 
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.Main}>
-          <MainScreen offers={offers} />
+          <MainScreen
+            offers={offersByCity}
+            cities={cities}
+          />
         </Route>
         <Route exact path={AppRoute.SignIn}>
           <SignInScreen />
@@ -51,4 +68,5 @@ function App({ offers, reviews }: AppProps): JSX.Element {
   );
 }
 
-export default App;
+export { App };
+export default connector(App);
