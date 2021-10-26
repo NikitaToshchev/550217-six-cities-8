@@ -1,4 +1,4 @@
-import { changeCity, fillingOffers, selectCurrentOffer } from '../store/action';
+import { changeCity, fillingOffers } from '../store/action';
 export enum ActionType {
   ChangeCity = 'changeCity',
   FillingOffers = 'fillingOffers',
@@ -7,5 +7,4 @@ export enum ActionType {
 
 export type Actions =
   | ReturnType<typeof changeCity>
-  | ReturnType<typeof fillingOffers>
-  | ReturnType<typeof selectCurrentOffer>;
+  | ReturnType<typeof fillingOffers>;

@@ -5,8 +5,7 @@ import { State } from '../types/state';
 
 const initialState = {
   currentCity: DEFAULT_CITY,
-  offers: mockOffers, // когда сервер пустой список
-  currentOffer: null,
+  offers: mockOffers,
 };
 
 const reducer = (state: State = initialState, action: Actions): State => {
@@ -15,8 +14,6 @@ const reducer = (state: State = initialState, action: Actions): State => {
       return { ...state, currentCity: action.payload };
     case ActionType.FillingOffers:
       return { ...state, offers: action.payload };
-    case ActionType.SelectCurrentOffer:
-      return { ...state, currentOffer: action.payload };
     default:
       return state;
   }
