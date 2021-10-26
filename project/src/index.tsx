@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
-import { mockOffers } from './mocks/offers';
+// import { mockOffers } from './mocks/offers';
 import { mockReviews } from './mocks/reviews';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
@@ -18,7 +18,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store} >
       <App
-        offers={mockOffers}
+        // offers={mockOffers}
         reviews={mockReviews}
         cities={CITIES}
       />

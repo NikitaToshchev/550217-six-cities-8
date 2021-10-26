@@ -4,14 +4,14 @@ import { Actions, ActionType } from '../types/actions';
 import { State } from '../types/state';
 
 const initialState = {
-  city: DEFAULT_CITY,
-  offers: mockOffers,
+  currentCity: DEFAULT_CITY,
+  offers: mockOffers, // когда сервер пустой список
 };
 
 const reducer = (state: State = initialState, action: Actions): State => {
   switch (action.type) {
     case ActionType.ChangeCity:
-      return { ...state, city: action.payload };
+      return { ...state, currentCity: action.payload };
     case ActionType.FillingOffers:
       return { ...state, offers: action.payload };
     default:
