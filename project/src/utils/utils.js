@@ -5,11 +5,6 @@
 
 // export const sortPriceTopRatedFirst = (offerB: Offer, offerA: Offer): number => offerA.rating - offerB.rating;
 
-// switch (this._currentSortType) {
-//   case SortType.TIME.name:
-//     return filteredPoints.slice().sort(sortTimeDuration);
-//   case SortType.PRICE.name:
-//     return filteredPoints.slice().sort(sortPrice);
-//   default:
-//     return filteredPoints.sort(sortDay);
-// }
+// return offers.slice().sort(sortPriceLowToHigh);
+// return offers.slice().sort(sortPriceHighToLow);
+// return offers.sort(sortPriceTopRatedFirst);
