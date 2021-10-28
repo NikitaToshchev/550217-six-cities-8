@@ -7,6 +7,7 @@ const MAP_TILE_LAYER = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z
 const MAP_COPYRIGHT = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
 
 function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: City): Map | null {
+  const { location } = city;
   const [map, setMap] = useState<Map | null>(null);
 
   useEffect(() => {
@@ -29,8 +30,13 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: City): Map |
         .addTo(instance);
 
       setMap(instance);
+    } else {
+      map?.setView({
+        lat: location.latitude,
+        lng: location.longitude,
+      }, location.zoom);
     }
-  }, [mapRef, map, city]);
+  }, [mapRef, map, location, city]);
 
   return map;
 }
