@@ -29,13 +29,20 @@ function MainScreen({ cities, offers }: MainScreenProps): JSX.Element {
 
   const sortedOffers = getSortedOffers(sortType, offers);
 
+  const mainclass = offers.length > 0 ? 'page__main page__main--index'
+    : 'page__main page__main--index page__main--index-empty';
+
+  const containerClass = offers.length > 0
+    ? 'cities__places-container container'
+    : 'cities__places-container cities__places-container--empty container';
+
   return (
     <div className="page page--gray page--main">
       <HeaderComponet />
-      <main className="page__main page__main--index">
+      <main className={mainclass}>
         <MenuCitiesComponent cities={cities} />
         <div className="cities">
-          <div className="cities__places-container container">
+          <div className={containerClass}>
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offers.length} places to stay in {name}</b>
