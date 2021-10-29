@@ -1,5 +1,9 @@
+import dayjs from 'dayjs';
 import { SortTypes } from '../const';
 import { Offer } from '../types/offer';
+
+export const getFormatDate = (date: string, format: string): string => dayjs(date).format(format);
+export const getRating = (rating: number): string => `${(Math.round(rating) / 5) * 100}%`;
 
 export const getSortedOffers = (SortType: string, offers: Offer[]): Offer[] => {
   switch (SortType) {
@@ -17,3 +21,4 @@ export const getSortedOffers = (SortType: string, offers: Offer[]): Offer[] => {
     }
   }
 };
+

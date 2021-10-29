@@ -9,6 +9,7 @@ import { useParams } from 'react-router-dom';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Map from '../map/map';
 import { useState } from 'react';
+import { getRating } from '../../utils/utils';
 
 type RoomScreenProps = {
   offers: Offer[];
@@ -21,6 +22,7 @@ function RoomScreen({ offers, reviews, nearOffers, authorizationStatus }: RoomSc
 
   const { id } = useParams() as { id: string };
   const offer = offers.find((item) => item.id === id) as Offer;
+  const offerRating = getRating(offer.rating);
 
   const [activeCard, setActiveCard] = useState<Offer | null>(null);
   const handleActiveCard = (card: Offer | null): void => {
@@ -59,7 +61,7 @@ function RoomScreen({ offers, reviews, nearOffers, authorizationStatus }: RoomSc
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{ width: `${(Math.round(rating) / 5 * 100)}%` }}></span>
+                  <span style={{ width: offerRating }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">{rating}</span>

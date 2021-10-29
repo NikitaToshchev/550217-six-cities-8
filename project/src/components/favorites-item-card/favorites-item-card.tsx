@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types/offer';
+import { getRating } from '../../utils/utils';
 
 type FavoriteItemCardProps = {
   offer: Offer,
@@ -10,6 +11,8 @@ function FavoriteItemCardComponent({ offer }: FavoriteItemCardProps): JSX.Elemen
   const bookmarkButtonClass = isFavorite
     ? 'place-card__bookmark-button place-card__bookmark-button--active button'
     : 'place-card__bookmark-button button';
+
+  const offerRating = getRating(rating);
 
   return (
     <article className="favorites__card place-card">
@@ -34,7 +37,7 @@ function FavoriteItemCardComponent({ offer }: FavoriteItemCardProps): JSX.Elemen
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${(Math.round(rating) / 5 * 100)}%` }}></span>
+            <span style={{ width: offerRating }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
