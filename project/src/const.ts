@@ -15,9 +15,11 @@ export const DEFAULT_CITY = 'Paris';
 
 export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
-export enum SortOption {
-  Popular = 'Popular',
-  PriceLowToHigh = 'Price: low to high',
-  PriceHighToLow = 'Price: high to low',
-  TopRatedFirst = 'Top rated first',
-}
+export const DEFAULT_SORT_TYPE = 'Popular';
+
+export const SortTypes = {
+  POPULAR: 'Popular',
+  PRICE_DOWN: 'Price: low to high',
+  PRICE_UP: 'Price: high to low',
+  RATING_DOWN: 'Top rated first',
+};

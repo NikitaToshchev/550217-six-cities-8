@@ -1,14 +1,24 @@
-// import { SortOption } from "../../const";
+import { SortTypes } from '../../const';
 import { useState } from 'react';
 
-function SortingComponent(): JSX.Element {
+type SortingProps = {
+  handleChangeSortType: (type: string) => void;
+  sortType: string;
+}
+
+function SortingComponent({ handleChangeSortType, sortType }: SortingProps): JSX.Element {
   const [isOpenSort, setOpenSort] = useState(false);
 
   const handleToggleSort = () => {
     setOpenSort(!isOpenSort);
   };
 
-  const getSortClass = (flag: boolean) => (flag) ? 'places__options places__options--opened places__options places__options--custom' : 'places__options places__options--custom';
+  const handleClickItemSort = (type: string) => {
+    handleChangeSortType(type);
+    setOpenSort(!isOpenSort);
+  };
+
+  const getOpenSortClass = (openSort: boolean) => (openSort) ? 'places__options places__options--opened' : '';
 
   return (
     <form className="places__sorting" action="#" method="get">
@@ -17,21 +27,22 @@ function SortingComponent(): JSX.Element {
         tabIndex={0}
         onClick={handleToggleSort}
       >
-        Popular
+        {sortType}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select" />
         </svg>
       </span>
-      <ul className={getSortClass(isOpenSort)}>
-        <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-        <li className="places__option" tabIndex={0}>Price: low to high</li>
-        <li className="places__option" tabIndex={0}>Price: high to low</li>
-        <li className="places__option" tabIndex={0}>Top rated first</li>
-        {/* {Object.values(SortOption).map((sort) = > <li
-          key={sort}
-          className="places__option"
-          tabIndex={0}
-        >{sort}</li>)} */}
+      <ul className={`places__options places__options--custom ${getOpenSortClass(isOpenSort)}`}>
+        {Object.values(SortTypes).map((item) => (
+          <li
+            key={item}
+            className={`places__option ${sortType === item && 'places__option--active'}`}
+            tabIndex={0}
+            onClick={() => handleClickItemSort(item)}
+          >
+            {item}
+          </li>
+        ))}
       </ul>
     </form >
   );
