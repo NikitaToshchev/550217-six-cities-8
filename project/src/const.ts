@@ -23,3 +23,11 @@ export const SortTypes = {
   PRICE_UP: 'Price: high to low',
   RATING_DOWN: 'Top rated first',
 };
+
+export const ratingStars: { [key: string]: string } = {
+  5: 'perfect',
+  4: 'good',
+  3: 'not bad',
+  2: 'badly',
+  1: 'terribly',
+};
