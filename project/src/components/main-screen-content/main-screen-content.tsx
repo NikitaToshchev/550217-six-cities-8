@@ -4,16 +4,16 @@ import SortingComponent from '../sorting/sorting';
 import Map from '../map/map';
 
 type MainScreenContentProps = {
-  handleChangeSortType: (type: string) => void;
   cityName: string,
   offers: Offer[],
   sortType: string,
   sortedOffers: Offer[],
-  handleActiveCard: (offer: Offer | null) => void;
   activeCard: Offer | null,
+  handleChangeSortType: (type: string) => void;
+  handleActiveCard: (offer: Offer | null) => void;
 }
 
-function MainScreenContent({ handleChangeSortType, cityName, offers, sortType, sortedOffers, handleActiveCard, activeCard }: MainScreenContentProps): JSX.Element {
+function MainScreenContent({ cityName, offers, sortType, sortedOffers, activeCard, handleActiveCard, handleChangeSortType }: MainScreenContentProps): JSX.Element {
 
   return (
     <>

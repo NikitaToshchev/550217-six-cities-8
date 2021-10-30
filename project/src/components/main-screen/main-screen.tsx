@@ -10,14 +10,12 @@ import MainScreenContent from '../main-screen-content/main-screen-content';
 type MainScreenProps = {
   offers: Offer[],
   cities: string[],
+  currentCity: string,
 }
 
-function MainScreen({ cities, offers }: MainScreenProps): JSX.Element {
+function MainScreen({ cities, offers, currentCity }: MainScreenProps): JSX.Element {
   const [activeCard, setActiveCard] = useState<Offer | null>(null);
   const [sortType, setSortType] = useState(DEFAULT_SORT_TYPE);
-
-  // const [{ city: { name } }] = offers;
-  const name = 'Amsterdam';
 
   const handleActiveCard = (offer: Offer | null): void => {
     setActiveCard(offer);
@@ -43,11 +41,11 @@ function MainScreen({ cities, offers }: MainScreenProps): JSX.Element {
         <MenuCitiesComponent cities={cities} />
         <div className="cities">
           <div className={containerClass}>
-            {offers.length === 0 && <MainScreenEmpty cityName={name} />}
+            {offers.length === 0 && <MainScreenEmpty cityName={currentCity} />}
             {offers.length > 0 &&
               <MainScreenContent
                 handleChangeSortType={handleChangeSortType}
-                cityName={name}
+                cityName={currentCity}
                 offers={offers}
                 sortType={sortType}
                 sortedOffers={sortedOffers}
