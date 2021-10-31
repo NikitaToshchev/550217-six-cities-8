@@ -1,22 +1,24 @@
 import 'leaflet/dist/leaflet.css';
-import leaflet from 'leaflet';
+import leaflet, { LayerGroup, Marker } from 'leaflet';
 import { useEffect, useRef } from 'react';
 import { Offer } from '../../types/offer';
 import useMap from '../../hooks/useMap/useMap';
 
 const URL_MARKER_DEFAULT = 'img/pin.svg';
 const URL_MARKER_CURRENT = 'img/pin-active.svg';
+const PIN_WIDTH = 30;
+const PIN_HEIGHT = 40;
 
 const defaultCustomIcon = leaflet.icon({
   iconUrl: URL_MARKER_DEFAULT,
-  iconSize: [30, 40],
-  iconAnchor: [15, 40],
+  iconSize: [PIN_WIDTH, PIN_HEIGHT],
+  iconAnchor: [PIN_WIDTH / 2, PIN_HEIGHT],
 });
 
 const currentCustomIcon = leaflet.icon({
   iconUrl: URL_MARKER_CURRENT,
-  iconSize: [30, 40],
-  iconAnchor: [15, 40],
+  iconSize: [PIN_WIDTH, PIN_HEIGHT],
+  iconAnchor: [PIN_WIDTH / 2, PIN_HEIGHT],
 });
 
 type MapProps = {
@@ -25,25 +27,38 @@ type MapProps = {
 }
 
 function Map({ offers, activeCard }: MapProps): JSX.Element {
-  const city = offers[0].city;
+  const [{ city }] = offers;
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
+  const markerLayerRef = useRef<LayerGroup>();
+
 
   useEffect(() => {
     if (map) {
-      offers.forEach((offer) => {
-        leaflet
-          .marker({
+      if (markerLayerRef.current) {
+        markerLayerRef.current.clearLayers();
+      }
+
+      markerLayerRef.current = new LayerGroup().addTo(map);
+
+      if (markerLayerRef.current) {
+        offers.forEach((offer) => {
+          const marker = new Marker({
             lat: offer.location.latitude,
             lng: offer.location.longitude,
-          }, {
-            icon: (offer === activeCard)
-              ? currentCustomIcon
-              : defaultCustomIcon,
-          })
-          .addTo(map);
-      });
+          });
+
+          marker
+            .setIcon(
+              offer === activeCard
+                ? currentCustomIcon
+                : defaultCustomIcon,
+            )
+            .addTo(markerLayerRef.current as LayerGroup);
+        });
+      }
+
     }
   }, [activeCard, map, offers]);
 
@@ -54,8 +69,6 @@ function Map({ offers, activeCard }: MapProps): JSX.Element {
     >
     </div>
   );
-
-
 }
 
 export default Map;

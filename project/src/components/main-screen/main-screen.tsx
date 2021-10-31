@@ -1,48 +1,60 @@
 import HeaderComponet from '../header/header';
-import SortingComponent from '../sorting/sorting';
-import PlaceCardListComponent from '../place-card-list/place-card-list';
 import MenuCitiesComponent from '../menu-cities/menu-cities';
 import { Offer } from '../../types/offer';
-import Map from '../map/map';
 import { useState } from 'react';
+import { getSortedOffers } from '../../utils/utils';
+import MainScreenEmpty from '../main-screen-empty/main-screen-empty';
+import MainScreenContent from '../main-screen-content/main-screen-content';
+import { connect, ConnectedProps } from 'react-redux';
+import { State } from '../../types/state';
 
 type MainScreenProps = {
   offers: Offer[],
   cities: string[],
+  currentCity: string,
 }
 
-function MainScreen({ cities, offers }: MainScreenProps): JSX.Element {
+const mapStateToProps = ({ currentSortType }: State) => ({
+  currentSortType,
+});
+
+const connector = connect(mapStateToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = PropsFromRedux & MainScreenProps;
+
+function MainScreen({ cities, offers, currentCity, currentSortType }: ConnectedComponentProps): JSX.Element {
   const [activeCard, setActiveCard] = useState<Offer | null>(null);
-  const [{ city: { name } }] = offers;
 
   const handleActiveCard = (offer: Offer | null): void => {
     setActiveCard(offer);
   };
 
+  const sortedOffers = getSortedOffers(currentSortType, offers);
+
+  const mainclass = offers.length > 0 ? 'page__main page__main--index'
+    : 'page__main page__main--index page__main--index-empty';
+
+  const containerClass = offers.length > 0
+    ? 'cities__places-container container'
+    : 'cities__places-container cities__places-container--empty container';
+
   return (
     <div className="page page--gray page--main">
       <HeaderComponet />
-      <main className="page__main page__main--index">
+      <main className={mainclass}>
         <MenuCitiesComponent cities={cities} />
         <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in {name}</b>
-              <SortingComponent />
-              <PlaceCardListComponent
+          <div className={containerClass}>
+            {offers.length === 0 && <MainScreenEmpty cityName={currentCity} />}
+            {offers.length > 0 &&
+              <MainScreenContent
+                cityName={currentCity}
                 offers={offers}
+                sortType={currentSortType}
+                sortedOffers={sortedOffers}
                 handleActiveCard={handleActiveCard}
-              />
-            </section>
-            <div className="cities__right-section">
-              <section className="cities__map map">
-                <Map
-                  offers={offers}
-                  activeCard={activeCard}
-                />
-              </section>
-            </div>
+                activeCard={activeCard}
+              />}
           </div>
         </div>
       </main>
@@ -50,4 +62,6 @@ function MainScreen({ cities, offers }: MainScreenProps): JSX.Element {
   );
 }
 
-export default MainScreen;
+export { MainScreen };
+export default connector(MainScreen);
+

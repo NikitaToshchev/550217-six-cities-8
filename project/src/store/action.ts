@@ -10,3 +10,8 @@ export const fillingOffers = (offers: Offer[]) => ({
   type: ActionType.FillingOffers,
   payload: offers,
 } as const);
+
+export const changeSortType = (sortType: string) => ({
+  type: ActionType.ChangeSortType,
+  payload: sortType,
+} as const);

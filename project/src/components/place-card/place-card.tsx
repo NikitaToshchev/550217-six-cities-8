@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types/offer';
+import { getRating } from '../../utils/utils';
 
 type placeCardProps = {
   offer: Offer,
@@ -11,6 +12,7 @@ function PlaceCard({ offer, handleActiveCard }: placeCardProps): JSX.Element {
   const bookmarkButtonClass = isFavorite ? 'place-card__bookmark-button--active place-card__bookmark-button button'
     : 'place-card__bookmark-button button';
   const getPremiumMark = isPremium ? <div className="place-card__mark"><span>Premium</span></div> : '';
+  const offerRating = getRating(rating);
 
   return (
     <article className="cities__place-card place-card"
@@ -38,7 +40,7 @@ function PlaceCard({ offer, handleActiveCard }: placeCardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${(Math.round(rating) / 5 * 100)}%` }}></span>
+            <span style={{ width: offerRating }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

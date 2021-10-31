@@ -40,6 +40,7 @@ function App({ offers, reviews, cities, currentCity }: ConnectedComponentProps):
           <MainScreen
             offers={offersByCity}
             cities={cities}
+            currentCity={currentCity}
           />
         </Route>
         <Route exact path={AppRoute.SignIn}>

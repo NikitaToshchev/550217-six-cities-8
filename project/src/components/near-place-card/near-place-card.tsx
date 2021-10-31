@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types/offer';
+import { getRating } from '../../utils/utils';
 
 type NearPlaceCardProps = {
   nearOffer: Offer,
@@ -12,6 +13,7 @@ function NearPlaceCardComponent({ nearOffer, handleActiveCard }: NearPlaceCardPr
     ? 'place-card__bookmark-button place-card__bookmark-button--active button'
     : 'place-card__bookmark-button button';
   const getPremiumMark = isPremium ? <div className="place-card__mark"><span>Premium</span></div> : '';
+  const offerRating = getRating(rating);
 
   return (
     <article className="near-places__card place-card"
@@ -39,7 +41,7 @@ function NearPlaceCardComponent({ nearOffer, handleActiveCard }: NearPlaceCardPr
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${(Math.round(rating) / 5 * 100)}%` }}></span>
+            <span style={{ width: offerRating }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
