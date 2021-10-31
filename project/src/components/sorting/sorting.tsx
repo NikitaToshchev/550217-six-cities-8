@@ -1,12 +1,26 @@
 import { SortTypes } from '../../const';
-import { useState } from 'react';
+import { Dispatch, useState } from 'react';
+import { State } from '../../types/state';
+import { changeSortType } from '../../store/action';
+import { connect, ConnectedProps } from 'react-redux';
+import { Actions } from '../../types/actions';
 
-type SortingProps = {
-  handleChangeSortType: (type: string) => void;
-  sortType: string;
-}
 
-function SortingComponent({ handleChangeSortType, sortType }: SortingProps): JSX.Element {
+const mapStateToProps = ({ currentSortType }: State) => ({
+  currentSortType,
+});
+
+const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
+  onChangeSortType(sortType: string) {
+    dispatch(changeSortType(sortType));
+  },
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = PropsFromRedux;
+
+function SortingComponent({ currentSortType, onChangeSortType }: ConnectedComponentProps): JSX.Element {
   const [isOpenSort, setOpenSort] = useState(false);
 
   const handleToggleSort = () => {
@@ -14,7 +28,7 @@ function SortingComponent({ handleChangeSortType, sortType }: SortingProps): JSX
   };
 
   const handleClickItemSort = (type: string) => {
-    handleChangeSortType(type);
+    onChangeSortType(type);
     setOpenSort(!isOpenSort);
   };
 
@@ -27,7 +41,7 @@ function SortingComponent({ handleChangeSortType, sortType }: SortingProps): JSX
         tabIndex={0}
         onClick={handleToggleSort}
       >
-        {sortType}
+        {currentSortType}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select" />
         </svg>
@@ -36,7 +50,7 @@ function SortingComponent({ handleChangeSortType, sortType }: SortingProps): JSX
         {Object.values(SortTypes).map((item) => (
           <li
             key={item}
-            className={`places__option ${sortType === item && 'places__option--active'}`}
+            className={`places__option ${currentSortType === item && 'places__option--active'}`}
             tabIndex={0}
             onClick={() => handleClickItemSort(item)}
           >
@@ -48,5 +62,5 @@ function SortingComponent({ handleChangeSortType, sortType }: SortingProps): JSX
   );
 }
 
-
-export default SortingComponent;
+export { SortingComponent };
+export default connector(SortingComponent);

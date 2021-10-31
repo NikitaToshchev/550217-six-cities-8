@@ -3,9 +3,10 @@ import MenuCitiesComponent from '../menu-cities/menu-cities';
 import { Offer } from '../../types/offer';
 import { useState } from 'react';
 import { getSortedOffers } from '../../utils/utils';
-import { DEFAULT_SORT_TYPE } from '../../const';
 import MainScreenEmpty from '../main-screen-empty/main-screen-empty';
 import MainScreenContent from '../main-screen-content/main-screen-content';
+import { connect, ConnectedProps } from 'react-redux';
+import { State } from '../../types/state';
 
 type MainScreenProps = {
   offers: Offer[],
@@ -13,19 +14,22 @@ type MainScreenProps = {
   currentCity: string,
 }
 
-function MainScreen({ cities, offers, currentCity }: MainScreenProps): JSX.Element {
+const mapStateToProps = ({ currentSortType }: State) => ({
+  currentSortType,
+});
+
+const connector = connect(mapStateToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = PropsFromRedux & MainScreenProps;
+
+function MainScreen({ cities, offers, currentCity, currentSortType }: ConnectedComponentProps): JSX.Element {
   const [activeCard, setActiveCard] = useState<Offer | null>(null);
-  const [sortType, setSortType] = useState(DEFAULT_SORT_TYPE);
 
   const handleActiveCard = (offer: Offer | null): void => {
     setActiveCard(offer);
   };
 
-  const handleChangeSortType = (type: string) => {
-    setSortType(type);
-  };
-
-  const sortedOffers = getSortedOffers(sortType, offers);
+  const sortedOffers = getSortedOffers(currentSortType, offers);
 
   const mainclass = offers.length > 0 ? 'page__main page__main--index'
     : 'page__main page__main--index page__main--index-empty';
@@ -44,10 +48,9 @@ function MainScreen({ cities, offers, currentCity }: MainScreenProps): JSX.Eleme
             {offers.length === 0 && <MainScreenEmpty cityName={currentCity} />}
             {offers.length > 0 &&
               <MainScreenContent
-                handleChangeSortType={handleChangeSortType}
                 cityName={currentCity}
                 offers={offers}
-                sortType={sortType}
+                sortType={currentSortType}
                 sortedOffers={sortedOffers}
                 handleActiveCard={handleActiveCard}
                 activeCard={activeCard}
@@ -59,4 +62,6 @@ function MainScreen({ cities, offers, currentCity }: MainScreenProps): JSX.Eleme
   );
 }
 
-export default MainScreen;
+export { MainScreen };
+export default connector(MainScreen);
+

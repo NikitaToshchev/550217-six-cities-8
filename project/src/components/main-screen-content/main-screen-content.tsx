@@ -9,21 +9,17 @@ type MainScreenContentProps = {
   sortType: string,
   sortedOffers: Offer[],
   activeCard: Offer | null,
-  handleChangeSortType: (type: string) => void;
   handleActiveCard: (offer: Offer | null) => void;
 }
 
-function MainScreenContent({ cityName, offers, sortType, sortedOffers, activeCard, handleActiveCard, handleChangeSortType }: MainScreenContentProps): JSX.Element {
+function MainScreenContent({ cityName, offers, sortType, sortedOffers, activeCard, handleActiveCard }: MainScreenContentProps): JSX.Element {
 
   return (
     <>
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
         <b className="places__found">{offers.length} places to stay in {cityName}</b>
-        <SortingComponent
-          handleChangeSortType={handleChangeSortType}
-          sortType={sortType}
-        />
+        <SortingComponent />
         <PlaceCardListComponent
           offers={sortedOffers}
           handleActiveCard={handleActiveCard}
