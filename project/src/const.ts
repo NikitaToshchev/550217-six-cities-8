@@ -31,3 +31,5 @@ export const ratingStars: { [key: string]: string } = {
   2: 'badly',
   1: 'terribly',
 };
+
+export const INITIAL_RATING = '1';
