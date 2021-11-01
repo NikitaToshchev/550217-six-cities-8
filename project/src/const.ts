@@ -11,6 +11,11 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+export enum APIRoute {
+  Hotels = '/hotels',
+  Login = '/login',
+  Logout = '/logout',
+}
 export const DEFAULT_CITY = 'Paris';
 
 export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
