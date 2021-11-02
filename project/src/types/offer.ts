@@ -14,15 +14,19 @@ export type Offer = {
   goods: string[],
   host: {
     avatarUrl: string,
+    ['avatar_url']?: string,
     id: string,
     isPro: boolean,
+    ['is_pro']?: boolean,
     name: string,
   },
 
   id: string,
   images: string[],
   isFavorite: boolean,
+  ['is_favorite']?: boolean,
   isPremium: boolean,
+  ['is_premium']?: boolean,
 
   location: {
     latitude: number,
@@ -31,7 +35,9 @@ export type Offer = {
   },
 
   maxAdults: number,
+  ['max_adults']?: number,
   previewImage: string,
+  ['preview_image']?: string,
   price: number,
   rating: number,
   title: string,

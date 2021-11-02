@@ -10,19 +10,31 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Map from '../map/map';
 import { useState } from 'react';
 import { getRating } from '../../utils/utils';
+// import { State } from '../../types/state';
+// import { connect } from 'http2';
+// import { ConnectedProps } from 'react-redux';
 
 type RoomScreenProps = {
-  offers: Offer[];
   reviews: Review[],
-  nearOffers: Offer[],
   authorizationStatus: string,
+  offers: Offer[],
 }
 
-function RoomScreen({ offers, reviews, nearOffers, authorizationStatus }: RoomScreenProps): JSX.Element {
+// const mapStateToProps = ({ offers }: State) => ({
+//   offers,
+// });
+
+// const connector = connect(mapStateToProps);
+
+// type PropsFromRedux = ConnectedProps<typeof connector>;
+// type ConnectedComponentProps = PropsFromRedux & RoomScreenProps;
+
+function RoomScreen({ offers, reviews, authorizationStatus }: RoomScreenProps): JSX.Element {
 
   const { id } = useParams() as { id: string };
   const offer = offers.find((item) => item.id === id) as Offer;
-  const offerRating = getRating(offer.rating);
+
+  const nearOffers = offers.slice(0, 3);
 
   const [activeCard, setActiveCard] = useState<Offer | null>(null);
   const handleActiveCard = (card: Offer | null): void => {
@@ -30,11 +42,12 @@ function RoomScreen({ offers, reviews, nearOffers, authorizationStatus }: RoomSc
   };
 
   if (!offer) {
-    return <NotFoundScreen />;
+    return <NotFoundScreen />; // поставить redirect
   }
 
   const { images, isFavorite, title, isPremium, host, price, rating, bedrooms, maxAdults, type, goods, description } = offer;
   const { name, avatarUrl, isPro } = host;
+  const offerRating = getRating(offer.rating);
   const bookmarkButtonClass = isFavorite ? 'property__bookmark-button property__bookmark-button--active button'
     : 'property__bookmark-button button';
   const propertyWrapperClass = isPro
@@ -120,3 +133,7 @@ function RoomScreen({ offers, reviews, nearOffers, authorizationStatus }: RoomSc
 }
 
 export default RoomScreen;
+
+
+// export { RoomScreen };
+// export default connector(RoomScreen);
