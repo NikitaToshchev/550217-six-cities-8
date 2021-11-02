@@ -5,20 +5,18 @@ import Map from '../map/map';
 
 type MainScreenContentProps = {
   cityName: string,
-  offers: Offer[],
-  sortType: string,
   sortedOffers: Offer[],
   activeCard: Offer | null,
   handleActiveCard: (offer: Offer | null) => void;
 }
 
-function MainScreenContent({ cityName, offers, sortType, sortedOffers, activeCard, handleActiveCard }: MainScreenContentProps): JSX.Element {
+function MainScreenContent({ cityName, sortedOffers, activeCard, handleActiveCard }: MainScreenContentProps): JSX.Element {
 
   return (
     <>
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
-        <b className="places__found">{offers.length} places to stay in {cityName}</b>
+        <b className="places__found">{sortedOffers.length} places to stay in {cityName}</b>
         <SortingComponent />
         <PlaceCardListComponent
           offers={sortedOffers}
@@ -28,7 +26,7 @@ function MainScreenContent({ cityName, offers, sortType, sortedOffers, activeCar
       <div className="cities__right-section">
         <section className="cities__map map">
           <Map
-            offers={offers}
+            offers={sortedOffers}
             activeCard={activeCard}
           />
         </section>

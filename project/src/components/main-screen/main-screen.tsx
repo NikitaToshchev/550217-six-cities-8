@@ -12,10 +12,13 @@ type MainScreenProps = {
   offers: Offer[],
   cities: string[],
   currentCity: string,
+  currentSortType: string,
 }
 
-const mapStateToProps = ({ currentSortType }: State) => ({
+const mapStateToProps = ({ currentSortType, currentCity, offers }: State) => ({
   currentSortType,
+  currentCity,
+  offers,
 });
 
 const connector = connect(mapStateToProps);
@@ -29,7 +32,9 @@ function MainScreen({ cities, offers, currentCity, currentSortType }: ConnectedC
     setActiveCard(offer);
   };
 
-  const sortedOffers = getSortedOffers(currentSortType, offers);
+  const offersByCity = offers.filter((offer) => offer.city.name === currentCity);
+
+  const sortedOffers = getSortedOffers(currentSortType, offersByCity);
 
   const mainclass = offers.length > 0 ? 'page__main page__main--index'
     : 'page__main page__main--index page__main--index-empty';
@@ -45,12 +50,10 @@ function MainScreen({ cities, offers, currentCity, currentSortType }: ConnectedC
         <MenuCitiesComponent cities={cities} />
         <div className="cities">
           <div className={containerClass}>
-            {offers.length === 0 && <MainScreenEmpty cityName={currentCity} />}
-            {offers.length > 0 &&
+            {offersByCity.length === 0 && <MainScreenEmpty cityName={currentCity} />}
+            {offersByCity.length > 0 &&
               <MainScreenContent
                 cityName={currentCity}
-                offers={offers}
-                sortType={currentSortType}
                 sortedOffers={sortedOffers}
                 handleActiveCard={handleActiveCard}
                 activeCard={activeCard}
@@ -64,4 +67,3 @@ function MainScreen({ cities, offers, currentCity, currentSortType }: ConnectedC
 
 export { MainScreen };
 export default connector(MainScreen);
-

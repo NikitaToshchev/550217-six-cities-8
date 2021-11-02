@@ -6,4 +6,5 @@ export type State = {
   offers: Offer[],
   currentSortType: string,
   authorizationStatus: AuthorizationStatus,
+  isDataLoaded: boolean,
 }
