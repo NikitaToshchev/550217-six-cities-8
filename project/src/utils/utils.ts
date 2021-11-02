@@ -39,9 +39,7 @@ export const adaptOfferToClient = (data: BackOffer): Offer => {
     {
       host: {
         avatarUrl: data.host.avatar_url,
-        id: data.host.id,
         isPro: data.host.is_pro,
-        name: data.host.name,
       },
     },
   ) as Offer;
