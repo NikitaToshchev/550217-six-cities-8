@@ -1,6 +1,6 @@
 import { ThunkActionResult } from '../types/actions';
 import { loadOffers, requireAuthorization, requireLogout } from './action';
-import { saveToken, dropToken, Token } from '../services/token';
+import { saveToken, dropToken } from '../services/token';
 import { APIRoute, AuthorizationStatus } from '../const';
 import { AuthData } from '../types/auth-data';
 import { adaptOffersToClient } from '../utils/utils';
@@ -22,11 +22,11 @@ export const checkAuthAction = (): ThunkActionResult =>
 
 export const loginAction = ({ login: email, password }: AuthData): ThunkActionResult =>
   async (dispatch, _getState, api) => {
-    const { data: { token } } = await api.post<{ token: Token }>(APIRoute.Login, { email, password });
+    const { data } = await api.post(APIRoute.Login, { email, password });
+    const { email: emailAuth, token } = data;
     saveToken(token);
-    dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    dispatch(requireAuthorization(AuthorizationStatus.Auth, emailAuth));
   };
-
 
 export const logoutAction = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {

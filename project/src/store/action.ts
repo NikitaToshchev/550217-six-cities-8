@@ -19,9 +19,12 @@ export const changeSortType = (sortType: string) => ({
   payload: sortType,
 } as const);
 
-export const requireAuthorization = (authStatus: AuthorizationStatus) => ({
+export const requireAuthorization = (authStatus: AuthorizationStatus, authEmail?: string | null) => ({
   type: ActionType.RequireAuthorization,
-  payload: authStatus,
+  payload: {
+    authStatus,
+    authEmail,
+  },
 } as const);
 
 export const requireLogout = () => ({

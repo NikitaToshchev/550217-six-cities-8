@@ -7,4 +7,5 @@ export type State = {
   currentSortType: string,
   authorizationStatus: AuthorizationStatus,
   isDataLoaded: boolean,
+  authorizationEmail?: string | null,
 }
