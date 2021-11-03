@@ -1,7 +1,8 @@
 import { connect, ConnectedProps } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
-// import { logoutAction } from '../../store/api-actions';
+import { logoutAction } from '../../store/api-actions';
+import { ThunkAppDispatch } from '../../types/actions';
 import { State } from '../../types/state';
 
 const mapStateToProps = ({ authorizationStatus }: State) => ({
@@ -9,10 +10,17 @@ const mapStateToProps = ({ authorizationStatus }: State) => ({
   // authorizationEmail,
 });
 
-const connector = connect(mapStateToProps);
+const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
+  onClickLogout() {
+    dispatch(logoutAction());
+  },
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-function HeaderComponet({ authorizationStatus }: PropsFromRedux): JSX.Element {
+function HeaderComponet({ authorizationStatus, onClickLogout }: PropsFromRedux): JSX.Element {
   return (
     <header className="header">
       <div className="container">
@@ -37,7 +45,7 @@ function HeaderComponet({ authorizationStatus }: PropsFromRedux): JSX.Element {
                     <Link
                       className="header__nav-link"
                       to={AppRoute.SignIn}
-                    // onClick={() => dispatch(logoutAction())}
+                      onClick={onClickLogout}
                     >
                       <span className="header__signout">Sign out</span>
                     </Link>

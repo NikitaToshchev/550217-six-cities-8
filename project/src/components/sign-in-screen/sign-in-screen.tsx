@@ -16,7 +16,6 @@ const connector = connect(null, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-
 function SignInScreen({ onSubmit }: PropsFromRedux): JSX.Element {
 
   const loginRef = useRef<HTMLInputElement | null>(null);
