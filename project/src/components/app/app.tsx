@@ -1,4 +1,4 @@
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 
 import MainScreen from '../main-screen/main-screen';
@@ -43,14 +43,19 @@ function App({ reviews, cities, offers, authorizationStatus, isDataLoaded }: Con
             cities={cities}
           />
         </Route>
-        <Route exact path={AppRoute.SignIn}>
-          <SignInScreen />
-        </Route>
+        <Route
+          exact
+          path={AppRoute.SignIn}
+          render={() => (
+            authorizationStatus === AuthorizationStatus.Auth
+              ? <Redirect to={AppRoute.Main} />
+              : <SignInScreen />
+          )}
+        />
         <PrivateRoute
           exact
           path={AppRoute.Favorites}
           render={() => <FavoritesScreen />}
-          authorizationStatus={AuthorizationStatus.Auth}
         >
         </PrivateRoute>
         <Route exact path={AppRoute.Room}>
