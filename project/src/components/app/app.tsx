@@ -1,4 +1,4 @@
-import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 
 import MainScreen from '../main-screen/main-screen';
@@ -43,7 +43,7 @@ function App({ reviews, cities, offers, authorizationStatus, isDataLoaded }: Con
             cities={cities}
           />
         </Route>
-        <Route
+        {/* <Route
           exact
           path={AppRoute.SignIn}
           render={() => (
@@ -51,7 +51,10 @@ function App({ reviews, cities, offers, authorizationStatus, isDataLoaded }: Con
               ? <Redirect to={AppRoute.Main} />
               : <SignInScreen />
           )}
-        />
+        /> */}
+        <Route exact path={AppRoute.SignIn}>
+          <SignInScreen />
+        </Route>
         <PrivateRoute
           exact
           path={AppRoute.Favorites}
