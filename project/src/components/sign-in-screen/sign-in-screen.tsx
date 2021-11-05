@@ -6,6 +6,7 @@ import { loginAction } from '../../store/api-actions';
 import { ThunkAppDispatch } from '../../types/actions';
 import { AuthData } from '../../types/auth-data';
 
+
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
   onSubmit(authData: AuthData) {
     dispatch(loginAction(authData));
@@ -32,6 +33,7 @@ function SignInScreen({ onSubmit }: PropsFromRedux): JSX.Element {
         password: passwordRef.current.value,
       });
     }
+    history.push(AppRoute.Main);
   };
 
   return (
@@ -80,14 +82,7 @@ function SignInScreen({ onSubmit }: PropsFromRedux): JSX.Element {
                   required
                 />
               </div>
-              <button
-                className="login__submit
-              form__submit button"
-                type="submit"
-                onClick={() => history.push(AppRoute.Main)}
-              >
-                Sign in
-              </button>
+              <button className="login__submit form__submit button" type="submit">Sign in</button>
             </form>
           </section>
           <section className="locations locations--login locations--current">

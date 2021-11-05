@@ -1,6 +1,7 @@
 import { Offer } from '../types/offer';
 import { ActionType } from '../types/actions';
 import { AuthorizationStatus } from '../const';
+import { Review } from '../types/review';
 
 export const changeCity = (city: string) => ({
   type: ActionType.ChangeCity,
@@ -11,6 +12,20 @@ export const loadOffers = (offers: Offer[]) => ({
   type: ActionType.LoadOffers,
   payload: {
     offers,
+  },
+} as const);
+
+export const loadNearOffers = (nearOffers: Offer[]) => ({
+  type: ActionType.LoadNearOffers,
+  payload: {
+    nearOffers,
+  },
+} as const);
+
+export const loadOfferComments = (reviews: Review[]) => ({
+  type: ActionType.LoadOfferComments,
+  payload: {
+    reviews,
   },
 } as const);
 

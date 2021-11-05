@@ -1,5 +1,5 @@
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 
 import MainScreen from '../main-screen/main-screen';
 import SignInScreen from '../sign-in-screen/sign-in-screen';
@@ -18,10 +18,9 @@ type AppProps = {
   cities: string[],
 }
 
-const mapStateToProps = ({ authorizationStatus, isDataLoaded, offers }: State) => ({
+const mapStateToProps = ({ authorizationStatus, isDataLoaded }: State) => ({
   authorizationStatus,
   isDataLoaded,
-  offers,
 });
 
 const connector = connect(mapStateToProps);
@@ -29,7 +28,7 @@ const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type ConnectedComponentProps = PropsFromRedux & AppProps;
 
-function App({ reviews, cities, offers, authorizationStatus, isDataLoaded }: ConnectedComponentProps): JSX.Element {
+function App({ reviews, cities, authorizationStatus, isDataLoaded }: ConnectedComponentProps): JSX.Element {
 
   if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
     return <LoadingScreen />;
@@ -63,9 +62,7 @@ function App({ reviews, cities, offers, authorizationStatus, isDataLoaded }: Con
         </PrivateRoute>
         <Route exact path={AppRoute.Room}>
           <RoomScreen
-            offers={offers}
             reviews={reviews}
-            authorizationStatus={AuthorizationStatus.Auth}
           />
         </Route>
         <Route>

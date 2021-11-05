@@ -2,6 +2,10 @@ import dayjs from 'dayjs';
 import { AuthorizationStatus, SortTypes } from '../const';
 import { Offer } from '../types/offer';
 import { BackOffer } from '../types/back-offer';
+import { BackReview } from '../types/back-review';
+import { Review } from '../types/review';
+import { BackUserInfo } from '../types/back-user-info';
+import { UserInfo } from '../types/user-info';
 
 export const getFormatDate = (date: string, format: string): string => dayjs(date).format(format);
 export const getRating = (rating: number): string => `${(Math.round(rating) / 5) * 100}%`;
@@ -26,36 +30,71 @@ export const getSortedOffers = (SortType: string, offers: Offer[]): Offer[] => {
 export const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean =>
   authorizationStatus === AuthorizationStatus.Unknown;
 
-export const adaptOfferToClient = (data: BackOffer): Offer => {
-  const adaptedData = Object.assign(
-    {},
-    data,
-    {
-      isFavorite: data.is_favorite,
-      isPremium: data.is_premium,
-      maxAdults: data.max_adults,
-      previewImage: data.preview_image,
-    },
-    {
-      host: {
-        avatarUrl: data.host.avatar_url,
-        isPro: data.host.is_pro,
+export const adaptOffersToClient = (offers: BackOffer[]): Offer[] => (
+  offers.map((item: BackOffer): Offer => {
+    const adaptedData = Object.assign(
+      {},
+      item,
+      {
+        isFavorite: item.is_favorite,
+        isPremium: item.is_premium,
+        maxAdults: item.max_adults,
+        previewImage: item.preview_image,
       },
-    },
-  ) as Offer;
+      {
+        host: {
+          avatarUrl: item.host.avatar_url,
+          isPro: item.host.is_pro,
+        },
+      },
+    ) as Offer;
 
-  delete adaptedData.is_favorite;
-  delete adaptedData.is_premium;
-  delete adaptedData.max_adults;
-  delete adaptedData.preview_image;
-  delete adaptedData.host.is_pro;
-  delete adaptedData.host.avatar_url;
+    delete adaptedData.is_favorite;
+    delete adaptedData.is_premium;
+    delete adaptedData.max_adults;
+    delete adaptedData.preview_image;
+    delete adaptedData.host.is_pro;
+    delete adaptedData.host.avatar_url;
 
-  return adaptedData;
-};
-
-export const adaptOffersToClient = (data: BackOffer[]): Offer[] => (
-  data.map((item): Offer => (
-    adaptOfferToClient(item)
-  ))
+    return adaptedData;
+  })
 );
+
+export const adaptCommentsToClient = (reviews: BackReview[]): Review[] => (
+  reviews.map((item: BackReview): Review => {
+    const adaptedReview = Object.assign(
+      {},
+      item,
+      {
+        user: {
+          avatarUrl: item.user.avatar_url,
+          id: item.user.id,
+          isPro: item.user.is_pro,
+          name: item.user.name,
+        },
+      },
+    ) as Review;
+
+    delete adaptedReview.user.avatar_url;
+    delete adaptedReview.user.is_pro;
+
+    return adaptedReview;
+  })
+);
+
+export const adaptUserInfoToClient = (userInfo: BackUserInfo): UserInfo => {
+
+  const adaptedUserInfo = Object.assign(
+    {},
+    userInfo,
+    {
+      avatarUrl: userInfo.avatar_url,
+      isPro: userInfo.is_pro,
+    },
+  ) as UserInfo;
+
+  delete adaptedUserInfo.avatar_url;
+  delete adaptedUserInfo.is_pro;
+
+  return adaptedUserInfo;
+};

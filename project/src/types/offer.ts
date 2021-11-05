@@ -15,13 +15,13 @@ export type Offer = {
   host: {
     avatarUrl: string,
     ['avatar_url']?: string,
-    id: string,
+    id: number,
     isPro: boolean,
     ['is_pro']?: boolean,
     name: string,
   },
 
-  id: string,
+  id: number,
   images: string[],
   isFavorite: boolean,
   ['is_favorite']?: boolean,

@@ -1,15 +1,31 @@
 import { ThunkActionResult } from '../types/actions';
-import { loadOffers, requireAuthorization, requireLogout } from './action';
+import { loadNearOffers, loadOfferComments, loadOffers, requireAuthorization, requireLogout } from './action';
 import { saveToken, dropToken } from '../services/token';
 import { APIRoute, AuthorizationStatus } from '../const';
 import { AuthData } from '../types/auth-data';
-import { adaptOffersToClient } from '../utils/utils';
+import { adaptCommentsToClient, adaptOffersToClient } from '../utils/utils';
 import { BackOffer } from '../types/back-offer';
+import { BackReview } from '../types/back-review';
 
 export const fetchOffersAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     const { data } = await api.get<BackOffer[]>(APIRoute.Hotels);
-    dispatch(loadOffers(adaptOffersToClient(data)));
+    const adaptedOffers = adaptOffersToClient(data);
+    dispatch(loadOffers(adaptedOffers));
+  };
+
+export const fetchCommentsAction = (id: string): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    const { data } = await api.get<BackReview[]>(`${APIRoute.Comments}/${id}`);
+    const adaptedComments = adaptCommentsToClient(data);
+    dispatch(loadOfferComments(adaptedComments));
+  };
+
+export const getNearOffersAction = (id: string): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    const { data } = await api.get<BackOffer[]>(`${APIRoute.Hotels}/${id}/nearby`);
+    const adaptedOffers = adaptOffersToClient(data);
+    dispatch(loadNearOffers(adaptedOffers));
   };
 
 export const checkAuthAction = (): ThunkActionResult =>
@@ -19,6 +35,9 @@ export const checkAuthAction = (): ThunkActionResult =>
         dispatch(requireAuthorization(AuthorizationStatus.Auth));
       });
   };
+
+/// сохранить email и брать от туда его для отрисовки а из requireAuthorization  убрать emailAuth и из стейта получается ну либо сеймаил куда запишет хз и от туда взять крч переделать это. И из этого запроса можно брать всю инфу о пользователе для отправки коментария. но для этого наверно нужно тоже всю эту инфу сохранить. Если сохранять почту как токен то его так же нужно в логауте дропать крч все функции нужны как и для токена. Уточнить все это у наставника
+// saveMail(email);
 
 export const loginAction = ({ login: email, password }: AuthData): ThunkActionResult =>
   async (dispatch, _getState, api) => {

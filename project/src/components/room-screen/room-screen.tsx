@@ -6,33 +6,32 @@ import RoomGoodsComponent from '../room-goods/room-goods';
 import ReviewsComponent from '../reviews/reviews';
 import NearPlacesComponent from '../near-places/near-places';
 import { useParams } from 'react-router-dom';
-import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Map from '../map/map';
 import { useState } from 'react';
 import { getRating } from '../../utils/utils';
-// import { State } from '../../types/state';
-// import { connect } from 'http2';
-// import { ConnectedProps } from 'react-redux';
+import { State } from '../../types/state';
+import { connect, ConnectedProps } from 'react-redux';
+import { MAX_IMAGES } from '../../const';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 type RoomScreenProps = {
   reviews: Review[],
-  authorizationStatus: string,
-  offers: Offer[],
 }
 
-// const mapStateToProps = ({ offers }: State) => ({
-//   offers,
-// });
+const mapStateToProps = ({ offers, authorizationStatus }: State) => ({
+  offers,
+  authorizationStatus,
+});
 
-// const connector = connect(mapStateToProps);
+const connector = connect(mapStateToProps);
 
-// type PropsFromRedux = ConnectedProps<typeof connector>;
-// type ConnectedComponentProps = PropsFromRedux & RoomScreenProps;
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = PropsFromRedux & RoomScreenProps;
 
-function RoomScreen({ offers, reviews, authorizationStatus }: RoomScreenProps): JSX.Element {
+function RoomScreen({ reviews, offers, authorizationStatus }: ConnectedComponentProps): JSX.Element {
 
   const { id } = useParams() as { id: string };
-  const offer = offers.find((item) => item.id === id) as Offer;
+  const offer = offers.find((item) => item.id === parseInt(id, 10)) as Offer;
 
   const nearOffers = offers.slice(0, 3);
 
@@ -42,11 +41,12 @@ function RoomScreen({ offers, reviews, authorizationStatus }: RoomScreenProps): 
   };
 
   if (!offer) {
-    return <NotFoundScreen />; // поставить redirect
+    return <NotFoundScreen />;
   }
 
   const { images, isFavorite, title, isPremium, host, price, rating, bedrooms, maxAdults, type, goods, description } = offer;
   const { name, avatarUrl, isPro } = host;
+
   const offerRating = getRating(offer.rating);
   const bookmarkButtonClass = isFavorite ? 'property__bookmark-button property__bookmark-button--active button'
     : 'property__bookmark-button button';
@@ -59,7 +59,7 @@ function RoomScreen({ offers, reviews, authorizationStatus }: RoomScreenProps): 
       <HeaderComponet />
       <main className="page__main page__main--property">
         <section className="property">
-          {images.length > 0 && <RoomGalleryComponent images={images} />}
+          {images.length > 0 && <RoomGalleryComponent images={images.slice(0, MAX_IMAGES)} />}
           <div className="property__container container">
             <div className="property__wrapper">
               {isPremium ? <div className="property__mark"><span>Premium</span></div> : ''}
@@ -132,8 +132,5 @@ function RoomScreen({ offers, reviews, authorizationStatus }: RoomScreenProps): 
   );
 }
 
-export default RoomScreen;
-
-
-// export { RoomScreen };
-// export default connector(RoomScreen);
+export { RoomScreen };
+export default connector(RoomScreen);
