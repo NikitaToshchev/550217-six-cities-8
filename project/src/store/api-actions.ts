@@ -36,9 +36,6 @@ export const checkAuthAction = (): ThunkActionResult =>
       });
   };
 
-/// сохранить email и брать от туда его для отрисовки а из requireAuthorization  убрать emailAuth и из стейта получается ну либо сеймаил куда запишет хз и от туда взять крч переделать это. И из этого запроса можно брать всю инфу о пользователе для отправки коментария. но для этого наверно нужно тоже всю эту инфу сохранить. Если сохранять почту как токен то его так же нужно в логауте дропать крч все функции нужны как и для токена. Уточнить все это у наставника
-// saveMail(email);
-
 export const loginAction = ({ login: email, password }: AuthData): ThunkActionResult =>
   async (dispatch, _getState, api) => {
     const { data } = await api.post(APIRoute.Login, { email, password });
