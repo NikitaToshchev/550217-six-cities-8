@@ -42,15 +42,6 @@ function App({ reviews, cities, authorizationStatus, isDataLoaded }: ConnectedCo
             cities={cities}
           />
         </Route>
-        {/* <Route
-          exact
-          path={AppRoute.SignIn}
-          render={() => (
-            authorizationStatus === AuthorizationStatus.Auth
-              ? <Redirect to={AppRoute.Main} />
-              : <SignInScreen />
-          )}
-        /> */}
         <Route exact path={AppRoute.SignIn}>
           <SignInScreen />
         </Route>
