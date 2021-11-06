@@ -1,5 +1,5 @@
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from '../../const';
 
 import MainScreen from '../main-screen/main-screen';
 import SignInScreen from '../sign-in-screen/sign-in-screen';
@@ -42,9 +42,15 @@ function App({ reviews, cities, authorizationStatus, isDataLoaded }: ConnectedCo
             cities={cities}
           />
         </Route>
-        <Route exact path={AppRoute.SignIn}>
-          <SignInScreen />
-        </Route>
+        <Route
+          exact
+          path={AppRoute.SignIn}
+          render={() => (
+            authorizationStatus === AuthorizationStatus.Auth
+              ? <Redirect to={AppRoute.Main} />
+              : <SignInScreen />
+          )}
+        />
         <PrivateRoute
           exact
           path={AppRoute.Favorites}
