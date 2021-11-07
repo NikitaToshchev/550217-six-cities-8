@@ -1,9 +1,21 @@
 import { ThunkActionResult } from '../types/actions';
-import { loadNearOffers, loadOfferComments, loadOffers, requireAuthorization, requireLogout } from './action';
+import {
+  loadNearOffers,
+  loadOfferComments,
+  loadOffers,
+  loginActionFailure,
+  loginActionRequest,
+  logoutFailure,
+  logoutRequest,
+  requireAuthorizationFailure,
+  requireAuthorizationRequest,
+  requireAuthorizationSucces,
+  requireLogout
+} from './action';
 import { saveToken, dropToken } from '../services/token';
 import { APIRoute, AuthorizationStatus } from '../const';
 import { AuthData } from '../types/auth-data';
-import { adaptCommentsToClient, adaptOffersToClient } from '../utils/utils';
+import { adaptCommentsToClient, adaptOffersToClient, adaptUserInfoToClient } from '../utils/utils';
 import { BackOffer } from '../types/back-offer';
 import { BackReview } from '../types/back-review';
 
@@ -30,23 +42,38 @@ export const getNearOffersAction = (id: string): ThunkActionResult =>
 
 export const checkAuthAction = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {
-    await api.get(APIRoute.Login)
-      .then(() => {
-        dispatch(requireAuthorization(AuthorizationStatus.Auth));
-      });
+    dispatch(requireAuthorizationRequest());
+    try {
+      const { data } = await api.get(APIRoute.Login);
+      dispatch(requireAuthorizationSucces(AuthorizationStatus.Auth, adaptUserInfoToClient(data)));
+    }
+    catch (error: any) {
+      dispatch(requireAuthorizationFailure(error.toString()));
+    }
   };
 
 export const loginAction = ({ login: email, password }: AuthData): ThunkActionResult =>
   async (dispatch, _getState, api) => {
-    const { data } = await api.post(APIRoute.Login, { email, password });
-    const { email: emailAuth, token } = data;
-    saveToken(token);
-    dispatch(requireAuthorization(AuthorizationStatus.Auth, emailAuth));
+    dispatch(loginActionRequest());
+    try {
+      const { data } = await api.post(APIRoute.Login, { email, password });
+      const { token } = data;
+      saveToken(token);
+      dispatch(requireAuthorizationSucces(AuthorizationStatus.Auth, adaptUserInfoToClient(data)));
+    }
+    catch (error: any) {
+      dispatch(loginActionFailure(error.toString()));
+    }
   };
 
 export const logoutAction = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {
-    api.delete(APIRoute.Logout);
-    dropToken();
-    dispatch(requireLogout());
+    dispatch(logoutRequest());
+    try {
+      api.delete(APIRoute.Logout);
+      dropToken();
+      dispatch(requireLogout());
+    } catch (error: any) {
+      dispatch(logoutFailure(error.toString()));
+    }
   };

@@ -1,5 +1,6 @@
 import { AuthorizationStatus } from '../const';
 import { Offer } from './offer';
+import { UserInfo } from './user-info';
 
 export type State = {
   currentCity: string,
@@ -7,5 +8,5 @@ export type State = {
   currentSortType: string,
   authorizationStatus: AuthorizationStatus,
   isDataLoaded: boolean,
-  authorizationEmail?: string | null,
+  userData?: UserInfo | null,
 }

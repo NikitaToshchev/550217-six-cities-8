@@ -2,6 +2,7 @@ import { Offer } from '../types/offer';
 import { ActionType } from '../types/actions';
 import { AuthorizationStatus } from '../const';
 import { Review } from '../types/review';
+import { UserInfo } from '../types/user-info';
 
 export const changeCity = (city: string) => ({
   type: ActionType.ChangeCity,
@@ -34,14 +35,41 @@ export const changeSortType = (sortType: string) => ({
   payload: sortType,
 } as const);
 
-export const requireAuthorization = (authStatus: AuthorizationStatus, authEmail?: string | null) => ({
-  type: ActionType.RequireAuthorization,
+export const requireAuthorizationRequest = () => ({
+  type: ActionType.RequireAuthorizationRequest,
+} as const);
+
+export const requireAuthorizationSucces = (authStatus: AuthorizationStatus, userData?: UserInfo | null) => ({
+  type: ActionType.RequireAuthorizationSucces,
   payload: {
     authStatus,
-    authEmail,
+    userData,
   },
+} as const);
+
+export const requireAuthorizationFailure = (error: string | null) => ({
+  type: ActionType.RequireAuthorizationFailure,
+  payload: error,
+} as const);
+
+export const loginActionRequest = () => ({
+  type: ActionType.LoginActionRequest,
+} as const);
+
+export const loginActionFailure = (error: string | null) => ({
+  type: ActionType.LoginActionFailure,
+  payload: error,
 } as const);
 
 export const requireLogout = () => ({
   type: ActionType.RequireLogout,
+} as const);
+
+export const logoutRequest = () => ({
+  type: ActionType.LogoutRequest,
+} as const);
+
+export const logoutFailure = (error: string | null) => ({
+  type: ActionType.LogoutFailure,
+  payload: error,
 } as const);

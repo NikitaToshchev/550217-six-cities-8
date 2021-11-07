@@ -8,7 +8,7 @@ const initialState = {
   currentSortType: DEFAULT_SORT_TYPE,
   authorizationStatus: AuthorizationStatus.Unknown,
   isDataLoaded: false,
-  authorizationEmail: null,
+  userData: null,
 };
 
 const reducer = (state: State = initialState, action: Actions): State => {
@@ -21,12 +21,14 @@ const reducer = (state: State = initialState, action: Actions): State => {
     }
     case ActionType.ChangeSortType:
       return { ...state, currentSortType: action.payload };
-    case ActionType.RequireAuthorization: {
-      const { authStatus, authEmail } = action.payload;
+    case ActionType.RequireAuthorizationRequest:
+      return { ...state };
+    case ActionType.RequireAuthorizationSucces: {
+      const { authStatus, userData } = action.payload;
       return {
         ...state,
         authorizationStatus: authStatus,
-        authorizationEmail: authEmail,
+        userData,
         isDataLoaded: true,
       };
     }

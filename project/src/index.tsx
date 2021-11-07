@@ -9,12 +9,12 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { CITIES, AuthorizationStatus } from './const';
 import { createAPI } from './services/api';
 import thunk from 'redux-thunk';
-import { requireAuthorization } from './store/action';
+import { requireAuthorizationSucces } from './store/action';
 import { fetchOffersAction, checkAuthAction } from './store/api-actions';
 import { ThunkAppDispatch } from './types/actions';
 
 const api = createAPI(
-  () => store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth)),
+  () => store.dispatch(requireAuthorizationSucces(AuthorizationStatus.NoAuth)),
 );
 
 const store = createStore(
