@@ -8,6 +8,7 @@ const initialState = {
   currentSortType: DEFAULT_SORT_TYPE,
   authorizationStatus: AuthorizationStatus.Unknown,
   isDataLoaded: false,
+  userData: null,
 };
 
 const reducer = (state: State = initialState, action: Actions): State => {
@@ -20,8 +21,17 @@ const reducer = (state: State = initialState, action: Actions): State => {
     }
     case ActionType.ChangeSortType:
       return { ...state, currentSortType: action.payload };
-    case ActionType.RequireAuthorization:
-      return { ...state, authorizationStatus: action.payload, isDataLoaded: true };
+    case ActionType.RequireAuthorizationRequest:
+      return { ...state };
+    case ActionType.RequireAuthorizationSucces: {
+      const { authStatus, userData } = action.payload;
+      return {
+        ...state,
+        authorizationStatus: authStatus,
+        userData,
+        isDataLoaded: true,
+      };
+    }
     case ActionType.RequireLogout:
       return { ...state, authorizationStatus: AuthorizationStatus.NoAuth };
     default:

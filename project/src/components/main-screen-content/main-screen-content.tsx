@@ -11,7 +11,6 @@ type MainScreenContentProps = {
 }
 
 function MainScreenContent({ cityName, sortedOffers, activeCard, handleActiveCard }: MainScreenContentProps): JSX.Element {
-
   return (
     <>
       <section className="cities__places places">
