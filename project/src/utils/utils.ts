@@ -31,34 +31,39 @@ export const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean
   authorizationStatus === AuthorizationStatus.Unknown;
 
 export const adaptOffersToClient = (offers: BackOffer[]): Offer[] => (
-  offers.map((item: BackOffer): Offer => {
-    const adaptedData = Object.assign(
-      {},
-      item,
-      {
-        isFavorite: item.is_favorite,
-        isPremium: item.is_premium,
-        maxAdults: item.max_adults,
-        previewImage: item.preview_image,
-      },
-      {
-        host: {
-          avatarUrl: item.host.avatar_url,
-          isPro: item.host.is_pro,
-        },
-      },
-    ) as Offer;
-
-    delete adaptedData.is_favorite;
-    delete adaptedData.is_premium;
-    delete adaptedData.max_adults;
-    delete adaptedData.preview_image;
-    delete adaptedData.host.is_pro;
-    delete adaptedData.host.avatar_url;
-
-    return adaptedData;
-  })
+  offers.map((item: BackOffer): Offer => (
+    adaptOfferToClient(item)
+  ))
 );
+
+
+export const adaptOfferToClient = (offer: BackOffer): Offer => {
+  const adaptedData = Object.assign(
+    {},
+    offer,
+    {
+      isFavorite: offer.is_favorite,
+      isPremium: offer.is_premium,
+      maxAdults: offer.max_adults,
+      previewImage: offer.preview_image,
+    },
+    {
+      host: {
+        avatarUrl: offer.host.avatar_url,
+        isPro: offer.host.is_pro,
+      },
+    },
+  ) as Offer;
+
+  delete adaptedData.is_favorite;
+  delete adaptedData.is_premium;
+  delete adaptedData.max_adults;
+  delete adaptedData.preview_image;
+  delete adaptedData.host.is_pro;
+  delete adaptedData.host.avatar_url;
+
+  return adaptedData;
+};
 
 export const adaptCommentsToClient = (reviews: BackReview[]): Review[] => (
   reviews.map((item: BackReview): Review => {

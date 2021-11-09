@@ -9,25 +9,69 @@ export const changeCity = (city: string) => ({
   payload: city,
 } as const);
 
-export const loadOffers = (offers: Offer[]) => ({
-  type: ActionType.LoadOffers,
+export const loadOffersRequest = () => ({
+  type: ActionType.LoadOffersRequest,
+} as const);
+
+export const loadOffersSucces = (offers: Offer[]) => ({
+  type: ActionType.LoadOffersSucces,
   payload: {
     offers,
   },
 } as const);
 
-export const loadNearOffers = (nearOffers: Offer[]) => ({
-  type: ActionType.LoadNearOffers,
+export const loadOffersFailure = (error: string | null) => ({
+  type: ActionType.LoadOffersFailure,
+  payload: error,
+} as const);
+
+
+export const loadOfferByIdRequest = () => ({
+  type: ActionType.LoadOfferByIdRequest,
+} as const);
+
+export const loadOfferByIdSuccess = (offer: Offer) => ({
+  type: ActionType.LoadOfferByIdSuccess,
   payload: {
-    nearOffers,
+    offer,
   },
 } as const);
 
-export const loadOfferComments = (reviews: Review[]) => ({
-  type: ActionType.LoadOfferComments,
+export const loadOfferByIdFailure = (error: string | null) => ({
+  type: ActionType.LoadOfferByIdFailure,
+  payload: error,
+} as const);
+
+export const loadNearOffersRequest = () => ({
+  type: ActionType.LoadNearOffersRequest,
+} as const);
+
+export const loadNearOffersSuccess = (offers: Offer[]) => ({
+  type: ActionType.LoadNearOffersSuccess,
+  payload: {
+    offers,
+  },
+} as const);
+
+export const loadNearOffersFailure = (error: string | null) => ({
+  type: ActionType.LoadNearOffersFailure,
+  payload: error,
+} as const);
+
+export const loadOfferCommentsRequest = () => ({
+  type: ActionType.LoadOfferCommentsRequest,
+} as const);
+
+export const loadOfferCommentsSuccess = (reviews: Review[]) => ({
+  type: ActionType.LoadOfferCommentsSuccess,
   payload: {
     reviews,
   },
+} as const);
+
+export const loadOfferCommentsFailure = (error: string | null) => ({
+  type: ActionType.LoadOfferCommentsFailure,
+  payload: error,
 } as const);
 
 export const changeSortType = (sortType: string) => ({
@@ -71,5 +115,22 @@ export const logoutRequest = () => ({
 
 export const logoutFailure = (error: string | null) => ({
   type: ActionType.LogoutFailure,
+  payload: error,
+} as const);
+
+
+export const postCommentRequest = () => ({
+  type: ActionType.PostCommentRequest,
+} as const);
+
+export const postCommentSuccess = (reviews: Review[]) => ({
+  type: ActionType.PostCommentSuccess,
+  payload: {
+    reviews,
+  },
+} as const);
+
+export const postCommentFailure = (error: string | null) => ({
+  type: ActionType.PostCommentFailure,
   payload: error,
 } as const);

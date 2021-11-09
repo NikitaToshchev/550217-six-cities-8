@@ -18,9 +18,10 @@ type RoomScreenProps = {
   reviews: Review[],
 }
 
-const mapStateToProps = ({ offers, authorizationStatus }: State) => ({
+const mapStateToProps = ({ offers, authorizationStatus, offerById }: State) => ({
   offers,
   authorizationStatus,
+  offerById,
 });
 
 const connector = connect(mapStateToProps);
@@ -43,6 +44,7 @@ function RoomScreen({ reviews, offers, authorizationStatus }: ConnectedComponent
   if (!offer) {
     return <NotFoundScreen />;
   }
+
 
   const { images, isFavorite, title, isPremium, host, price, rating, bedrooms, maxAdults, type, goods, description } = offer;
   const { name, avatarUrl, isPro } = host;
