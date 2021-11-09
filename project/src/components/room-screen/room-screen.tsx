@@ -1,5 +1,4 @@
 import { Offer } from '../../types/offer';
-import { Review } from '../../types/review';
 import HeaderComponet from '../header/header';
 import RoomGalleryComponent from '../room-gallary/room-gallary';
 import RoomGoodsComponent from '../room-goods/room-goods';
@@ -14,22 +13,15 @@ import { connect, ConnectedProps } from 'react-redux';
 import { MAX_IMAGES } from '../../const';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
-type RoomScreenProps = {
-  reviews: Review[],
-}
-
-const mapStateToProps = ({ offers, authorizationStatus, offerById }: State) => ({
+const mapStateToProps = ({ offers, offerById }: State) => ({
   offers,
-  authorizationStatus,
   offerById,
 });
 
 const connector = connect(mapStateToProps);
-
 type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = PropsFromRedux & RoomScreenProps;
 
-function RoomScreen({ reviews, offers, authorizationStatus }: ConnectedComponentProps): JSX.Element {
+function RoomScreen({ offers }: PropsFromRedux): JSX.Element {
 
   const { id } = useParams() as { id: string };
   const offer = offers.find((item) => item.id === parseInt(id, 10)) as Offer;
@@ -115,7 +107,7 @@ function RoomScreen({ reviews, offers, authorizationStatus }: ConnectedComponent
                   <p className="property__text">{description}</p>
                 </div>
               </div>
-              <ReviewsComponent reviews={reviews} authorizationStatus={authorizationStatus} />
+              <ReviewsComponent />
             </div>
           </div>
           <section className="property__map map">

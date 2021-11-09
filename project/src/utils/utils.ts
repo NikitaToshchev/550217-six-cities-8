@@ -36,7 +36,6 @@ export const adaptOffersToClient = (offers: BackOffer[]): Offer[] => (
   ))
 );
 
-
 export const adaptOfferToClient = (offer: BackOffer): Offer => {
   const adaptedData = Object.assign(
     {},

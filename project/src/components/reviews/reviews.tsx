@@ -1,12 +1,18 @@
-import { Review } from '../../types/review';
+import { connect, ConnectedProps } from 'react-redux';
+import { State } from '../../types/state';
 import ReviewsListComponent from '../reviews-list/reviews-list';
 import ReviewsNewComponent from '../reviews-new/reviews-new';
-type ReviewsProprs = {
-  reviews: Review[],
-  authorizationStatus: string,
-}
 
-function ReviewsComponent({ reviews, authorizationStatus }: ReviewsProprs): JSX.Element {
+const mapStateToProps = ({ reviews, authorizationStatus }: State) => ({
+  reviews,
+  authorizationStatus,
+});
+
+const connector = connect(mapStateToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+function ReviewsComponent({ reviews, authorizationStatus }: PropsFromRedux): JSX.Element {
 
   return (
     <section className="property__reviews reviews">
@@ -17,4 +23,5 @@ function ReviewsComponent({ reviews, authorizationStatus }: ReviewsProprs): JSX.
   );
 }
 
-export default ReviewsComponent;
+export { ReviewsComponent };
+export default connector(ReviewsComponent);
