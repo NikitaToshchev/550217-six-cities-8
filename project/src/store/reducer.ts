@@ -25,8 +25,8 @@ const reducer = (state: State = initialState, action: Actions): State => {
     case ActionType.LoadOfferByIdRequest:
       return { ...state };
     case ActionType.LoadOfferByIdSuccess: {
-      const { offer } = action.payload;
-      return { ...state, offerById: offer };
+      const { offerById } = action.payload;
+      return { ...state, offerById: offerById };
     }
     case ActionType.ChangeSortType:
       return { ...state, currentSortType: action.payload };

@@ -25,15 +25,14 @@ export const loadOffersFailure = (error: string | null) => ({
   payload: error,
 } as const);
 
-
 export const loadOfferByIdRequest = () => ({
   type: ActionType.LoadOfferByIdRequest,
 } as const);
 
-export const loadOfferByIdSuccess = (offer: Offer) => ({
+export const loadOfferByIdSuccess = (offerById: Offer) => ({
   type: ActionType.LoadOfferByIdSuccess,
   payload: {
-    offer,
+    offerById,
   },
 } as const);
 
@@ -117,7 +116,6 @@ export const logoutFailure = (error: string | null) => ({
   type: ActionType.LogoutFailure,
   payload: error,
 } as const);
-
 
 export const postCommentRequest = () => ({
   type: ActionType.PostCommentRequest,
