@@ -7,10 +7,12 @@ export type State = {
   currentCity: string,
   offers: Offer[],
   offerById: Offer | null,
+  nearOffers: Offer[],
   reviews: Review[],
   currentSortType: string,
   authorizationStatus: AuthorizationStatus,
   isDataLoaded: boolean,
   userData?: UserInfo | null,
   error: string | null,
+  isClearCommentForm: boolean,
 }

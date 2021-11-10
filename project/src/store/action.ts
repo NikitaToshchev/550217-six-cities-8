@@ -45,10 +45,10 @@ export const loadNearOffersRequest = () => ({
   type: ActionType.LoadNearOffersRequest,
 } as const);
 
-export const loadNearOffersSuccess = (offers: Offer[]) => ({
+export const loadNearOffersSuccess = (nearOffers: Offer[]) => ({
   type: ActionType.LoadNearOffersSuccess,
   payload: {
-    offers,
+    nearOffers,
   },
 } as const);
 

@@ -6,10 +6,12 @@ const initialState = {
   currentCity: DEFAULT_CITY,
   offers: [],
   offerById: null,
+  nearOffers: [],
   reviews: [],
   currentSortType: DEFAULT_SORT_TYPE,
   authorizationStatus: AuthorizationStatus.Unknown,
   isDataLoaded: false,
+  isClearCommentForm: false,
   userData: null,
   error: null,
 };
@@ -18,15 +20,32 @@ const reducer = (state: State = initialState, action: Actions): State => {
   switch (action.type) {
     case ActionType.ChangeCity:
       return { ...state, currentCity: action.payload };
+    case ActionType.LoadOffersRequest:
+      return { ...state };
     case ActionType.LoadOffersSucces: {
       const { offers } = action.payload;
       return { ...state, offers };
+    }
+    case ActionType.LoadOffersFailure: {
+      return { ...state, error: action.payload };
+    }
+    case ActionType.LoadNearOffersRequest:
+      return { ...state };
+    case ActionType.LoadNearOffersSuccess: {
+      const { nearOffers } = action.payload;
+      return { ...state, nearOffers };
+    }
+    case ActionType.LoadNearOffersFailure: {
+      return { ...state, error: action.payload };
     }
     case ActionType.LoadOfferByIdRequest:
       return { ...state };
     case ActionType.LoadOfferByIdSuccess: {
       const { offerById } = action.payload;
       return { ...state, offerById: offerById };
+    }
+    case ActionType.LoadOfferByIdFailure: {
+      return { ...state, error: action.payload };
     }
     case ActionType.ChangeSortType:
       return { ...state, currentSortType: action.payload };
@@ -50,6 +69,10 @@ const reducer = (state: State = initialState, action: Actions): State => {
       return { ...state, error: action.payload };
     case ActionType.RequireLogout:
       return { ...state, authorizationStatus: AuthorizationStatus.NoAuth };
+    case ActionType.LoginActionRequest:
+      return { ...state };
+    case ActionType.LoginActionFailure:
+      return { ...state, error: action.payload };
     case ActionType.LoadOfferCommentsRequest:
       return { ...state };
     case ActionType.LoadOfferCommentsSuccess: {
@@ -57,6 +80,18 @@ const reducer = (state: State = initialState, action: Actions): State => {
       return { ...state, reviews };
     }
     case ActionType.LoadOfferCommentsFailure:
+      return { ...state, error: action.payload };
+    case ActionType.PostCommentRequest:
+      return { ...state };
+    case ActionType.PostCommentSuccess: {
+      const { reviews } = action.payload;
+      return {
+        ...state,
+        reviews,
+        // isClearCommentForm: true,
+      };
+    }
+    case ActionType.PostCommentFailure:
       return { ...state, error: action.payload };
     default:
       return state;

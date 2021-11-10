@@ -41,5 +41,5 @@ export const ratingStars: { [key: string]: string } = {
 };
 
 export const INITIAL_RATING = '1';
-
 export const MAX_IMAGES = 6;
+export const MAX_REVIEWS = 10;

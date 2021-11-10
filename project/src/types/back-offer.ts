@@ -1,13 +1,8 @@
+import { City } from './offer';
+
 export type BackOffer = {
   bedrooms: number,
-  city: {
-    location: {
-      latitude: number,
-      longitude: number,
-      zoom: number,
-    },
-    name: string,
-  },
+  city: City,
   description: string,
   goods: string[],
   host: {

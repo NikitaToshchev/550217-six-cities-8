@@ -15,27 +15,26 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { ThunkAppDispatch } from '../../types/actions';
 import { fetchCommentsAction, fetchNearOffersAction, fetchOfferByIdAction } from '../../store/api-actions';
 
-const mapStateToProps = ({ offers, offerById }: State) => ({
+const mapStateToProps = ({ offers, offerById, nearOffers }: State) => ({
   offers,
   offerById,
+  nearOffers,
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
   onload(id: string) {
+    dispatch(fetchNearOffersAction(id));
     dispatch(fetchOfferByIdAction(id));
     dispatch(fetchCommentsAction(id));
-    dispatch(fetchNearOffersAction(id));
   },
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-function RoomScreen({ offers, onload, offerById }: PropsFromRedux): JSX.Element {
+function RoomScreen({ offerById, nearOffers, onload }: PropsFromRedux): JSX.Element {
 
   const { id } = useParams() as { id: string };
-  const nearOffers = offers.slice(0, 3);
-
   const [activeCard, setActiveCard] = useState<Offer | null>(null);
   const handleActiveCard = (card: Offer | null): void => {
     setActiveCard(card);

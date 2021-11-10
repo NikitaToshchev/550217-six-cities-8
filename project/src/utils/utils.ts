@@ -10,6 +10,8 @@ import { UserInfo } from '../types/user-info';
 export const getFormatDate = (date: string, format: string): string => dayjs(date).format(format);
 export const getRating = (rating: number): string => `${(Math.round(rating) / 5) * 100}%`;
 
+export const sortReviewsUpDate = (reviewA: Review, reviewB: Review) => Date.parse(reviewB.date) - Date.parse(reviewA.date);
+
 export const getSortedOffers = (SortType: string, offers: Offer[]): Offer[] => {
   switch (SortType) {
     case SortTypes.PRICE_UP: {
