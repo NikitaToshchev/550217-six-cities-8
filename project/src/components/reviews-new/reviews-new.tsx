@@ -36,7 +36,6 @@ function ReviewNewComponent({ offerById, onSubmit }: PropsFromRedux): JSX.Elemen
     },
   });
 
-
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>): void => {
     evt.preventDefault();
 

@@ -27,7 +27,7 @@ import {
 import { saveToken, dropToken } from '../services/token';
 import { APIRoute, AuthorizationStatus } from '../const';
 import { AuthData } from '../types/auth-data';
-import { adaptCommentsToClient, adaptCommentToClient, adaptOffersToClient, adaptOfferToClient, adaptUserInfoToClient } from '../utils/utils';
+import { adaptCommentsToClient, adaptOffersToClient, adaptOfferToClient, adaptUserInfoToClient } from '../utils/utils';
 import { BackOffer } from '../types/back-offer';
 import { BackReview } from '../types/back-review';
 import { CommentPost } from '../types/commentPost';
@@ -76,7 +76,7 @@ export const postCommentsAction = ({ id, rating, comment }: CommentPost): ThunkA
     dispatch(postCommentRequest());
     try {
       const { data } = await api.post(`${APIRoute.Comments}/${id}`, { rating, comment });
-      // const adaptedComment = adaptCommentToClient(data);
+      // const adaptedComment = adaptCommentToBack(data);
       dispatch(postCommentSuccess(data));
     }
     catch (error: any) {

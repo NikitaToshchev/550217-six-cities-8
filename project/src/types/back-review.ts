@@ -4,9 +4,9 @@ export type BackReview = {
   id: string,
   rating: number,
   user: {
-    ['avatar_url']: string,
+    ['avatar_url']?: string,
     id: string,
-    ['is_pro']: boolean,
+    ['is_pro']?: boolean,
     name: string,
   }
 }
