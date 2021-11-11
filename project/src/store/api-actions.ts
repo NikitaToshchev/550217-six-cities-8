@@ -27,10 +27,10 @@ import {
 import { saveToken, dropToken } from '../services/token';
 import { APIRoute, AuthorizationStatus } from '../const';
 import { AuthData } from '../types/auth-data';
-import { adaptCommentsToClient, adaptOffersToClient, adaptOfferToClient, adaptUserInfoToClient } from '../utils/utils';
+import { adaptCommentsToClient, adaptCommentToClient, adaptOffersToClient, adaptOfferToClient, adaptUserInfoToClient } from '../utils/utils';
 import { BackOffer } from '../types/back-offer';
 import { BackReview } from '../types/back-review';
-import { Review } from '../types/review';
+import { CommentPost } from '../types/commentPost';
 
 export const fetchOffersAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
@@ -71,11 +71,12 @@ export const fetchCommentsAction = (id: string): ThunkActionResult =>
     }
   };
 
-export const postCommentsAction = ({ id, rating, comment }: Review): ThunkActionResult =>
+export const postCommentsAction = ({ id, rating, comment }: CommentPost): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     dispatch(postCommentRequest());
     try {
-      const { data } = await api.post<Review[]>(`${APIRoute.Comments}/${id}`, { rating, comment });
+      const { data } = await api.post(`${APIRoute.Comments}/${id}`, { rating, comment });
+      // const adaptedComment = adaptCommentToClient(data);
       dispatch(postCommentSuccess(data));
     }
     catch (error: any) {

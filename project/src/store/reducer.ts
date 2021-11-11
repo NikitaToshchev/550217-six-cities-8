@@ -11,7 +11,6 @@ const initialState = {
   currentSortType: DEFAULT_SORT_TYPE,
   authorizationStatus: AuthorizationStatus.Unknown,
   isDataLoaded: false,
-  isClearCommentForm: false,
   userData: null,
   error: null,
 };
@@ -88,7 +87,6 @@ const reducer = (state: State = initialState, action: Actions): State => {
       return {
         ...state,
         reviews,
-        // isClearCommentForm: true,
       };
     }
     case ActionType.PostCommentFailure:

@@ -66,27 +66,30 @@ export const adaptOfferToClient = (offer: BackOffer): Offer => {
   return adaptedData;
 };
 
+
 export const adaptCommentsToClient = (reviews: BackReview[]): Review[] => (
-  reviews.map((item: BackReview): Review => {
-    const adaptedReview = Object.assign(
-      {},
-      item,
-      {
-        user: {
-          avatarUrl: item.user.avatar_url,
-          id: item.user.id,
-          isPro: item.user.is_pro,
-          name: item.user.name,
-        },
-      },
-    ) as Review;
-
-    delete adaptedReview.user.avatar_url;
-    delete adaptedReview.user.is_pro;
-
-    return adaptedReview;
-  })
+  reviews.map((item: BackReview): Review => (
+    adaptCommentToClient(item)
+  ))
 );
+
+export const adaptCommentToClient = (review: BackReview): Review => {
+  const adaptedReview = Object.assign(
+    {},
+    review,
+    {
+      user: {
+        avatarUrl: review.user.avatar_url,
+        isPro: review.user.is_pro,
+      },
+    },
+  ) as Review;
+
+  delete adaptedReview.user.avatar_url;
+  delete adaptedReview.user.is_pro;
+
+  return adaptedReview;
+};
 
 export const adaptUserInfoToClient = (userInfo: BackUserInfo): UserInfo => {
 

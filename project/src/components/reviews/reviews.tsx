@@ -13,8 +13,9 @@ const mapStateToProps = ({ reviews, authorizationStatus }: State) => ({
 const connector = connect(mapStateToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = PropsFromRedux;
 
-function ReviewsComponent({ reviews, authorizationStatus }: PropsFromRedux): JSX.Element {
+function ReviewsComponent({ reviews, authorizationStatus }: ConnectedComponentProps): JSX.Element {
 
   const cropedSortedReviews = reviews.slice(0, MAX_REVIEWS).sort(sortReviewsUpDate);
 

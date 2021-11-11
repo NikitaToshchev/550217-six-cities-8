@@ -14,5 +14,4 @@ export type State = {
   isDataLoaded: boolean,
   userData?: UserInfo | null,
   error: string | null,
-  isClearCommentForm: boolean,
 }

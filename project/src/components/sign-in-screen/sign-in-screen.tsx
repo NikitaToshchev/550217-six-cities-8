@@ -24,7 +24,6 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function SignInScreen({ onSubmit }: PropsFromRedux): JSX.Element {
 
-
   const history = useHistory();
 
   const [formState, setFormState] = useState<{ [key: string]: InputSignForm }>({
