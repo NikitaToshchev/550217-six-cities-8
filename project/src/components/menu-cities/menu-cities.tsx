@@ -3,11 +3,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import { Actions } from '../../types/actions';
 import { Dispatch } from 'redux';
 import { changeCity, changeSortType } from '../../store/action';
-import { DEFAULT_SORT_TYPE } from '../../const';
-
-type MenuCitiesProps = {
-  cities: string[],
-}
+import { CITIES, DEFAULT_SORT_TYPE } from '../../const';
 
 const mapStateToProps = ({ currentCity, offers }: State) => ({ currentCity, offers });
 
@@ -21,9 +17,8 @@ const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = PropsFromRedux & MenuCitiesProps;
 
-function MenuCitiesComponent({ cities, onChangeCity, currentCity }: ConnectedComponentProps): JSX.Element {
+function MenuCitiesComponent({ onChangeCity, currentCity }: PropsFromRedux): JSX.Element {
 
   const getClassNameActive = (city: string) => city === currentCity ? 'tabs__item--active' : '';
 
@@ -33,7 +28,7 @@ function MenuCitiesComponent({ cities, onChangeCity, currentCity }: ConnectedCom
       <div className="tabs">
         <section className="locations container">
           <ul className="locations__list tabs__list">
-            {cities.map((city) => (
+            {CITIES.map((city) => (
               <li className="locations__item" key={city}>
                 <a href="/#"
                   className={`locations__item-link tabs__item ${getClassNameActive(city)}`}

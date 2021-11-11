@@ -1,5 +1,6 @@
 import { Review } from '../../types/review';
 import { getFormatDate, getRating } from '../../utils/utils';
+
 type ReviewsItemProps = {
   review: Review,
 }

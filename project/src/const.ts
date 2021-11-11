@@ -15,7 +15,8 @@ export enum APIRoute {
   Hotels = '/hotels',
   Login = '/login',
   Logout = '/logout',
-  Comments = '/comments'
+  Comments = '/comments',
+  Favorite = '/favorite'
 }
 
 export const DEFAULT_CITY = 'Paris';
@@ -39,6 +40,5 @@ export const ratingStars: { [key: string]: string } = {
   1: 'terribly',
 };
 
-export const INITIAL_RATING = '1';
-
 export const MAX_IMAGES = 6;
+export const MAX_REVIEWS = 10;

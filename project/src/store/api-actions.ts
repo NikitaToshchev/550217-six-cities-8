@@ -1,12 +1,24 @@
 import { ThunkActionResult } from '../types/actions';
 import {
-  loadNearOffers,
-  loadOfferComments,
-  loadOffers,
+  loadNearOffersFailure,
+  loadNearOffersRequest,
+  loadNearOffersSuccess,
+  loadOfferByIdFailure,
+  loadOfferByIdRequest,
+  loadOfferByIdSuccess,
+  loadOfferCommentsFailure,
+  loadOfferCommentsRequest,
+  loadOfferCommentsSuccess,
+  loadOffersFailure,
+  loadOffersRequest,
+  loadOffersSucces,
   loginActionFailure,
   loginActionRequest,
   logoutFailure,
   logoutRequest,
+  postCommentFailure,
+  postCommentRequest,
+  postCommentSuccess,
   requireAuthorizationFailure,
   requireAuthorizationRequest,
   requireAuthorizationSucces,
@@ -15,29 +27,73 @@ import {
 import { saveToken, dropToken } from '../services/token';
 import { APIRoute, AuthorizationStatus } from '../const';
 import { AuthData } from '../types/auth-data';
-import { adaptCommentsToClient, adaptOffersToClient, adaptUserInfoToClient } from '../utils/utils';
+import { adaptCommentsToClient, adaptOffersToClient, adaptOfferToClient, adaptUserInfoToClient } from '../utils/utils';
 import { BackOffer } from '../types/back-offer';
 import { BackReview } from '../types/back-review';
+import { CommentPost } from '../types/commentPost';
 
 export const fetchOffersAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
-    const { data } = await api.get<BackOffer[]>(APIRoute.Hotels);
-    const adaptedOffers = adaptOffersToClient(data);
-    dispatch(loadOffers(adaptedOffers));
+    dispatch(loadOffersRequest());
+    try {
+      const { data } = await api.get<BackOffer[]>(APIRoute.Hotels);
+      const adaptedOffers = adaptOffersToClient(data);
+      dispatch(loadOffersSucces(adaptedOffers));
+    }
+    catch (error: any) {
+      dispatch(loadOffersFailure(error.toString()));
+    }
+  };
+
+export const fetchOfferByIdAction = (id: string): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    dispatch(loadOfferByIdRequest());
+    try {
+      const { data } = await api.get<BackOffer>(`${APIRoute.Hotels}/${id}`);
+      const adaptedOffer = adaptOfferToClient(data);
+      dispatch(loadOfferByIdSuccess(adaptedOffer));
+    }
+    catch (error: any) {
+      dispatch(loadOfferByIdFailure(error.toString()));
+    }
   };
 
 export const fetchCommentsAction = (id: string): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
-    const { data } = await api.get<BackReview[]>(`${APIRoute.Comments}/${id}`);
-    const adaptedComments = adaptCommentsToClient(data);
-    dispatch(loadOfferComments(adaptedComments));
+    dispatch(loadOfferCommentsRequest());
+    try {
+      const { data } = await api.get<BackReview[]>(`${APIRoute.Comments}/${id}`);
+      const adaptedComments = adaptCommentsToClient(data);
+      dispatch(loadOfferCommentsSuccess(adaptedComments));
+    }
+    catch (error: any) {
+      dispatch(loadOfferCommentsFailure(error.toString()));
+    }
   };
 
-export const getNearOffersAction = (id: string): ThunkActionResult =>
+export const postCommentsAction = ({ id, rating, comment }: CommentPost): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
-    const { data } = await api.get<BackOffer[]>(`${APIRoute.Hotels}/${id}/nearby`);
-    const adaptedOffers = adaptOffersToClient(data);
-    dispatch(loadNearOffers(adaptedOffers));
+    dispatch(postCommentRequest());
+    try {
+      await api.post(`${APIRoute.Comments}/${id}`, { rating, comment });
+      dispatch(postCommentSuccess());
+    }
+    catch (error: any) {
+      dispatch(postCommentFailure(error.toString()));
+    }
+  };
+
+export const fetchNearOffersAction = (id: string): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    dispatch(loadNearOffersRequest());
+    try {
+      const { data } = await api.get<BackOffer[]>(`${APIRoute.Hotels}/${id}/nearby`);
+      const adaptedOffers = adaptOffersToClient(data);
+      dispatch(loadNearOffersSuccess(adaptedOffers));
+    }
+    catch (error: any) {
+      dispatch(loadNearOffersFailure(error.toString()));
+    }
   };
 
 export const checkAuthAction = (): ThunkActionResult =>
@@ -45,7 +101,8 @@ export const checkAuthAction = (): ThunkActionResult =>
     dispatch(requireAuthorizationRequest());
     try {
       const { data } = await api.get(APIRoute.Login);
-      dispatch(requireAuthorizationSucces(AuthorizationStatus.Auth, adaptUserInfoToClient(data)));
+      const adaptedData = adaptUserInfoToClient(data);
+      dispatch(requireAuthorizationSucces(AuthorizationStatus.Auth, adaptedData));
     }
     catch (error: any) {
       dispatch(requireAuthorizationFailure(error.toString()));
@@ -59,7 +116,8 @@ export const loginAction = ({ login: email, password }: AuthData): ThunkActionRe
       const { data } = await api.post(APIRoute.Login, { email, password });
       const { token } = data;
       saveToken(token);
-      dispatch(requireAuthorizationSucces(AuthorizationStatus.Auth, adaptUserInfoToClient(data)));
+      const adaptedData = adaptUserInfoToClient(data);
+      dispatch(requireAuthorizationSucces(AuthorizationStatus.Auth, adaptedData));
     }
     catch (error: any) {
       dispatch(loginActionFailure(error.toString()));

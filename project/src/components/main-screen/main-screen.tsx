@@ -8,13 +8,6 @@ import MainScreenContent from '../main-screen-content/main-screen-content';
 import { connect, ConnectedProps } from 'react-redux';
 import { State } from '../../types/state';
 
-type MainScreenProps = {
-  offers: Offer[],
-  cities: string[],
-  currentCity: string,
-  currentSortType: string,
-}
-
 const mapStateToProps = ({ currentSortType, currentCity, offers }: State) => ({
   currentSortType,
   currentCity,
@@ -23,9 +16,8 @@ const mapStateToProps = ({ currentSortType, currentCity, offers }: State) => ({
 
 const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = PropsFromRedux & MainScreenProps;
 
-function MainScreen({ cities, offers, currentCity, currentSortType }: ConnectedComponentProps): JSX.Element {
+function MainScreen({ offers, currentCity, currentSortType }: PropsFromRedux): JSX.Element {
   const [activeCard, setActiveCard] = useState<Offer | null>(null);
 
   const handleActiveCard = (offer: Offer | null): void => {
@@ -47,7 +39,7 @@ function MainScreen({ cities, offers, currentCity, currentSortType }: ConnectedC
     <div className="page page--gray page--main">
       <HeaderComponet />
       <main className={mainclass}>
-        <MenuCitiesComponent cities={cities} />
+        <MenuCitiesComponent />
         <div className="cities">
           <div className={containerClass}>
             {offersByCity.length === 0 && <MainScreenEmpty cityName={currentCity} />}
