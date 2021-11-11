@@ -1,7 +1,7 @@
 import { FormEvent, useState, ChangeEvent } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { ratingStars } from '../../const';
-import { postCommentsAction } from '../../store/api-actions';
+import { fetchCommentsAction, postCommentsAction } from '../../store/api-actions';
 import { ThunkAppDispatch } from '../../types/actions';
 import { CommentPost } from '../../types/commentPost';
 import { ReviewsItemForm } from '../../types/reviews-item-form';
@@ -15,6 +15,8 @@ const mapStateToProps = ({ offerById }: State) => ({
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
   onSubmit(commentPost: CommentPost) {
     dispatch(postCommentsAction(commentPost));
+    dispatch(fetchCommentsAction(commentPost.id as string));
+
   },
 });
 
@@ -63,7 +65,7 @@ function ReviewNewComponent({ offerById, onSubmit }: PropsFromRedux): JSX.Elemen
     const { name, value } = evt.target;
 
     let isValid = false;
-    if (formState.review.maxValue && formState.review.minValue && !formState.rating) {
+    if (name === 'review' && formState.review.maxValue && formState.review.minValue) {
       isValid = Boolean(value.length >= formState.review.minValue && value.length < formState.review.maxValue);
     } else {
       isValid = Boolean(value);

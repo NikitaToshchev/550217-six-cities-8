@@ -75,9 +75,8 @@ export const postCommentsAction = ({ id, rating, comment }: CommentPost): ThunkA
   async (dispatch, _getState, api): Promise<void> => {
     dispatch(postCommentRequest());
     try {
-      const { data } = await api.post(`${APIRoute.Comments}/${id}`, { rating, comment });
-      // const adaptedComment = adaptCommentToBack(data);
-      dispatch(postCommentSuccess(data));
+      await api.post(`${APIRoute.Comments}/${id}`, { rating, comment });
+      dispatch(postCommentSuccess());
     }
     catch (error: any) {
       dispatch(postCommentFailure(error.toString()));

@@ -121,11 +121,8 @@ export const postCommentRequest = () => ({
   type: ActionType.PostCommentRequest,
 } as const);
 
-export const postCommentSuccess = (reviews: Review[]) => ({
+export const postCommentSuccess = () => ({
   type: ActionType.PostCommentSuccess,
-  payload: {
-    reviews,
-  },
 } as const);
 
 export const postCommentFailure = (error: string | null) => ({

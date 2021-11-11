@@ -4,10 +4,10 @@ export type Review = {
   id: string,
   rating: number,
   user: {
-    avatarUrl: string,
+    avatarUrl?: string,
     ['avatar_url']?: string,
     id: string,
-    isPro: boolean,
+    isPro?: boolean,
     ['is_pro']?: boolean,
     name: string,
   }

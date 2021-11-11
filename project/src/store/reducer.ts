@@ -83,11 +83,7 @@ const reducer = (state: State = initialState, action: Actions): State => {
     case ActionType.PostCommentRequest:
       return { ...state };
     case ActionType.PostCommentSuccess: {
-      const { reviews } = action.payload;
-      return {
-        ...state,
-        reviews,
-      };
+      return { ...state };
     }
     case ActionType.PostCommentFailure:
       return { ...state, error: action.payload };

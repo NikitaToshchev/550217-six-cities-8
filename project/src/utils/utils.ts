@@ -107,21 +107,3 @@ export const adaptUserInfoToClient = (userInfo: BackUserInfo): UserInfo => {
 
   return adaptedUserInfo;
 };
-
-export const adaptCommentToBack = (review: Review): BackReview => {
-  const adaptedReview = Object.assign(
-    {},
-    review,
-    {
-      user: {
-        'avatar_url': review.user.avatarUrl,
-        'is_pro': review.user.isPro,
-      },
-    },
-  ) as BackReview;
-
-  delete adaptedReview.user['avatar_url'];
-  delete adaptedReview.user['is_pro'];
-
-  return adaptedReview;
-};
