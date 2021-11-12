@@ -1,6 +1,6 @@
-import { AuthorizationStatus, DEFAULT_CITY, DEFAULT_SORT_TYPE } from '../const';
-import { Actions, ActionType } from '../types/actions';
-import { State } from '../types/state';
+import { AuthorizationStatus, DEFAULT_CITY, DEFAULT_SORT_TYPE } from '../../const';
+import { Actions, ActionType } from '../../types/actions';
+import { State } from '../../types/state';
 
 const initialState = {
   currentCity: DEFAULT_CITY,

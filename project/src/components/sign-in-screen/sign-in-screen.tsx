@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { loginAction } from '../../store/api-actions';
+import { loginAction } from '../../store/actions/api-actions';
 import { ThunkAppDispatch } from '../../types/actions';
 import { AuthData } from '../../types/auth-data';
 import { InputSignForm } from '../../types/Input-sign-form';

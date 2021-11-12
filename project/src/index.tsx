@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
 import { Provider } from 'react-redux';
-import { reducer } from './store/reducer';
+import { reducer } from './store/reducer/reducer';
 import { AuthorizationStatus } from './const';
 import { createAPI } from './services/api';
-import { requireAuthorizationSucces } from './store/action';
-import { fetchOffersAction, checkAuthAction } from './store/api-actions';
+import { requireAuthorizationSucces } from './store/actions/action';
+import { fetchOffersAction, checkAuthAction } from './store/actions/api-actions';
 import { ThunkAppDispatch } from './types/actions';
 import { configureStore } from '@reduxjs/toolkit';
 

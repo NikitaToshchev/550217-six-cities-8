@@ -1,7 +1,7 @@
 import { FormEvent, useState, ChangeEvent } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { ratingStars } from '../../const';
-import { fetchCommentsAction, postCommentsAction } from '../../store/api-actions';
+import { fetchCommentsAction, postCommentsAction } from '../../store/actions/api-actions';
 import { ThunkAppDispatch } from '../../types/actions';
 import { CommentPost } from '../../types/commentPost';
 import { ReviewsItemForm } from '../../types/reviews-item-form';

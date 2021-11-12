@@ -25,7 +25,7 @@ import {
   loadNearOffersSuccess,
   loadNearOffersFailure
 
-} from '../store/action';
+} from '../store/actions/action';
 
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { AxiosInstance } from 'axios';

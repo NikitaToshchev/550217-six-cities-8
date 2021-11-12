@@ -1,7 +1,7 @@
 import { connect, ConnectedProps } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { logoutAction } from '../../store/api-actions';
+import { logoutAction } from '../../store/actions/api-actions';
 import { ThunkAppDispatch } from '../../types/actions';
 import { State } from '../../types/state';
 

@@ -1,7 +1,7 @@
 import { SortTypes } from '../../const';
 import { Dispatch, useState } from 'react';
 import { State } from '../../types/state';
-import { changeSortType } from '../../store/action';
+import { changeSortType } from '../../store/actions/action';
 import { connect, ConnectedProps } from 'react-redux';
 import { Actions } from '../../types/actions';
 

@@ -13,7 +13,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import { MAX_IMAGES } from '../../const';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { ThunkAppDispatch } from '../../types/actions';
-import { fetchCommentsAction, fetchNearOffersAction, fetchOfferByIdAction } from '../../store/api-actions';
+import { fetchCommentsAction, fetchNearOffersAction, fetchOfferByIdAction } from '../../store/actions/api-actions';
 
 const mapStateToProps = ({ offers, offerById, nearOffers }: State) => ({
   offers,
