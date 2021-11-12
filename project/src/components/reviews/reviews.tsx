@@ -5,9 +5,9 @@ import { sortReviewsUpDate } from '../../utils/utils';
 import ReviewsItemComponent from '../reviews-item/reviews-item';
 import ReviewsNewComponent from '../reviews-new/reviews-new';
 
-const mapStateToProps = ({ reviews, authorizationStatus }: State) => ({
-  reviews,
-  authorizationStatus,
+const mapStateToProps = ({ USER, DATA }: State) => ({
+  reviews: DATA.reviews,
+  authorizationStatus: USER.authorizationStatus,
 });
 
 const connector = connect(mapStateToProps);

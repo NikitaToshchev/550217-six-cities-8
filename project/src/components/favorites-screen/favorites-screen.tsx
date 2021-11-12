@@ -5,8 +5,8 @@ import FavoritesComponent from '../favorites/favorites';
 import { connect, ConnectedProps } from 'react-redux';
 import { State } from '../../types/state';
 
-const mapStateToProps = ({ offers }: State) => ({
-  offers,
+const mapStateToProps = ({ DATA }: State) => ({
+  offers: DATA.offers,
 });
 
 const connector = connect(mapStateToProps);

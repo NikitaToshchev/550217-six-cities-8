@@ -8,8 +8,8 @@ import { ReviewsItemForm } from '../../types/reviews-item-form';
 import { State } from '../../types/state';
 import RatingInputComponent from '../rating-input/rating-input';
 
-const mapStateToProps = ({ offerById }: State) => ({
-  offerById,
+const mapStateToProps = ({ DATA }: State) => ({
+  offerById: DATA.offerById,
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({

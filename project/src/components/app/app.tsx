@@ -11,9 +11,9 @@ import { State } from '../../types/state';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { isCheckedAuth } from '../../utils/utils';
 
-const mapStateToProps = ({ authorizationStatus, isDataLoaded }: State) => ({
-  authorizationStatus,
-  isDataLoaded,
+const mapStateToProps = ({ USER }: State) => ({
+  authorizationStatus: USER.authorizationStatus,
+  isDataLoaded: USER.isDataLoaded,
 });
 
 const connector = connect(mapStateToProps);

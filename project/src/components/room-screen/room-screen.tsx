@@ -15,10 +15,10 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { ThunkAppDispatch } from '../../types/actions';
 import { fetchCommentsAction, fetchNearOffersAction, fetchOfferByIdAction } from '../../store/actions/api-actions';
 
-const mapStateToProps = ({ offers, offerById, nearOffers }: State) => ({
-  offers,
-  offerById,
-  nearOffers,
+const mapStateToProps = ({ DATA }: State) => ({
+  offers: DATA.offers,
+  offerById: DATA.offerById,
+  nearOffers: DATA.nearOffers,
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({

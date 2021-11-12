@@ -8,10 +8,10 @@ import MainScreenContent from '../main-screen-content/main-screen-content';
 import { connect, ConnectedProps } from 'react-redux';
 import { State } from '../../types/state';
 
-const mapStateToProps = ({ currentSortType, currentCity, offers }: State) => ({
-  currentSortType,
-  currentCity,
-  offers,
+const mapStateToProps = ({ MAIN, DATA }: State) => ({
+  currentSortType: MAIN.currentSortType,
+  currentCity: MAIN.currentCity,
+  offers: DATA.offers,
 });
 
 const connector = connect(mapStateToProps);

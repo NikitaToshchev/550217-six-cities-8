@@ -6,8 +6,8 @@ import { connect, ConnectedProps } from 'react-redux';
 import { Actions } from '../../types/actions';
 
 
-const mapStateToProps = ({ currentSortType }: State) => ({
-  currentSortType,
+const mapStateToProps = ({ MAIN }: State) => ({
+  currentSortType: MAIN.currentSortType,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
