@@ -4,9 +4,10 @@ import FavoritesEmptyComponent from '../favorites-empty/favorites-empty';
 import FavoritesComponent from '../favorites/favorites';
 import { connect, ConnectedProps } from 'react-redux';
 import { State } from '../../types/state';
+import { getOffers } from '../../store/selectors/selectors';
 
-const mapStateToProps = ({ DATA }: State) => ({
-  offers: DATA.offers,
+const mapStateToProps = (state: State) => ({
+  offers: getOffers(state),
 });
 
 const connector = connect(mapStateToProps);

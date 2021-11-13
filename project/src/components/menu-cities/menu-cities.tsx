@@ -4,10 +4,11 @@ import { Actions } from '../../types/actions';
 import { Dispatch } from 'redux';
 import { changeCity, changeSortType } from '../../store/actions/action';
 import { CITIES, DEFAULT_SORT_TYPE } from '../../const';
+import { getCurrentCity, getOffers } from '../../store/selectors/selectors';
 
-const mapStateToProps = ({ MAIN, DATA }: State) => ({
-  currentCity: MAIN.currentCity,
-  offers: DATA.offers,
+const mapStateToProps = (state: State) => ({
+  currentCity: getCurrentCity(state),
+  offers: getOffers(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({

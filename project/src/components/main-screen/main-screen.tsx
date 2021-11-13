@@ -7,11 +7,12 @@ import MainScreenEmpty from '../main-screen-empty/main-screen-empty';
 import MainScreenContent from '../main-screen-content/main-screen-content';
 import { connect, ConnectedProps } from 'react-redux';
 import { State } from '../../types/state';
+import { getCurrentCity, getCurrentSortType, getOffers } from '../../store/selectors/selectors';
 
-const mapStateToProps = ({ MAIN, DATA }: State) => ({
-  currentSortType: MAIN.currentSortType,
-  currentCity: MAIN.currentCity,
-  offers: DATA.offers,
+const mapStateToProps = (state: State) => ({
+  currentSortType: getCurrentSortType(state),
+  currentCity: getCurrentCity(state),
+  offers: getOffers(state),
 });
 
 const connector = connect(mapStateToProps);

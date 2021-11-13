@@ -14,11 +14,12 @@ import { MAX_IMAGES } from '../../const';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { ThunkAppDispatch } from '../../types/actions';
 import { fetchCommentsAction, fetchNearOffersAction, fetchOfferByIdAction } from '../../store/actions/api-actions';
+import { getNearOffers, getOfferById, getOffers } from '../../store/selectors/selectors';
 
-const mapStateToProps = ({ DATA }: State) => ({
-  offers: DATA.offers,
-  offerById: DATA.offerById,
-  nearOffers: DATA.nearOffers,
+const mapStateToProps = (state: State) => ({
+  offers: getOffers(state),
+  offerById: getOfferById(state),
+  nearOffers: getNearOffers(state),
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({

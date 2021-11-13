@@ -10,10 +10,11 @@ import { connect, ConnectedProps } from 'react-redux';
 import { State } from '../../types/state';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { isCheckedAuth } from '../../utils/utils';
+import { getAuthorizationStatus, getIsDataLoadedStatus } from '../../store/selectors/selectors';
 
-const mapStateToProps = ({ USER }: State) => ({
-  authorizationStatus: USER.authorizationStatus,
-  isDataLoaded: USER.isDataLoaded,
+const mapStateToProps = (state: State) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+  isDataLoaded: getIsDataLoadedStatus(state),
 });
 
 const connector = connect(mapStateToProps);

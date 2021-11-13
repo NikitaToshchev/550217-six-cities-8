@@ -2,21 +2,21 @@ import { FormEvent, useState, ChangeEvent } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { ratingStars } from '../../const';
 import { fetchCommentsAction, postCommentsAction } from '../../store/actions/api-actions';
+import { getOfferById } from '../../store/selectors/selectors';
 import { ThunkAppDispatch } from '../../types/actions';
 import { CommentPost } from '../../types/commentPost';
 import { ReviewsItemForm } from '../../types/reviews-item-form';
 import { State } from '../../types/state';
 import RatingInputComponent from '../rating-input/rating-input';
 
-const mapStateToProps = ({ DATA }: State) => ({
-  offerById: DATA.offerById,
+const mapStateToProps = (state: State) => ({
+  offerById: getOfferById(state),
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
   onSubmit(commentPost: CommentPost) {
     dispatch(postCommentsAction(commentPost));
     dispatch(fetchCommentsAction(commentPost.id as string));
-
   },
 });
 
