@@ -22,7 +22,7 @@ export const loadOffersSucces = createAction(
 );
 
 export const loadOffersFailure = createAction(
-  ActionType.LoadOffersSucces, (error: string | null) => ({
+  ActionType.LoadOffersFailure, (error: string | null) => ({
     payload: error,
   }),
 );
@@ -62,7 +62,7 @@ export const loadNearOffersFailure = createAction(
 export const loadOfferCommentsRequest = createAction(ActionType.LoadOfferCommentsRequest);
 
 export const loadOfferCommentsSuccess = createAction(
-  ActionType.LoadNearOffersSuccess, (reviews: Review[]) => ({
+  ActionType.LoadOfferCommentsSuccess, (reviews: Review[]) => ({
     payload: {
       reviews,
     },
@@ -76,7 +76,7 @@ export const loadOfferCommentsFailure = createAction(
 );
 
 export const changeSortType = createAction(
-  ActionType.ChangeCity, (sortType: string) => ({
+  ActionType.ChangeSortType, (sortType: string) => ({
     payload: sortType,
   }),
 );
