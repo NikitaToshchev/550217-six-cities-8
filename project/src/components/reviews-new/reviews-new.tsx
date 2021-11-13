@@ -1,29 +1,20 @@
 import { FormEvent, useState, ChangeEvent } from 'react';
-import { connect, ConnectedProps } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ratingStars } from '../../const';
 import { fetchCommentsAction, postCommentsAction } from '../../store/actions/api-actions';
 import { getOfferById } from '../../store/selectors/selectors';
-import { ThunkAppDispatch } from '../../types/actions';
 import { CommentPost } from '../../types/commentPost';
 import { ReviewsItemForm } from '../../types/reviews-item-form';
-import { State } from '../../types/state';
 import RatingInputComponent from '../rating-input/rating-input';
 
-const mapStateToProps = (state: State) => ({
-  offerById: getOfferById(state),
-});
+function ReviewNewComponent(): JSX.Element {
+  const offerById = useSelector(getOfferById);
+  const dispatch = useDispatch();
 
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  onSubmit(commentPost: CommentPost) {
+  const onSubmit = (commentPost: CommentPost) => {
     dispatch(postCommentsAction(commentPost));
     dispatch(fetchCommentsAction(commentPost.id as string));
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function ReviewNewComponent({ offerById, onSubmit }: PropsFromRedux): JSX.Element {
+  };
 
   const [formState, setFormState] = useState<{ [key: string]: ReviewsItemForm }>({
     rating: {
@@ -114,6 +105,4 @@ function ReviewNewComponent({ offerById, onSubmit }: PropsFromRedux): JSX.Elemen
   );
 }
 
-export { ReviewNewComponent };
-export default connector(ReviewNewComponent);
-
+export default ReviewNewComponent;

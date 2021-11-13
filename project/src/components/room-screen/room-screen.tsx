@@ -8,42 +8,29 @@ import { useParams } from 'react-router-dom';
 import Map from '../map/map';
 import { useEffect, useState } from 'react';
 import { getRating } from '../../utils/utils';
-import { State } from '../../types/state';
-import { connect, ConnectedProps } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { MAX_IMAGES } from '../../const';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import { ThunkAppDispatch } from '../../types/actions';
 import { fetchCommentsAction, fetchNearOffersAction, fetchOfferByIdAction } from '../../store/actions/api-actions';
-import { getNearOffers, getOfferById, getOffers } from '../../store/selectors/selectors';
+import { getNearOffers, getOfferById } from '../../store/selectors/selectors';
 
-const mapStateToProps = (state: State) => ({
-  offers: getOffers(state),
-  offerById: getOfferById(state),
-  nearOffers: getNearOffers(state),
-});
+function RoomScreen(): JSX.Element {
 
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  onload(id: string) {
-    dispatch(fetchNearOffersAction(id));
-    dispatch(fetchOfferByIdAction(id));
-    dispatch(fetchCommentsAction(id));
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function RoomScreen({ offerById, nearOffers, onload }: PropsFromRedux): JSX.Element {
+  const offerById = useSelector(getOfferById);
+  const nearOffers = useSelector(getNearOffers);
 
   const { id } = useParams() as { id: string };
   const [activeCard, setActiveCard] = useState<Offer | null>(null);
   const handleActiveCard = (card: Offer | null): void => {
     setActiveCard(card);
   };
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    onload(id);
-  }, [id, onload]);
+    dispatch(fetchNearOffersAction(id));
+    dispatch(fetchOfferByIdAction(id));
+    dispatch(fetchCommentsAction(id));
+  }, [id, dispatch]);
 
   if (!offerById) {
     return <NotFoundScreen />;
@@ -137,5 +124,4 @@ function RoomScreen({ offerById, nearOffers, onload }: PropsFromRedux): JSX.Elem
   );
 }
 
-export { RoomScreen };
-export default connector(RoomScreen);
+export default RoomScreen;

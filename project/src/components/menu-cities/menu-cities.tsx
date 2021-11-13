@@ -1,27 +1,18 @@
-import { State } from '../../types/state';
-import { connect, ConnectedProps } from 'react-redux';
-import { Dispatch } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { changeCity, changeSortType } from '../../store/actions/action';
 import { CITIES, DEFAULT_SORT_TYPE } from '../../const';
-import { getCurrentCity, getOffers } from '../../store/selectors/selectors';
+import { getCurrentCity } from '../../store/selectors/selectors';
 
-const mapStateToProps = (state: State) => ({
-  currentCity: getCurrentCity(state),
-  offers: getOffers(state),
-});
+function MenuCitiesComponent(): JSX.Element {
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  onChangeCity(city: string) {
+  const currentCity = useSelector(getCurrentCity);
+
+  const dispatch = useDispatch();
+
+  const onChangeCity = (city: string) => {
     dispatch(changeCity(city));
     dispatch(changeSortType(DEFAULT_SORT_TYPE));
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function MenuCitiesComponent({ onChangeCity, currentCity }: PropsFromRedux): JSX.Element {
+  };
 
   const getClassNameActive = (city: string) => city === currentCity ? 'tabs__item--active' : '';
 
@@ -48,7 +39,4 @@ function MenuCitiesComponent({ onChangeCity, currentCity }: PropsFromRedux): JSX
   );
 }
 
-export { MenuCitiesComponent };
-export default connector(MenuCitiesComponent);
-
-
+export default MenuCitiesComponent;
