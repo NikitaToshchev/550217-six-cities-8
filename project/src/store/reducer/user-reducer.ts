@@ -17,12 +17,15 @@ const initialState: UserReducerState = {
   isDataLoaded: false,
   userData: null,
   error: null,
+  authorizationLoading: false,
+  logoutLoading: false,
+  loginActionLoading: false,
 };
 
 const userReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(requireAuthorizationRequest, (state: UserReducerState) => {
-      // state
+      state.authorizationLoading = true;
     })
     .addCase(requireAuthorizationSucces, (state: UserReducerState, action) => {
       const { authStatus, userData } = action.payload;
@@ -34,17 +37,16 @@ const userReducer = createReducer(initialState, (builder) => {
       state.error = action.payload;
     })
     .addCase(logoutRequest, (state: UserReducerState) => {
-      // state
+      state.logoutLoading = true;
     })
     .addCase(logoutFailure, (state: UserReducerState, action) => {
-      // state
       state.error = action.payload;
     })
     .addCase(requireLogout, (state: UserReducerState) => {
       state.authorizationStatus = AuthorizationStatus.NoAuth;
     })
     .addCase(loginActionRequest, (state: UserReducerState) => {
-      // state
+      state.loginActionLoading = true;
     })
     .addCase(loginActionFailure, (state: UserReducerState, action) => {
       state.error = action.payload;

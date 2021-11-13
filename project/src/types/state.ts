@@ -9,6 +9,9 @@ export type UserReducerState = {
   isDataLoaded: boolean,
   userData?: UserInfo | null,
   error: string | null,
+  authorizationLoading: boolean,
+  logoutLoading: boolean,
+  loginActionLoading: boolean,
 }
 
 export type DataReducerState = {
@@ -17,6 +20,12 @@ export type DataReducerState = {
   nearOffers: Offer[],
   reviews: Review[],
   error: string | null,
+  loadOffersLoading: boolean,
+  loadNearOffersLoading: boolean,
+  loadOfferByIdLoading: boolean,
+  loadOfferCommentsLoading: boolean,
+  postCommentLoading: boolean,
+  postCommentSuccess: boolean,
 };
 
 export type MainReducerState = {
