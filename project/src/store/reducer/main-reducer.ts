@@ -1,21 +1,21 @@
+import { createReducer } from '@reduxjs/toolkit';
 import { DEFAULT_CITY, DEFAULT_SORT_TYPE } from '../../const';
-import { Actions, ActionType } from '../../types/actions';
 import { MainReducerState } from '../../types/state';
+import { changeCity, changeSortType } from '../actions/action';
 
 const initialState: MainReducerState = {
   currentCity: DEFAULT_CITY,
   currentSortType: DEFAULT_SORT_TYPE,
 };
 
-const mainReducer = (state = initialState, action: Actions): MainReducerState => {
-  switch (action.type) {
-    case ActionType.ChangeSortType:
-      return { ...state, currentSortType: action.payload };
-    case ActionType.ChangeCity:
-      return { ...state, currentCity: action.payload };
-    default:
-      return state;
-  }
-};
+const mainReducer = createReducer(initialState, (builder) => {
+  builder
+    .addCase(changeSortType, (state: MainReducerState, action) => {
+      state.currentSortType = action.payload;
+    })
+    .addCase(changeCity, (state: MainReducerState, action) => {
+      state.currentCity = action.payload;
+    });
+});
 
 export { mainReducer };

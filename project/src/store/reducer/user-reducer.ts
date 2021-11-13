@@ -1,6 +1,16 @@
+import { createReducer } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../../const';
-import { Actions, ActionType } from '../../types/actions';
 import { UserReducerState } from '../../types/state';
+import {
+  loginActionFailure,
+  loginActionRequest,
+  logoutFailure,
+  logoutRequest,
+  requireAuthorizationFailure,
+  requireAuthorizationRequest,
+  requireAuthorizationSucces,
+  requireLogout
+} from '../actions/action';
 
 const initialState: UserReducerState = {
   authorizationStatus: AuthorizationStatus.Unknown,
@@ -9,35 +19,38 @@ const initialState: UserReducerState = {
   error: null,
 };
 
-const userReducer = (state = initialState, action: Actions): UserReducerState => {
-  switch (action.type) {
-    case ActionType.RequireAuthorizationRequest:
-      return { ...state };
-    case ActionType.RequireAuthorizationSucces: {
+const userReducer = createReducer(initialState, (builder) => {
+  builder
+    .addCase(requireAuthorizationRequest, (state: UserReducerState) => {
+      // state
+    })
+    .addCase(requireAuthorizationSucces, (state: UserReducerState, action) => {
       const { authStatus, userData } = action.payload;
-      return {
-        ...state,
-        authorizationStatus: authStatus,
-        userData,
-        isDataLoaded: true,
-      };
-    }
-    case ActionType.RequireAuthorizationFailure: {
-      return { ...state, error: action.payload };
-    }
-    case ActionType.LogoutRequest:
-      return { ...state };
-    case ActionType.LogoutFailure:
-      return { ...state, error: action.payload };
-    case ActionType.RequireLogout:
-      return { ...state, authorizationStatus: AuthorizationStatus.NoAuth };
-    case ActionType.LoginActionRequest:
-      return { ...state };
-    case ActionType.LoginActionFailure:
-      return { ...state, error: action.payload };
-    default:
-      return state;
-  }
-};
+      state.authorizationStatus = authStatus;
+      state.userData = userData;
+      state.isDataLoaded = true;
+    })
+    .addCase(requireAuthorizationFailure, (state: UserReducerState, action) => {
+      // const error = action.payload;  не будет работать то пробовать это
+      // const {error} = action.payload; это надо будет обернуть в объект в action
+      state.error = action.payload;
+    })
+    .addCase(logoutRequest, (state: UserReducerState) => {
+      // state
+    })
+    .addCase(logoutFailure, (state: UserReducerState, action) => {
+      // state
+      state.error = action.payload;
+    })
+    .addCase(requireLogout, (state: UserReducerState) => {
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
+    })
+    .addCase(loginActionRequest, (state: UserReducerState) => {
+      // state
+    })
+    .addCase(loginActionFailure, (state: UserReducerState, action) => {
+      state.error = action.payload;
+    });
+});
 
 export { userReducer };

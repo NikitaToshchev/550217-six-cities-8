@@ -3,129 +3,125 @@ import { ActionType } from '../../types/actions';
 import { AuthorizationStatus } from '../../const';
 import { Review } from '../../types/review';
 import { UserInfo } from '../../types/user-info';
+import { createAction } from '@reduxjs/toolkit';
 
-export const changeCity = (city: string) => ({
-  type: ActionType.ChangeCity,
-  payload: city,
-} as const);
+export const changeCity = createAction(
+  ActionType.ChangeCity, (city: string) => ({
+    payload: city,
+  }),
+);
 
-export const loadOffersRequest = () => ({
-  type: ActionType.LoadOffersRequest,
-} as const);
+export const loadOffersRequest = createAction(ActionType.LoadOffersRequest);
 
-export const loadOffersSucces = (offers: Offer[]) => ({
-  type: ActionType.LoadOffersSucces,
-  payload: {
-    offers,
-  },
-} as const);
+export const loadOffersSucces = createAction(
+  ActionType.LoadOffersSucces, (offers: Offer[]) => ({
+    payload: {
+      offers,
+    },
+  }),
+);
 
-export const loadOffersFailure = (error: string | null) => ({
-  type: ActionType.LoadOffersFailure,
-  payload: error,
-} as const);
+export const loadOffersFailure = createAction(
+  ActionType.LoadOffersSucces, (error: string | null) => ({
+    payload: error,
+  }),
+);
 
-export const loadOfferByIdRequest = () => ({
-  type: ActionType.LoadOfferByIdRequest,
-} as const);
+export const loadOfferByIdRequest = createAction(ActionType.LoadOfferByIdRequest);
 
-export const loadOfferByIdSuccess = (offerById: Offer) => ({
-  type: ActionType.LoadOfferByIdSuccess,
-  payload: {
-    offerById,
-  },
-} as const);
+export const loadOfferByIdSuccess = createAction(
+  ActionType.LoadOfferByIdSuccess, (offerById: Offer) => ({
+    payload: {
+      offerById,
+    },
+  }),
+);
 
-export const loadOfferByIdFailure = (error: string | null) => ({
-  type: ActionType.LoadOfferByIdFailure,
-  payload: error,
-} as const);
+export const loadOfferByIdFailure = createAction(
+  ActionType.LoadOfferByIdFailure, (error: string | null) => ({
+    payload: error,
+  }),
+);
 
-export const loadNearOffersRequest = () => ({
-  type: ActionType.LoadNearOffersRequest,
-} as const);
+export const loadNearOffersRequest = createAction(ActionType.LoadNearOffersRequest);
 
-export const loadNearOffersSuccess = (nearOffers: Offer[]) => ({
-  type: ActionType.LoadNearOffersSuccess,
-  payload: {
-    nearOffers,
-  },
-} as const);
+export const loadNearOffersSuccess = createAction(
+  ActionType.LoadNearOffersSuccess, (nearOffers: Offer[]) => ({
+    payload: {
+      nearOffers,
+    },
+  }),
+);
 
-export const loadNearOffersFailure = (error: string | null) => ({
-  type: ActionType.LoadNearOffersFailure,
-  payload: error,
-} as const);
+export const loadNearOffersFailure = createAction(
+  ActionType.LoadNearOffersFailure, (error: string | null) => ({
+    payload: error,
+  }),
+);
 
-export const loadOfferCommentsRequest = () => ({
-  type: ActionType.LoadOfferCommentsRequest,
-} as const);
+export const loadOfferCommentsRequest = createAction(ActionType.LoadOfferCommentsRequest);
 
-export const loadOfferCommentsSuccess = (reviews: Review[]) => ({
-  type: ActionType.LoadOfferCommentsSuccess,
-  payload: {
-    reviews,
-  },
-} as const);
+export const loadOfferCommentsSuccess = createAction(
+  ActionType.LoadNearOffersSuccess, (reviews: Review[]) => ({
+    payload: {
+      reviews,
+    },
+  }),
+);
 
-export const loadOfferCommentsFailure = (error: string | null) => ({
-  type: ActionType.LoadOfferCommentsFailure,
-  payload: error,
-} as const);
+export const loadOfferCommentsFailure = createAction(
+  ActionType.LoadOfferCommentsFailure, (error: string | null) => ({
+    payload: error,
+  }),
+);
 
-export const changeSortType = (sortType: string) => ({
-  type: ActionType.ChangeSortType,
-  payload: sortType,
-} as const);
+export const changeSortType = createAction(
+  ActionType.ChangeCity, (sortType: string) => ({
+    payload: sortType,
+  }),
+);
 
-export const requireAuthorizationRequest = () => ({
-  type: ActionType.RequireAuthorizationRequest,
-} as const);
+export const requireAuthorizationRequest = createAction(ActionType.RequireAuthorizationRequest);
 
-export const requireAuthorizationSucces = (authStatus: AuthorizationStatus, userData?: UserInfo | null) => ({
-  type: ActionType.RequireAuthorizationSucces,
-  payload: {
-    authStatus,
-    userData,
-  },
-} as const);
+export const requireAuthorizationSucces = createAction(
+  ActionType.RequireAuthorizationSucces, (authStatus: AuthorizationStatus, userData?: UserInfo | null) => ({
+    payload: {
+      authStatus,
+      userData,
+    },
+  }),
+);
 
-export const requireAuthorizationFailure = (error: string | null) => ({
-  type: ActionType.RequireAuthorizationFailure,
-  payload: error,
-} as const);
+export const requireAuthorizationFailure = createAction(
+  ActionType.RequireAuthorizationFailure, (error: string | null) => ({
+    payload: error,
+  }),
+);
 
-export const loginActionRequest = () => ({
-  type: ActionType.LoginActionRequest,
-} as const);
+export const loginActionRequest = createAction(ActionType.LoginActionRequest);
 
-export const loginActionFailure = (error: string | null) => ({
-  type: ActionType.LoginActionFailure,
-  payload: error,
-} as const);
+export const loginActionFailure = createAction(
+  ActionType.LoginActionFailure, (error: string | null) => ({
+    payload: error,
+  }),
+);
 
-export const requireLogout = () => ({
-  type: ActionType.RequireLogout,
-} as const);
+export const requireLogout = createAction(ActionType.RequireLogout);
 
-export const logoutRequest = () => ({
-  type: ActionType.LogoutRequest,
-} as const);
+export const logoutRequest = createAction(ActionType.LogoutRequest);
 
-export const logoutFailure = (error: string | null) => ({
-  type: ActionType.LogoutFailure,
-  payload: error,
-} as const);
+export const logoutFailure = createAction(
+  ActionType.LogoutFailure, (error: string | null) => ({
+    payload: error,
+  }),
+);
 
-export const postCommentRequest = () => ({
-  type: ActionType.PostCommentRequest,
-} as const);
+export const postCommentRequest = createAction(ActionType.PostCommentRequest);
 
-export const postCommentSuccess = () => ({
-  type: ActionType.PostCommentSuccess,
-} as const);
+export const postCommentSuccess = createAction(ActionType.PostCommentSuccess);
 
-export const postCommentFailure = (error: string | null) => ({
-  type: ActionType.PostCommentFailure,
-  payload: error,
-} as const);
+export const postCommentFailure = createAction(
+  ActionType.PostCommentFailure, (error: string | null) => ({
+    payload: error,
+  }),
+);

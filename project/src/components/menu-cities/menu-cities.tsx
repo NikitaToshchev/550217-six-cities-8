@@ -1,6 +1,5 @@
 import { State } from '../../types/state';
 import { connect, ConnectedProps } from 'react-redux';
-import { Actions } from '../../types/actions';
 import { Dispatch } from 'redux';
 import { changeCity, changeSortType } from '../../store/actions/action';
 import { CITIES, DEFAULT_SORT_TYPE } from '../../const';
@@ -11,7 +10,7 @@ const mapStateToProps = (state: State) => ({
   offers: getOffers(state),
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
+const mapDispatchToProps = (dispatch: Dispatch) => ({
   onChangeCity(city: string) {
     dispatch(changeCity(city));
     dispatch(changeSortType(DEFAULT_SORT_TYPE));
