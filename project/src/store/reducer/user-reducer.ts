@@ -31,8 +31,6 @@ const userReducer = createReducer(initialState, (builder) => {
       state.isDataLoaded = true;
     })
     .addCase(requireAuthorizationFailure, (state: UserReducerState, action) => {
-      // const error = action.payload;  не будет работать то пробовать это
-      // const {error} = action.payload; это надо будет обернуть в объект в action
       state.error = action.payload;
     })
     .addCase(logoutRequest, (state: UserReducerState) => {

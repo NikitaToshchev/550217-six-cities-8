@@ -26,10 +26,9 @@ const initialState: DataReducerState = {
   error: null,
 };
 
-
 const dataReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(loadOffersRequest, (state) => {
+    .addCase(loadOffersRequest, (state: DataReducerState) => {
       // state
     })
     .addCase(loadOffersSucces, (state: DataReducerState, action) => {
@@ -40,7 +39,7 @@ const dataReducer = createReducer(initialState, (builder) => {
       // state
       state.error = action.payload;
     })
-    .addCase(loadNearOffersRequest, (state) => {
+    .addCase(loadNearOffersRequest, (state: DataReducerState) => {
       // state
     })
     .addCase(loadNearOffersSuccess, (state: DataReducerState, action) => {
