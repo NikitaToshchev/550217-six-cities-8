@@ -18,11 +18,9 @@ function ReviewNewComponent(): JSX.Element {
   const [formState, setFormState] = useState<{ [key: string]: ReviewsItemForm }>({
     rating: {
       value: '0',
-      isValid: false,
     },
     review: {
       value: '',
-      isValid: false,
       minValue: 50,
       maxValue: 300,
     },
@@ -54,22 +52,16 @@ function ReviewNewComponent(): JSX.Element {
   const handleChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = evt.target;
 
-    let isValid = false;
-    if (name === 'review' && formState.review.maxValue && formState.review.minValue) {
-      isValid = Boolean(value.length >= formState.review.minValue && value.length < formState.review.maxValue);
-    } else {
-      isValid = Boolean(value);
-    }
-
     setFormState({
       ...formState,
       [name]: {
         ...formState[name],
         value,
-        isValid,
       },
     });
   };
+
+  const isDisabled = formState.rating.value === '0' || formState.review.value.length < 50 || formState.review.value.length > 300;
 
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={handleFormSubmit}>
@@ -95,7 +87,9 @@ function ReviewNewComponent(): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={!formState.review.isValid || !formState.rating.isValid}
+          // disabled={!formState.review.isValid || !formState.rating.isValid}
+          disabled={isDisabled}
+
         >
           Submit
         </button>
