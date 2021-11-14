@@ -12,13 +12,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppRoute, AuthorizationStatus, MAX_IMAGES } from '../../const';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { fetchCommentsAction, fetchNearOffersAction, fetchOfferByIdAction, postFavorititeAction } from '../../store/actions/api-actions';
-import { getAuthorizationStatus, getNearOffers, getOfferById } from '../../store/selectors/selectors';
+import { getAuthorizationStatus, getIsOfferLoadedStatus, getNearOffers, getOfferById } from '../../store/selectors/selectors';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 function RoomScreen(): JSX.Element {
 
   const offerById = useSelector(getOfferById);
   const nearOffers = useSelector(getNearOffers);
   const authorizationStatus = useSelector(getAuthorizationStatus);
+  const isDataLoaded = useSelector(getIsOfferLoadedStatus);
 
   const { id } = useParams() as { id: string };
   const [activeCard, setActiveCard] = useState<Offer | null>(null);
@@ -42,6 +44,9 @@ function RoomScreen(): JSX.Element {
     dispatch(fetchCommentsAction(id));
   }, [id, dispatch]);
 
+  if (!isDataLoaded) {
+    return <LoadingScreen />;
+  }
   if (!offerById) {
     return <NotFoundScreen />;
   }

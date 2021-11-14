@@ -39,6 +39,7 @@ const initialState: DataReducerState = {
   postCommentSuccess: false,
   loadFavoriteOffersLoading: false,
   postFavoriteLoading: false,
+  isOfferLoaded: false,
 };
 
 const dataReducer = createReducer(initialState, (builder) => {
@@ -69,6 +70,8 @@ const dataReducer = createReducer(initialState, (builder) => {
     .addCase(loadOfferByIdSuccess, (state: DataReducerState, action) => {
       const { offerById } = action.payload;
       state.offerById = offerById;
+      state.isOfferLoaded = true;
+
     })
     .addCase(loadOfferByIdFailure, (state: DataReducerState, action) => {
       state.error = action.payload;
