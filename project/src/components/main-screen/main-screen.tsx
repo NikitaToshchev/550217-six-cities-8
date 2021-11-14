@@ -5,20 +5,15 @@ import { useState } from 'react';
 import { getSortedOffers } from '../../utils/utils';
 import MainScreenEmpty from '../main-screen-empty/main-screen-empty';
 import MainScreenContent from '../main-screen-content/main-screen-content';
-import { connect, ConnectedProps } from 'react-redux';
-import { State } from '../../types/state';
+import { useSelector } from 'react-redux';
+import { getCurrentCity, getCurrentSortType, getOffers } from '../../store/selectors/selectors';
 
-const mapStateToProps = ({ currentSortType, currentCity, offers }: State) => ({
-  currentSortType,
-  currentCity,
-  offers,
-});
-
-const connector = connect(mapStateToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function MainScreen({ offers, currentCity, currentSortType }: PropsFromRedux): JSX.Element {
+function MainScreen(): JSX.Element {
   const [activeCard, setActiveCard] = useState<Offer | null>(null);
+
+  const currentSortType = useSelector(getCurrentSortType);
+  const currentCity = useSelector(getCurrentCity);
+  const offers = useSelector(getOffers);
 
   const handleActiveCard = (offer: Offer | null): void => {
     setActiveCard(offer);
@@ -57,5 +52,4 @@ function MainScreen({ offers, currentCity, currentSortType }: PropsFromRedux): J
   );
 }
 
-export { MainScreen };
-export default connector(MainScreen);
+export default MainScreen;

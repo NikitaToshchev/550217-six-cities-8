@@ -1,34 +1,20 @@
 import { SortTypes } from '../../const';
-import { Dispatch, useState } from 'react';
-import { State } from '../../types/state';
-import { changeSortType } from '../../store/action';
-import { connect, ConnectedProps } from 'react-redux';
-import { Actions } from '../../types/actions';
+import { useState } from 'react';
+import { changeSortType } from '../../store/actions/action';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCurrentSortType } from '../../store/selectors/selectors';
 
+function SortingComponent(): JSX.Element {
 
-const mapStateToProps = ({ currentSortType }: State) => ({
-  currentSortType,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
-  onChangeSortType(sortType: string) {
-    dispatch(changeSortType(sortType));
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = PropsFromRedux;
-
-function SortingComponent({ currentSortType, onChangeSortType }: ConnectedComponentProps): JSX.Element {
+  const currentSortType = useSelector(getCurrentSortType);
   const [isOpenSort, setOpenSort] = useState(false);
-
+  const dispatch = useDispatch();
   const handleToggleSort = () => {
     setOpenSort(!isOpenSort);
   };
 
   const handleClickItemSort = (type: string) => {
-    onChangeSortType(type);
+    dispatch(changeSortType(type));
     setOpenSort(!isOpenSort);
   };
 
@@ -62,5 +48,4 @@ function SortingComponent({ currentSortType, onChangeSortType }: ConnectedCompon
   );
 }
 
-export { SortingComponent };
-export default connector(SortingComponent);
+export default SortingComponent;

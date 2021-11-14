@@ -1,5 +1,6 @@
 import { Offer } from '../../types/offer';
 import FavoritesItem from '../favorites-item/favorites-item';
+
 type FavorItemListProps = {
   offers: Offer[],
   cities: string[],

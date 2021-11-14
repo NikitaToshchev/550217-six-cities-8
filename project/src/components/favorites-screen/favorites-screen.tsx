@@ -2,17 +2,12 @@ import FooterComponet from '../footer/footer';
 import HeaderComponet from '../header/header';
 import FavoritesEmptyComponent from '../favorites-empty/favorites-empty';
 import FavoritesComponent from '../favorites/favorites';
-import { connect, ConnectedProps } from 'react-redux';
-import { State } from '../../types/state';
+import { useSelector } from 'react-redux';
+import { getOffers } from '../../store/selectors/selectors';
 
-const mapStateToProps = ({ offers }: State) => ({
-  offers,
-});
+function FavoritesScreen(): JSX.Element {
+  const offers = useSelector(getOffers);
 
-const connector = connect(mapStateToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function FavoritesScreen({ offers }: PropsFromRedux): JSX.Element {
   const favoritesOffers = offers.filter((offer) => offer.isFavorite);
 
   const pageMainFavoritesClass = offers.length ? 'page' : 'page page--favorites-empty';
@@ -26,6 +21,5 @@ function FavoritesScreen({ offers }: PropsFromRedux): JSX.Element {
   );
 }
 
-export { FavoritesScreen };
-export default connector(FavoritesScreen);
+export default FavoritesScreen;
 

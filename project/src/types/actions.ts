@@ -1,35 +1,7 @@
-import {
-  changeCity,
-  loadOffersRequest,
-  loadOffersFailure,
-  loadOffersSucces,
-  changeSortType,
-  requireAuthorizationRequest,
-  requireAuthorizationSucces,
-  requireAuthorizationFailure,
-  loadOfferCommentsRequest,
-  loadOfferCommentsSuccess,
-  loadOfferCommentsFailure,
-  loginActionRequest,
-  loginActionFailure,
-  logoutRequest,
-  requireLogout,
-  logoutFailure,
-  loadOfferByIdRequest,
-  loadOfferByIdSuccess,
-  loadOfferByIdFailure,
-  postCommentRequest,
-  postCommentSuccess,
-  postCommentFailure,
-  loadNearOffersRequest,
-  loadNearOffersSuccess,
-  loadNearOffersFailure
-
-} from '../store/action';
-
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { AxiosInstance } from 'axios';
 import { State } from '../types/state';
+import { Action } from 'redux';
 
 export enum ActionType {
   ChangeCity = 'main/changeCity',
@@ -57,36 +29,8 @@ export enum ActionType {
   RequireLogout = 'user/requireLogout',
   LogoutRequest = 'user/logoutRequest',
   LogoutFailure = 'user/logoutFailure',
-
 }
 
-export type Actions =
-  | ReturnType<typeof changeCity>
-  | ReturnType<typeof changeSortType>
-  | ReturnType<typeof loadOffersFailure>
-  | ReturnType<typeof loadOffersRequest>
-  | ReturnType<typeof loadOffersSucces>
-  | ReturnType<typeof requireAuthorizationRequest>
-  | ReturnType<typeof requireAuthorizationSucces>
-  | ReturnType<typeof requireAuthorizationFailure>
-  | ReturnType<typeof loginActionRequest>
-  | ReturnType<typeof loginActionFailure>
-  | ReturnType<typeof loadOfferCommentsRequest>
-  | ReturnType<typeof loadOfferCommentsSuccess>
-  | ReturnType<typeof loadOfferCommentsFailure>
-  | ReturnType<typeof postCommentRequest>
-  | ReturnType<typeof postCommentSuccess>
-  | ReturnType<typeof postCommentFailure>
-  | ReturnType<typeof loadNearOffersRequest>
-  | ReturnType<typeof loadNearOffersSuccess>
-  | ReturnType<typeof loadNearOffersFailure>
-  | ReturnType<typeof requireLogout>
-  | ReturnType<typeof logoutRequest>
-  | ReturnType<typeof logoutFailure>
-  | ReturnType<typeof loadOfferByIdRequest>
-  | ReturnType<typeof loadOfferByIdSuccess>
-  | ReturnType<typeof loadOfferByIdFailure>;
+export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;
 
-export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
-
-export type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Actions>;
+export type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Action>;

@@ -1,21 +1,14 @@
-import { connect, ConnectedProps } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { MAX_REVIEWS } from '../../const';
-import { State } from '../../types/state';
+import { getAuthorizationStatus, getReviews } from '../../store/selectors/selectors';
 import { sortReviewsUpDate } from '../../utils/utils';
 import ReviewsItemComponent from '../reviews-item/reviews-item';
 import ReviewsNewComponent from '../reviews-new/reviews-new';
 
-const mapStateToProps = ({ reviews, authorizationStatus }: State) => ({
-  reviews,
-  authorizationStatus,
-});
+function ReviewsComponent(): JSX.Element {
 
-const connector = connect(mapStateToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = PropsFromRedux;
-
-function ReviewsComponent({ reviews, authorizationStatus }: ConnectedComponentProps): JSX.Element {
+  const reviews = useSelector(getReviews);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
 
   const cropedSortedReviews = reviews.slice(0, MAX_REVIEWS).sort(sortReviewsUpDate);
 
@@ -30,5 +23,4 @@ function ReviewsComponent({ reviews, authorizationStatus }: ConnectedComponentPr
   );
 }
 
-export { ReviewsComponent };
-export default connector(ReviewsComponent);
+export default ReviewsComponent;

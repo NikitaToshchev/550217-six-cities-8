@@ -1,4 +1,4 @@
-import { ThunkActionResult } from '../types/actions';
+import { ThunkActionResult } from '../../types/actions';
 import {
   loadNearOffersFailure,
   loadNearOffersRequest,
@@ -24,13 +24,13 @@ import {
   requireAuthorizationSucces,
   requireLogout
 } from './action';
-import { saveToken, dropToken } from '../services/token';
-import { APIRoute, AuthorizationStatus } from '../const';
-import { AuthData } from '../types/auth-data';
-import { adaptCommentsToClient, adaptOffersToClient, adaptOfferToClient, adaptUserInfoToClient } from '../utils/utils';
-import { BackOffer } from '../types/back-offer';
-import { BackReview } from '../types/back-review';
-import { CommentPost } from '../types/commentPost';
+import { saveToken, dropToken } from '../../services/token';
+import { APIRoute, AuthorizationStatus } from '../../const';
+import { AuthData } from '../../types/auth-data';
+import { adaptCommentsToClient, adaptOffersToClient, adaptOfferToClient, adaptUserInfoToClient } from '../../utils/utils';
+import { BackOffer } from '../../types/back-offer';
+import { BackReview } from '../../types/back-review';
+import { CommentPost } from '../../types/commentPost';
 
 export const fetchOffersAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {

@@ -6,21 +6,15 @@ import FavoritesScreen from '../favorites-screen/favorites-screen';
 import RoomScreen from '../room-screen/room-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
-import { connect, ConnectedProps } from 'react-redux';
-import { State } from '../../types/state';
+import { useSelector } from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { isCheckedAuth } from '../../utils/utils';
+import { getAuthorizationStatus, getIsDataLoadedStatus } from '../../store/selectors/selectors';
 
-const mapStateToProps = ({ authorizationStatus, isDataLoaded }: State) => ({
-  authorizationStatus,
-  isDataLoaded,
-});
+function App(): JSX.Element {
 
-const connector = connect(mapStateToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function App({ authorizationStatus, isDataLoaded }: PropsFromRedux): JSX.Element {
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const isDataLoaded = useSelector(getIsDataLoadedStatus);
 
   if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
     return <LoadingScreen />;
@@ -58,5 +52,4 @@ function App({ authorizationStatus, isDataLoaded }: PropsFromRedux): JSX.Element
   );
 }
 
-export { App };
-export default connector(App);
+export default App;

@@ -1,9 +1,8 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
-import { connect, ConnectedProps } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { loginAction } from '../../store/api-actions';
-import { ThunkAppDispatch } from '../../types/actions';
+import { loginAction } from '../../store/actions/api-actions';
 import { AuthData } from '../../types/auth-data';
 import { InputSignForm } from '../../types/Input-sign-form';
 
@@ -12,17 +11,12 @@ const formFields = {
   password: 'Password',
 };
 
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  onSubmit(authData: AuthData) {
+function SignInScreen(): JSX.Element {
+
+  const dispatch = useDispatch();
+  const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
-  },
-});
-
-const connector = connect(null, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function SignInScreen({ onSubmit }: PropsFromRedux): JSX.Element {
+  };
 
   const history = useHistory();
 
@@ -134,6 +128,5 @@ function SignInScreen({ onSubmit }: PropsFromRedux): JSX.Element {
   );
 }
 
-export { SignInScreen };
-export default connector(SignInScreen);
+export default SignInScreen;
 
