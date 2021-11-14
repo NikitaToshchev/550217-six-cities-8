@@ -3,12 +3,12 @@ import { Offer } from '../../types/offer';
 import FavoritesItemCardComponent from '../favorites-item-card/favorites-item-card';
 
 type FavoritesItemProps = {
-  offers: Offer[];
+  favoritesOffers: Offer[];
   city: string,
 }
 
-function FavoritesItemComponent({ city, offers }: FavoritesItemProps): JSX.Element {
-  const cityByOffers = offers.filter((offer) => city === offer.city.name);
+function FavoritesItemComponent({ city, favoritesOffers }: FavoritesItemProps): JSX.Element {
+  const cityByOffers = favoritesOffers.filter((offer) => city === offer.city.name);
 
   return (
     <li className="favorites__locations-items">

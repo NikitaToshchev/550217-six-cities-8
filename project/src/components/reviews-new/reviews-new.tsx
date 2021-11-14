@@ -1,7 +1,7 @@
 import { FormEvent, useState, ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ratingStars } from '../../const';
-import { fetchCommentsAction, postCommentsAction } from '../../store/actions/api-actions';
+import { postCommentsAction } from '../../store/actions/api-actions';
 import { getOfferById } from '../../store/selectors/selectors';
 import { CommentPost } from '../../types/commentPost';
 import { ReviewsItemForm } from '../../types/reviews-item-form';
@@ -13,7 +13,6 @@ function ReviewNewComponent(): JSX.Element {
 
   const onSubmit = (commentPost: CommentPost) => {
     dispatch(postCommentsAction(commentPost));
-    dispatch(fetchCommentsAction(commentPost.id as string));
   };
 
   const [formState, setFormState] = useState<{ [key: string]: ReviewsItemForm }>({

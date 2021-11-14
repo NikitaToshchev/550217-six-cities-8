@@ -29,6 +29,12 @@ export enum ActionType {
   RequireLogout = 'user/requireLogout',
   LogoutRequest = 'user/logoutRequest',
   LogoutFailure = 'user/logoutFailure',
+  LoadFavoriteOffersRequest = 'data/loadFavoriteOffersRequest',
+  LoadFavoriteOffersSuccess = 'data/loadFavoriteOffersSuccess',
+  LoadFavoriteOffersFailure = 'data/loadFavoriteOffersFailure',
+  PostFavoriteRequest = 'data/postFavoriteRequest',
+  PostFavoriteSuccess = 'data/postFavoriteSuccess',
+  PostFavoriteFailure = 'data/postFavoriteFailure',
 }
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;

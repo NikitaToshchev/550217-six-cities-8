@@ -7,6 +7,7 @@ import { NameSpace } from '../reducer/root-reducer';
 
 export const getOffers = (state: State): Offer[] => state[NameSpace.data].offers;
 export const getNearOffers = (state: State): Offer[] => state[NameSpace.data].nearOffers;
+export const getFavoriteOffers = (state: State): Offer[] => state[NameSpace.data].favoriteOffers;
 export const getReviews = (state: State): Review[] => state[NameSpace.data].reviews;
 export const getOfferById = (state: State): Offer | null => state[NameSpace.data].offerById;
 

@@ -1,6 +1,9 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { DataReducerState } from '../../types/state';
 import {
+  loadFavoriteOffersFailure,
+  loadFavoriteOffersRequest,
+  loadFavoriteOffersSuccess,
   loadNearOffersFailure,
   loadNearOffersRequest,
   loadNearOffersSuccess,
@@ -15,7 +18,10 @@ import {
   loadOffersSucces,
   postCommentFailure,
   postCommentRequest,
-  postCommentSuccess
+  postCommentSuccess,
+  postFavoriteFailure,
+  postFavoriteRequest,
+  postFavoriteSuccess
 } from '../actions/action';
 
 const initialState: DataReducerState = {
@@ -23,6 +29,7 @@ const initialState: DataReducerState = {
   offerById: null,
   nearOffers: [],
   reviews: [],
+  favoriteOffers: [],
   error: null,
   loadOffersLoading: false,
   loadNearOffersLoading: false,
@@ -30,6 +37,8 @@ const initialState: DataReducerState = {
   loadOfferCommentsLoading: false,
   postCommentLoading: false,
   postCommentSuccess: false,
+  loadFavoriteOffersLoading: false,
+  postFavoriteLoading: false,
 };
 
 const dataReducer = createReducer(initialState, (builder) => {
@@ -81,6 +90,36 @@ const dataReducer = createReducer(initialState, (builder) => {
       state.postCommentSuccess = true;
     })
     .addCase(postCommentFailure, (state: DataReducerState, action) => {
+      state.error = action.payload;
+    })
+    .addCase(loadFavoriteOffersRequest, (state: DataReducerState) => {
+      state.loadFavoriteOffersLoading = true;
+    })
+    .addCase(loadFavoriteOffersSuccess, (state: DataReducerState, action) => {
+      const { favoriteOffers } = action.payload;
+      state.favoriteOffers = favoriteOffers;
+    })
+    .addCase(loadFavoriteOffersFailure, (state: DataReducerState, action) => {
+      state.error = action.payload;
+    })
+    .addCase(postFavoriteRequest, (state: DataReducerState) => {
+      state.postFavoriteLoading = true;
+    })
+    .addCase(postFavoriteSuccess, (state: DataReducerState, action) => {
+      const { id, status } = action.payload;
+      const favoriteOfferMain = state.offers.find((offer) => offer.id === id);
+      if (favoriteOfferMain) {
+        favoriteOfferMain.isFavorite = status;
+      }
+      if (state.offerById && state.offerById.id === id) {
+        state.offerById.isFavorite = status;
+      }
+      const favoriteOfferNear = state.nearOffers.find((offer) => offer.id === id);
+      if (favoriteOfferNear) {
+        favoriteOfferNear.isFavorite = status;
+      }
+    })
+    .addCase(postFavoriteFailure, (state: DataReducerState, action) => {
       state.error = action.payload;
     });
 });

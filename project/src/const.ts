@@ -16,7 +16,7 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
   Comments = '/comments',
-  Favorite = '/favorite'
+  Favorite = '/favorite',
 }
 
 export const DEFAULT_CITY = 'Paris';

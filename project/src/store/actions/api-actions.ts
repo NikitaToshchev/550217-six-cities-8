@@ -1,5 +1,8 @@
 import { ThunkActionResult } from '../../types/actions';
 import {
+  loadFavoriteOffersFailure,
+  loadFavoriteOffersRequest,
+  loadFavoriteOffersSuccess,
   loadNearOffersFailure,
   loadNearOffersRequest,
   loadNearOffersSuccess,
@@ -19,6 +22,9 @@ import {
   postCommentFailure,
   postCommentRequest,
   postCommentSuccess,
+  postFavoriteFailure,
+  postFavoriteRequest,
+  postFavoriteSuccess,
   requireAuthorizationFailure,
   requireAuthorizationRequest,
   requireAuthorizationSucces,
@@ -77,6 +83,7 @@ export const postCommentsAction = ({ id, rating, comment }: CommentPost): ThunkA
     try {
       await api.post(`${APIRoute.Comments}/${id}`, { rating, comment });
       dispatch(postCommentSuccess());
+      dispatch(fetchCommentsAction(id as string));
     }
     catch (error: any) {
       dispatch(postCommentFailure(error.toString()));
@@ -133,5 +140,30 @@ export const logoutAction = (): ThunkActionResult =>
       dispatch(requireLogout());
     } catch (error: any) {
       dispatch(logoutFailure(error.toString()));
+    }
+  };
+
+export const fetchFavoriteOffersAction = (): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    dispatch(loadFavoriteOffersRequest());
+    try {
+      const { data } = await api.get<BackOffer[]>(APIRoute.Favorite);
+      const adaptedOffers = adaptOffersToClient(data);
+      dispatch(loadFavoriteOffersSuccess(adaptedOffers));
+    }
+    catch (error: any) {
+      dispatch(loadFavoriteOffersFailure(error.toString()));
+    }
+  };
+
+export const postFavorititeAction = (id: number, status: boolean): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    dispatch(postFavoriteRequest());
+    try {
+      await api.post(`${APIRoute.Favorite}/${id}/${Number(status)}`);
+      dispatch(postFavoriteSuccess(id, status));
+    }
+    catch (error: any) {
+      dispatch(postFavoriteFailure(error.toString()));
     }
   };

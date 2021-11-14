@@ -1,4 +1,8 @@
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { postFavorititeAction } from '../../store/actions/api-actions';
+import { getAuthorizationStatus } from '../../store/selectors/selectors';
 import { Offer } from '../../types/offer';
 import { getRating } from '../../utils/utils';
 
@@ -14,6 +18,18 @@ function NearPlaceCardComponent({ nearOffer, handleActiveCard }: NearPlaceCardPr
     : 'place-card__bookmark-button button';
   const getPremiumMark = isPremium ? <div className="place-card__mark"><span>Premium</span></div> : '';
   const offerRating = getRating(rating);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const handleFavoriteBthClick = (offer: Offer) => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(postFavorititeAction(offer.id, !offer.isFavorite));
+    } else {
+      history.push(AppRoute.SignIn);
+    }
+  };
 
   return (
     <article className="near-places__card place-card"
@@ -32,7 +48,11 @@ function NearPlaceCardComponent({ nearOffer, handleActiveCard }: NearPlaceCardPr
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={bookmarkButtonClass} type="button">
+          <button
+            className={bookmarkButtonClass}
+            type="button"
+            onClick={() => handleFavoriteBthClick(nearOffer)}
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark" />
             </svg>

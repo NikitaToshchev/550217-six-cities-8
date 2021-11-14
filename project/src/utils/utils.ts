@@ -81,6 +81,8 @@ export const adaptCommentToClient = (review: BackReview): Review => {
       user: {
         avatarUrl: review.user.avatar_url,
         isPro: review.user.is_pro,
+        id: review.user.id,
+        name: review.user.name,
       },
     },
   ) as Review;
