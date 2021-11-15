@@ -50,6 +50,7 @@ const dataReducer = createReducer(initialState, (builder) => {
     .addCase(loadOffersSucces, (state: DataReducerState, action) => {
       const { offers } = action.payload;
       state.offers = offers;
+      state.loadOffersLoading = false;
     })
     .addCase(loadOffersFailure, (state: DataReducerState, action) => {
       state.error = action.payload;
@@ -60,6 +61,7 @@ const dataReducer = createReducer(initialState, (builder) => {
     .addCase(loadNearOffersSuccess, (state: DataReducerState, action) => {
       const { nearOffers } = action.payload;
       state.nearOffers = nearOffers;
+      state.loadNearOffersLoading = false;
     })
     .addCase(loadNearOffersFailure, (state: DataReducerState, action) => {
       state.error = action.payload;
@@ -70,6 +72,7 @@ const dataReducer = createReducer(initialState, (builder) => {
     .addCase(loadOfferByIdSuccess, (state: DataReducerState, action) => {
       const { offerById } = action.payload;
       state.offerById = offerById;
+      state.loadOfferByIdLoading = false;
       state.isOfferLoaded = true;
 
     })
@@ -82,6 +85,7 @@ const dataReducer = createReducer(initialState, (builder) => {
     .addCase(loadOfferCommentsSuccess, (state: DataReducerState, action) => {
       const { reviews } = action.payload;
       state.reviews = reviews;
+      state.loadOfferCommentsLoading = false;
     })
     .addCase(loadOfferCommentsFailure, (state: DataReducerState, action) => {
       state.error = action.payload;
@@ -90,6 +94,7 @@ const dataReducer = createReducer(initialState, (builder) => {
       state.postCommentLoading = true;
     })
     .addCase(postCommentSuccess, (state: DataReducerState) => {
+      state.postCommentLoading = false;
       state.postCommentSuccess = true;
     })
     .addCase(postCommentFailure, (state: DataReducerState, action) => {
@@ -101,6 +106,7 @@ const dataReducer = createReducer(initialState, (builder) => {
     .addCase(loadFavoriteOffersSuccess, (state: DataReducerState, action) => {
       const { favoriteOffers } = action.payload;
       state.favoriteOffers = favoriteOffers;
+      state.loadFavoriteOffersLoading = false;
     })
     .addCase(loadFavoriteOffersFailure, (state: DataReducerState, action) => {
       state.error = action.payload;
@@ -125,6 +131,7 @@ const dataReducer = createReducer(initialState, (builder) => {
       if (favoriteOfferNear) {
         favoriteOfferNear.isFavorite = status;
       }
+      state.postFavoriteLoading = false;
     })
     .addCase(postFavoriteFailure, (state: DataReducerState, action) => {
       state.error = action.payload;
