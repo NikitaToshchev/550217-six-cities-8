@@ -12,7 +12,6 @@ export const getReviews = (state: State): Review[] => state[NameSpace.data].revi
 export const getOfferById = (state: State): Offer | null => state[NameSpace.data].offerById;
 export const getIsOfferLoadedStatus = (state: State): boolean | undefined => state[NameSpace.data].isOfferLoaded;
 
-
 export const getIsDataLoadedStatus = (state: State): boolean | undefined => state[NameSpace.user].isDataLoaded;
 export const getUserData = (state: State): UserInfo | null | undefined => state[NameSpace.user].userData;
 export const getAuthorizationStatus = (state: State): AuthorizationStatus =>

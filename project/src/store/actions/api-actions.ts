@@ -31,12 +31,13 @@ import {
   requireLogout
 } from './action';
 import { saveToken, dropToken } from '../../services/token';
-import { APIRoute, AuthorizationStatus } from '../../const';
+import { APIRoute, AuthorizationStatus, ToastMessage } from '../../const';
 import { AuthData } from '../../types/auth-data';
 import { adaptCommentsToClient, adaptOffersToClient, adaptOfferToClient, adaptUserInfoToClient } from '../../utils/utils';
 import { BackOffer } from '../../types/back-offer';
 import { BackReview } from '../../types/back-review';
 import { CommentPost } from '../../types/commentPost';
+import { toast } from 'react-toastify';
 
 export const fetchOffersAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
@@ -61,6 +62,7 @@ export const fetchOfferByIdAction = (id: string): ThunkActionResult =>
     }
     catch (error: any) {
       dispatch(loadOfferByIdFailure(error.toString()));
+      toast.error(ToastMessage.FETCH_OFFER_BY_ID_FAIL_MESSAGE);
     }
   };
 
@@ -74,6 +76,7 @@ export const fetchCommentsAction = (id: string): ThunkActionResult =>
     }
     catch (error: any) {
       dispatch(loadOfferCommentsFailure(error.toString()));
+      toast.error(ToastMessage.FETCH_COMMENTS_FAIL_MESSAGE);
     }
   };
 
@@ -87,6 +90,7 @@ export const postCommentsAction = ({ id, rating, comment }: CommentPost): ThunkA
     }
     catch (error: any) {
       dispatch(postCommentFailure(error.toString()));
+      toast.error(ToastMessage.POST_COMMENT_FAIL_MESSAGE);
     }
   };
 
@@ -100,6 +104,7 @@ export const fetchNearOffersAction = (id: string): ThunkActionResult =>
     }
     catch (error: any) {
       dispatch(loadNearOffersFailure(error.toString()));
+      toast.warn(ToastMessage.FETCH_NEARBY_OFFER_FAIL_MESSAGE);
     }
   };
 
@@ -113,6 +118,7 @@ export const checkAuthAction = (): ThunkActionResult =>
     }
     catch (error: any) {
       dispatch(requireAuthorizationFailure(error.toString()));
+      toast.info(ToastMessage.AUTH_PROMT_MESSAGE);
     }
   };
 
@@ -128,6 +134,7 @@ export const loginAction = ({ login: email, password }: AuthData): ThunkActionRe
     }
     catch (error: any) {
       dispatch(loginActionFailure(error.toString()));
+      toast.warn(ToastMessage.LOGIN_FAIL_MESSAGE);
     }
   };
 
@@ -140,6 +147,7 @@ export const logoutAction = (): ThunkActionResult =>
       dispatch(requireLogout());
     } catch (error: any) {
       dispatch(logoutFailure(error.toString()));
+      toast.error(ToastMessage.LOGOUT_FAIL_MESSAGE);
     }
   };
 
@@ -153,6 +161,7 @@ export const fetchFavoriteOffersAction = (): ThunkActionResult =>
     }
     catch (error: any) {
       dispatch(loadFavoriteOffersFailure(error.toString()));
+      toast.error(ToastMessage.FETCH_FAVORITES_MESSAGE);
     }
   };
 
@@ -165,5 +174,6 @@ export const postFavorititeAction = (id: number, status: boolean): ThunkActionRe
     }
     catch (error: any) {
       dispatch(postFavoriteFailure(error.toString()));
+      toast.error(ToastMessage.POST_FAVORITE_MESSAGE);
     }
   };
