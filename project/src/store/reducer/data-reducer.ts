@@ -114,6 +114,10 @@ const dataReducer = createReducer(initialState, (builder) => {
       if (favoriteOfferMain) {
         favoriteOfferMain.isFavorite = status;
       }
+      const favoriteOfferIndex = state.favoriteOffers.findIndex((offer) => offer.id === id);
+      if (favoriteOfferIndex !== -1) {
+        state.favoriteOffers.splice(favoriteOfferIndex, 1);
+      }
       if (state.offerById && state.offerById.id === id) {
         state.offerById.isFavorite = status;
       }

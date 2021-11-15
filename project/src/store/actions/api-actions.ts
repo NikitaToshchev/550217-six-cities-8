@@ -161,7 +161,7 @@ export const fetchFavoriteOffersAction = (): ThunkActionResult =>
     }
     catch (error: any) {
       dispatch(loadFavoriteOffersFailure(error.toString()));
-      toast.error(ToastMessage.FETCH_FAVORITES_MESSAGE);
+      toast.error(ToastMessage.FETCH_FAVORITES_FAIL_MESSAGE);
     }
   };
 
@@ -174,6 +174,6 @@ export const postFavorititeAction = (id: number, status: boolean): ThunkActionRe
     }
     catch (error: any) {
       dispatch(postFavoriteFailure(error.toString()));
-      toast.error(ToastMessage.POST_FAVORITE_MESSAGE);
+      toast.error(ToastMessage.POST_FAVORITE_FAIL_MESSAGE);
     }
   };

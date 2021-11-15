@@ -51,6 +51,6 @@ export enum ToastMessage {
   FETCH_NEARBY_OFFER_FAIL_MESSAGE = 'Failed to get data. Please try again',
   FETCH_COMMENTS_FAIL_MESSAGE = 'Failed to get data. Please try again',
   POST_COMMENT_FAIL_MESSAGE = 'Failed to send message. Please try again',
-  FETCH_FAVORITES_MESSAGE = 'Failed to get data. Please try again',
-  POST_FAVORITE_MESSAGE = 'Failed to send data. Please try again',
+  FETCH_FAVORITES_FAIL_MESSAGE = 'Failed to get data. Please try again',
+  POST_FAVORITE_FAIL_MESSAGE = 'Failed to send data. Please try again',
 }
