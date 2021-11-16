@@ -40,6 +40,8 @@ const initialState: DataReducerState = {
   loadFavoriteOffersLoading: false,
   postFavoriteLoading: false,
   isOfferLoaded: false,
+  isNearOffersLoaded: false,
+  isCommentsLoaded: false,
 };
 
 const dataReducer = createReducer(initialState, (builder) => {
@@ -62,6 +64,7 @@ const dataReducer = createReducer(initialState, (builder) => {
       const { nearOffers } = action.payload;
       state.nearOffers = nearOffers;
       state.loadNearOffersLoading = false;
+      state.isNearOffersLoaded = true;
     })
     .addCase(loadNearOffersFailure, (state: DataReducerState, action) => {
       state.error = action.payload;
@@ -86,6 +89,7 @@ const dataReducer = createReducer(initialState, (builder) => {
       const { reviews } = action.payload;
       state.reviews = reviews;
       state.loadOfferCommentsLoading = false;
+      state.isCommentsLoaded = true;
     })
     .addCase(loadOfferCommentsFailure, (state: DataReducerState, action) => {
       state.error = action.payload;

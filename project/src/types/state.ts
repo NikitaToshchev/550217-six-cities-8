@@ -30,6 +30,8 @@ export type DataReducerState = {
   loadFavoriteOffersLoading: boolean,
   postFavoriteLoading: boolean,
   isOfferLoaded: boolean,
+  isNearOffersLoaded: boolean,
+  isCommentsLoaded: boolean,
 };
 
 export type MainReducerState = {

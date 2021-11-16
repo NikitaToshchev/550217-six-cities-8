@@ -87,9 +87,7 @@ function ReviewNewComponent(): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          // disabled={!formState.review.isValid || !formState.rating.isValid}
           disabled={isDisabled}
-
         >
           Submit
         </button>

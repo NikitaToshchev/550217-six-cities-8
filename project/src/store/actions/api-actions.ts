@@ -165,6 +165,7 @@ export const fetchFavoriteOffersAction = (): ThunkActionResult =>
     }
   };
 
+
 export const postFavorititeAction = (id: number, status: boolean): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     dispatch(postFavoriteRequest());
@@ -172,8 +173,10 @@ export const postFavorititeAction = (id: number, status: boolean): ThunkActionRe
       await api.post(`${APIRoute.Favorite}/${id}/${Number(status)}`);
       dispatch(postFavoriteSuccess(id, status));
     }
-    catch (error: any) {
-      dispatch(postFavoriteFailure(error.toString()));
+    catch (error: unknown) {
+      if (typeof error === 'string') {
+        dispatch(postFavoriteFailure(error.toString()));
+      }
       toast.error(ToastMessage.POST_FAVORITE_FAIL_MESSAGE);
     }
   };
