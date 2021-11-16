@@ -13,6 +13,7 @@ export const getOfferById = (state: State): Offer | null => state[NameSpace.data
 export const getIsOfferLoadedStatus = (state: State): boolean | undefined => state[NameSpace.data].isOfferLoaded;
 export const getIsNearOffersLoadedStatus = (state: State): boolean | undefined => state[NameSpace.data].isNearOffersLoaded;
 export const getIsCommentsLoadedStatus = (state: State): boolean | undefined => state[NameSpace.data].isCommentsLoaded;
+export const getIsPostCommentLoadingStatus = (state: State): boolean | undefined => state[NameSpace.data].postCommentLoading;
 
 export const getIsDataLoadedStatus = (state: State): boolean | undefined => state[NameSpace.user].isDataLoaded;
 export const getUserData = (state: State): UserInfo | null | undefined => state[NameSpace.user].userData;
