@@ -6,10 +6,10 @@ import ReviewsComponent from '../reviews/reviews';
 import NearPlacesComponent from '../near-places/near-places';
 import { useHistory, useParams } from 'react-router-dom';
 import Map from '../map/map';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { getRating } from '../../utils/utils';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppRoute, AuthorizationStatus, MAX_IMAGES } from '../../const';
+import { AppRoute, AuthorizationStatus, MAX_COUNT_NEAR_OFFERS, MAX_IMAGES } from '../../const';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { fetchCommentsAction, fetchNearOffersAction, fetchOfferByIdAction, postFavorititeAction } from '../../store/actions/api-actions';
 import { getAuthorizationStatus, getIsCommentsLoadedStatus, getIsNearOffersLoadedStatus, getIsOfferLoadedStatus, getNearOffers, getOfferById } from '../../store/selectors/selectors';
@@ -25,10 +25,6 @@ function RoomScreen(): JSX.Element {
   const isCommentsLoaded = useSelector(getIsCommentsLoadedStatus);
 
   const { id } = useParams() as { id: string };
-  const [activeCard, setActiveCard] = useState<Offer | null>(null);
-  const handleActiveCard = (card: Offer | null): void => {
-    setActiveCard(card);
-  };
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -54,8 +50,12 @@ function RoomScreen(): JSX.Element {
     return <NotFoundScreen />;
   }
 
+
   const { images, isFavorite, title, isPremium, host, price, rating, bedrooms, maxAdults, type, goods, description } = offerById;
   const { name, avatarUrl, isPro } = host;
+
+  const nearOffersList = nearOffers.slice(0, MAX_COUNT_NEAR_OFFERS);
+  const offersForMap = [...nearOffersList, offerById];
 
   const offerRating = getRating(offerById.rating);
 
@@ -133,14 +133,13 @@ function RoomScreen(): JSX.Element {
           </div>
           <section className="property__map map">
             <Map
-              offers={nearOffers}
-              activeCard={activeCard}
+              offers={offersForMap}
+              activeCard={offerById}
             />
           </section>
         </section>
         <NearPlacesComponent
-          nearOffers={nearOffers}
-          handleActiveCard={handleActiveCard}
+          nearOffers={nearOffersList}
         />
       </main>
     </div>
