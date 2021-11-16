@@ -66,7 +66,7 @@ export const fetchOfferByIdAction = (id: string): ThunkActionResult =>
       if (error instanceof Error) {
         dispatch(loadOfferByIdFailure(error.toString()));
       }
-      toast.error(ToastMessage.FETCH_OFFER_BY_ID_FAIL_MESSAGE);
+      toast.error(ToastMessage.FetchOfferByIdFailMessage);
     }
   };
 
@@ -82,7 +82,7 @@ export const fetchCommentsAction = (id: string): ThunkActionResult =>
       if (error instanceof Error) {
         dispatch(loadOfferCommentsFailure(error.toString()));
       }
-      toast.error(ToastMessage.FETCH_COMMENTS_FAIL_MESSAGE);
+      toast.error(ToastMessage.FetchCommentsFailMessage);
     }
   };
 
@@ -98,7 +98,7 @@ export const postCommentsAction = ({ id, rating, comment }: CommentPost): ThunkA
       if (error instanceof Error) {
         dispatch(postCommentFailure(error.toString()));
       }
-      toast.error(ToastMessage.POST_COMMENT_FAIL_MESSAGE);
+      toast.error(ToastMessage.PostCommentFailMessage);
     }
   };
 
@@ -114,7 +114,7 @@ export const fetchNearOffersAction = (id: string): ThunkActionResult =>
       if (error instanceof Error) {
         dispatch(loadNearOffersFailure(error.toString()));
       }
-      toast.warn(ToastMessage.FETCH_NEARBY_OFFER_FAIL_MESSAGE);
+      toast.warn(ToastMessage.FetchNearOfferFailMessage);
     }
   };
 
@@ -130,7 +130,7 @@ export const checkAuthAction = (): ThunkActionResult =>
       if (error instanceof Error) {
         dispatch(requireAuthorizationFailure(error.toString()));
       }
-      toast.info(ToastMessage.AUTH_PROMT_MESSAGE);
+      toast.info(ToastMessage.AuthPromtMessage);
     }
   };
 
@@ -148,7 +148,7 @@ export const loginAction = ({ login: email, password }: AuthData): ThunkActionRe
       if (error instanceof Error) {
         dispatch(loginActionFailure(error.toString()));
       }
-      toast.warn(ToastMessage.LOGIN_FAIL_MESSAGE);
+      toast.warn(ToastMessage.LoginFailMessage);
     }
   };
 
@@ -163,7 +163,7 @@ export const logoutAction = (): ThunkActionResult =>
       if (error instanceof Error) {
         dispatch(logoutFailure(error.toString()));
       }
-      toast.error(ToastMessage.LOGOUT_FAIL_MESSAGE);
+      toast.error(ToastMessage.LogoutFailMessage);
     }
   };
 
@@ -179,7 +179,7 @@ export const fetchFavoriteOffersAction = (): ThunkActionResult =>
       if (error instanceof Error) {
         dispatch(loadFavoriteOffersFailure(error.toString()));
       }
-      toast.error(ToastMessage.FETCH_FAVORITES_FAIL_MESSAGE);
+      toast.error(ToastMessage.FetchFavoritesFailMessage);
     }
   };
 
@@ -194,6 +194,6 @@ export const postFavorititeAction = (id: number, status: boolean): ThunkActionRe
       if (error instanceof Error) {
         dispatch(postFavoriteFailure(error.toString()));
       }
-      toast.error(ToastMessage.POST_FAVORITE_FAIL_MESSAGE);
+      toast.error(ToastMessage.PostFavoriteFailMessage);
     }
   };
