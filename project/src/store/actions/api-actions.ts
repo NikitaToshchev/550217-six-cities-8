@@ -47,8 +47,10 @@ export const fetchOffersAction = (): ThunkActionResult =>
       const adaptedOffers = adaptOffersToClient(data);
       dispatch(loadOffersSucces(adaptedOffers));
     }
-    catch (error: any) {
-      dispatch(loadOffersFailure(error.toString()));
+    catch (error: unknown) {
+      if (error instanceof Error) {
+        dispatch(loadOffersFailure(error.toString()));
+      }
     }
   };
 
@@ -60,8 +62,10 @@ export const fetchOfferByIdAction = (id: string): ThunkActionResult =>
       const adaptedOffer = adaptOfferToClient(data);
       dispatch(loadOfferByIdSuccess(adaptedOffer));
     }
-    catch (error: any) {
-      dispatch(loadOfferByIdFailure(error.toString()));
+    catch (error: unknown) {
+      if (error instanceof Error) {
+        dispatch(loadOfferByIdFailure(error.toString()));
+      }
       toast.error(ToastMessage.FETCH_OFFER_BY_ID_FAIL_MESSAGE);
     }
   };
@@ -74,8 +78,10 @@ export const fetchCommentsAction = (id: string): ThunkActionResult =>
       const adaptedComments = adaptCommentsToClient(data);
       dispatch(loadOfferCommentsSuccess(adaptedComments));
     }
-    catch (error: any) {
-      dispatch(loadOfferCommentsFailure(error.toString()));
+    catch (error: unknown) {
+      if (error instanceof Error) {
+        dispatch(loadOfferCommentsFailure(error.toString()));
+      }
       toast.error(ToastMessage.FETCH_COMMENTS_FAIL_MESSAGE);
     }
   };
@@ -88,8 +94,10 @@ export const postCommentsAction = ({ id, rating, comment }: CommentPost): ThunkA
       dispatch(postCommentSuccess());
       dispatch(fetchCommentsAction(id as string));
     }
-    catch (error: any) {
-      dispatch(postCommentFailure(error.toString()));
+    catch (error: unknown) {
+      if (error instanceof Error) {
+        dispatch(postCommentFailure(error.toString()));
+      }
       toast.error(ToastMessage.POST_COMMENT_FAIL_MESSAGE);
     }
   };
@@ -102,8 +110,10 @@ export const fetchNearOffersAction = (id: string): ThunkActionResult =>
       const adaptedOffers = adaptOffersToClient(data);
       dispatch(loadNearOffersSuccess(adaptedOffers));
     }
-    catch (error: any) {
-      dispatch(loadNearOffersFailure(error.toString()));
+    catch (error: unknown) {
+      if (error instanceof Error) {
+        dispatch(loadNearOffersFailure(error.toString()));
+      }
       toast.warn(ToastMessage.FETCH_NEARBY_OFFER_FAIL_MESSAGE);
     }
   };
@@ -116,8 +126,10 @@ export const checkAuthAction = (): ThunkActionResult =>
       const adaptedData = adaptUserInfoToClient(data);
       dispatch(requireAuthorizationSucces(AuthorizationStatus.Auth, adaptedData));
     }
-    catch (error: any) {
-      dispatch(requireAuthorizationFailure(error.toString()));
+    catch (error: unknown) {
+      if (error instanceof Error) {
+        dispatch(requireAuthorizationFailure(error.toString()));
+      }
       toast.info(ToastMessage.AUTH_PROMT_MESSAGE);
     }
   };
@@ -132,8 +144,10 @@ export const loginAction = ({ login: email, password }: AuthData): ThunkActionRe
       const adaptedData = adaptUserInfoToClient(data);
       dispatch(requireAuthorizationSucces(AuthorizationStatus.Auth, adaptedData));
     }
-    catch (error: any) {
-      dispatch(loginActionFailure(error.toString()));
+    catch (error: unknown) {
+      if (error instanceof Error) {
+        dispatch(loginActionFailure(error.toString()));
+      }
       toast.warn(ToastMessage.LOGIN_FAIL_MESSAGE);
     }
   };
@@ -145,8 +159,10 @@ export const logoutAction = (): ThunkActionResult =>
       api.delete(APIRoute.Logout);
       dropToken();
       dispatch(requireLogout());
-    } catch (error: any) {
-      dispatch(logoutFailure(error.toString()));
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        dispatch(logoutFailure(error.toString()));
+      }
       toast.error(ToastMessage.LOGOUT_FAIL_MESSAGE);
     }
   };
@@ -159,12 +175,13 @@ export const fetchFavoriteOffersAction = (): ThunkActionResult =>
       const adaptedOffers = adaptOffersToClient(data);
       dispatch(loadFavoriteOffersSuccess(adaptedOffers));
     }
-    catch (error: any) {
-      dispatch(loadFavoriteOffersFailure(error.toString()));
+    catch (error: unknown) {
+      if (error instanceof Error) {
+        dispatch(loadFavoriteOffersFailure(error.toString()));
+      }
       toast.error(ToastMessage.FETCH_FAVORITES_FAIL_MESSAGE);
     }
   };
-
 
 export const postFavorititeAction = (id: number, status: boolean): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
@@ -174,7 +191,7 @@ export const postFavorititeAction = (id: number, status: boolean): ThunkActionRe
       dispatch(postFavoriteSuccess(id, status));
     }
     catch (error: unknown) {
-      if (typeof error === 'string') {
+      if (error instanceof Error) {
         dispatch(postFavoriteFailure(error.toString()));
       }
       toast.error(ToastMessage.POST_FAVORITE_FAIL_MESSAGE);
