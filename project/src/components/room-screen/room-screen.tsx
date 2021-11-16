@@ -50,7 +50,6 @@ function RoomScreen(): JSX.Element {
     return <NotFoundScreen />;
   }
 
-
   const { images, isFavorite, title, isPremium, host, price, rating, bedrooms, maxAdults, type, goods, description } = offerById;
   const { name, avatarUrl, isPro } = host;
 
