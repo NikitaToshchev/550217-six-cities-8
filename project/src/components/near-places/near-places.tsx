@@ -1,14 +1,14 @@
 import { Offer } from '../../types/offer';
-import NearPlaceCardComponent from '../near-place-card/near-place-card';
+import NearPlaceCard from '../near-place-card/near-place-card';
 
 type NearPlacesProprs = {
   nearOffers: Offer[],
 }
 
-function NearPlacesComponent({ nearOffers }: NearPlacesProprs): JSX.Element {
+function NearPlaces({ nearOffers }: NearPlacesProprs): JSX.Element {
 
   const nearPlaces = nearOffers.map((nearOffer) => (
-    <NearPlaceCardComponent
+    <NearPlaceCard
       key={nearOffer.id}
       nearOffer={nearOffer}
     />
@@ -26,4 +26,4 @@ function NearPlacesComponent({ nearOffers }: NearPlacesProprs): JSX.Element {
   );
 }
 
-export default NearPlacesComponent;
+export default NearPlaces;

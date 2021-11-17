@@ -1,8 +1,8 @@
-type RoomGalleryComponentProps = {
+type RoomGalleryProps = {
   images: string[],
 }
 
-function RoomGalleryComponent({ images }: RoomGalleryComponentProps): JSX.Element {
+function RoomGallery({ images }: RoomGalleryProps): JSX.Element {
   const imagesGallery = images.map((image, index) => (
     <div className="property__image-wrapper" key={image + index.toString()}>
       <img className="property__image" src={image} alt="Interior view" />
@@ -18,4 +18,4 @@ function RoomGalleryComponent({ images }: RoomGalleryComponentProps): JSX.Elemen
   );
 }
 
-export default RoomGalleryComponent;
+export default RoomGallery;

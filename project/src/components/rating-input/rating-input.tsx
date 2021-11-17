@@ -7,7 +7,7 @@ type RatingInputProps = {
   onChange: (evt: ChangeEvent<HTMLInputElement>) => void;
 }
 
-function RatingInputComponent({ number, title, value, onChange }: RatingInputProps): JSX.Element {
+function RatingInput({ number, title, value, onChange }: RatingInputProps): JSX.Element {
   return (
     <>
       <input
@@ -29,4 +29,4 @@ function RatingInputComponent({ number, title, value, onChange }: RatingInputPro
   );
 }
 
-export default RatingInputComponent;
+export default RatingInput;

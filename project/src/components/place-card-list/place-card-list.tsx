@@ -6,7 +6,7 @@ type placeCardListProps = {
   handleActiveCard: (offer: Offer | null) => void;
 }
 
-function PlaceCardListComponent({ offers, handleActiveCard }: placeCardListProps): JSX.Element {
+function PlaceCardList({ offers, handleActiveCard }: placeCardListProps): JSX.Element {
 
   return (
     <div className="cities__places-list places__list tabs__content">
@@ -21,4 +21,4 @@ function PlaceCardListComponent({ offers, handleActiveCard }: placeCardListProps
   );
 }
 
-export default PlaceCardListComponent;
+export default PlaceCardList;

@@ -5,7 +5,7 @@ type ReviewsItemProps = {
   review: Review,
 }
 
-function ReviewsItemComponent({ review }: ReviewsItemProps): JSX.Element {
+function ReviewsItem({ review }: ReviewsItemProps): JSX.Element {
   const { date, rating, user, comment } = review;
   const { avatarUrl, name } = user;
   const reviewRating = getRating(rating);
@@ -38,4 +38,4 @@ function ReviewsItemComponent({ review }: ReviewsItemProps): JSX.Element {
   );
 }
 
-export default ReviewsItemComponent;
+export default ReviewsItem;

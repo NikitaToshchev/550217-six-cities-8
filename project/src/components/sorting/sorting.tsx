@@ -4,7 +4,7 @@ import { changeSortType } from '../../store/actions/action';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentSortType } from '../../store/selectors/selectors';
 
-function SortingComponent(): JSX.Element {
+function Sorting(): JSX.Element {
 
   const currentSortType = useSelector(getCurrentSortType);
   const [isOpenSort, setOpenSort] = useState(false);
@@ -48,4 +48,4 @@ function SortingComponent(): JSX.Element {
   );
 }
 
-export default SortingComponent;
+export default Sorting;

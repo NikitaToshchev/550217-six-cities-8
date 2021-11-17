@@ -10,7 +10,7 @@ type FavoriteItemCardProps = {
   offer: Offer,
 }
 
-function FavoriteItemCardComponent({ offer }: FavoriteItemCardProps): JSX.Element {
+function FavoriteItemCard({ offer }: FavoriteItemCardProps): JSX.Element {
   const { type, title, price, rating, isPremium, isFavorite, previewImage, id } = offer;
   const bookmarkButtonClass = isFavorite
     ? 'place-card__bookmark-button place-card__bookmark-button--active button'
@@ -70,4 +70,4 @@ function FavoriteItemCardComponent({ offer }: FavoriteItemCardProps): JSX.Elemen
   );
 }
 
-export default FavoriteItemCardComponent;
+export default FavoriteItemCard;

@@ -1,9 +1,9 @@
 import { Offer } from '../../types/offer';
 import HeaderComponet from '../header/header';
-import RoomGalleryComponent from '../room-gallary/room-gallary';
-import RoomGoodsComponent from '../room-goods/room-goods';
-import ReviewsComponent from '../reviews/reviews';
-import NearPlacesComponent from '../near-places/near-places';
+import RoomGallery from '../room-gallary/room-gallary';
+import RoomGoods from '../room-goods/room-goods';
+import Reviews from '../reviews/reviews';
+import NearPlaces from '../near-places/near-places';
 import { useHistory, useParams } from 'react-router-dom';
 import Map from '../map/map';
 import { useEffect } from 'react';
@@ -69,7 +69,7 @@ function RoomScreen(): JSX.Element {
       <HeaderComponet />
       <main className="page__main page__main--property">
         <section className="property">
-          {images.length > 0 && <RoomGalleryComponent images={images.slice(0, MAX_IMAGES)} />}
+          {images.length > 0 && <RoomGallery images={images.slice(0, MAX_IMAGES)} />}
           <div className="property__container container">
             <div className="property__wrapper">
               {isPremium ? <div className="property__mark"><span>Premium</span></div> : ''}
@@ -108,7 +108,7 @@ function RoomScreen(): JSX.Element {
                 <b className="property__price-value">&euro;{price}</b>
                 <span className="property__price-text">&nbsp;night</span>
               </div>
-              {goods.length > 0 && <RoomGoodsComponent goods={goods} />}
+              {goods.length > 0 && <RoomGoods goods={goods} />}
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
@@ -127,7 +127,7 @@ function RoomScreen(): JSX.Element {
                   <p className="property__text">{description}</p>
                 </div>
               </div>
-              <ReviewsComponent />
+              <Reviews />
             </div>
           </div>
           <section className="property__map map">
@@ -137,7 +137,7 @@ function RoomScreen(): JSX.Element {
             />
           </section>
         </section>
-        <NearPlacesComponent
+        <NearPlaces
           nearOffers={nearOffersList}
         />
       </main>

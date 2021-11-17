@@ -5,9 +5,9 @@ import { postCommentsAction } from '../../store/actions/api-actions';
 import { getIsPostCommentLoadingStatus, getOfferById } from '../../store/selectors/selectors';
 import { CommentPost } from '../../types/commentPost';
 import { ReviewsItemForm } from '../../types/reviews-item-form';
-import RatingInputComponent from '../rating-input/rating-input';
+import RatingInput from '../rating-input/rating-input';
 
-function ReviewNewComponent(): JSX.Element {
+function ReviewNew(): JSX.Element {
   const offerById = useSelector(getOfferById);
   const postCommentLoading = useSelector(getIsPostCommentLoadingStatus);
 
@@ -76,7 +76,7 @@ function ReviewNewComponent(): JSX.Element {
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {Object.keys(ratingStars).reverse().map((number) => (
-          <RatingInputComponent
+          <RatingInput
             number={number}
             key={number}
             title={ratingStars[number]}
@@ -104,4 +104,4 @@ function ReviewNewComponent(): JSX.Element {
   );
 }
 
-export default ReviewNewComponent;
+export default ReviewNew;

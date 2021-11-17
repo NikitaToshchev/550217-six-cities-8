@@ -3,7 +3,7 @@ import { changeCity, changeSortType } from '../../store/actions/action';
 import { CITIES, DEFAULT_SORT_TYPE } from '../../const';
 import { getCurrentCity } from '../../store/selectors/selectors';
 
-function MenuCitiesComponent(): JSX.Element {
+function MenuCities(): JSX.Element {
 
   const currentCity = useSelector(getCurrentCity);
 
@@ -39,4 +39,4 @@ function MenuCitiesComponent(): JSX.Element {
   );
 }
 
-export default MenuCitiesComponent;
+export default MenuCities;

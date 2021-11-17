@@ -1,5 +1,5 @@
 import HeaderComponet from '../header/header';
-import MenuCitiesComponent from '../menu-cities/menu-cities';
+import MenuCities from '../menu-cities/menu-cities';
 import { Offer } from '../../types/offer';
 import { useState } from 'react';
 import { getSortedOffers } from '../../utils/utils';
@@ -34,7 +34,7 @@ function MainScreen(): JSX.Element {
     <div className="page page--gray page--main">
       <HeaderComponet />
       <main className={mainclass}>
-        <MenuCitiesComponent />
+        <MenuCities />
         <div className="cities">
           <div className={containerClass}>
             {offersByCity.length === 0 && <MainScreenEmpty cityName={currentCity} />}

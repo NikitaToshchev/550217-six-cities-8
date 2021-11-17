@@ -1,6 +1,6 @@
 import { Offer } from '../../types/offer';
-import PlaceCardListComponent from '../place-card-list/place-card-list';
-import SortingComponent from '../sorting/sorting';
+import PlaceCardList from '../place-card-list/place-card-list';
+import Sorting from '../sorting/sorting';
 import Map from '../map/map';
 
 type MainScreenContentProps = {
@@ -16,8 +16,8 @@ function MainScreenContent({ cityName, sortedOffers, activeCard, handleActiveCar
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
         <b className="places__found">{sortedOffers.length} places to stay in {cityName}</b>
-        <SortingComponent />
-        <PlaceCardListComponent
+        <Sorting />
+        <PlaceCardList
           offers={sortedOffers}
           handleActiveCard={handleActiveCard}
         />

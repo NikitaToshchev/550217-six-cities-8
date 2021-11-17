@@ -2,7 +2,7 @@ type RoomGoodsProps = {
   goods: string[],
 }
 
-function RoomGoodsComponent({ goods }: RoomGoodsProps): JSX.Element {
+function RoomGoods({ goods }: RoomGoodsProps): JSX.Element {
   const goodsItems = goods.map((item) => (
     <li className="property__inside-item" key={item}>
       {item}
@@ -19,4 +19,4 @@ function RoomGoodsComponent({ goods }: RoomGoodsProps): JSX.Element {
   );
 }
 
-export default RoomGoodsComponent;
+export default RoomGoods;

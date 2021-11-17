@@ -1,12 +1,12 @@
 import { Offer } from '../../types/offer';
 import FavoritesItem from '../favorites-item/favorites-item';
 
-type FavorItemListProps = {
+type FavoriteListProps = {
   favoritesOffers: Offer[],
   cities: string[],
 }
 
-function FavoriteListComponent({ cities, favoritesOffers }: FavorItemListProps): JSX.Element {
+function FavoriteList({ cities, favoritesOffers }: FavoriteListProps): JSX.Element {
 
   return (
     <ul className="favorites__list">
@@ -15,4 +15,4 @@ function FavoriteListComponent({ cities, favoritesOffers }: FavorItemListProps):
   );
 }
 
-export default FavoriteListComponent;
+export default FavoriteList;

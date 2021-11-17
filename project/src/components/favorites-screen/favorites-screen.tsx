@@ -1,7 +1,7 @@
 import FooterComponet from '../footer/footer';
 import HeaderComponet from '../header/header';
-import FavoritesEmptyComponent from '../favorites-empty/favorites-empty';
-import FavoritesComponent from '../favorites/favorites';
+import FavoritesEmpty from '../favorites-empty/favorites-empty';
+import Favorites from '../favorites/favorites';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFavoriteOffers } from '../../store/selectors/selectors';
 import { useEffect } from 'react';
@@ -17,7 +17,7 @@ function FavoritesScreen(): JSX.Element {
 
 
   const pageMainFavoritesClass = favoritesOffers.length ? 'page' : 'page page--favorites-empty';
-  const content = favoritesOffers.length ? <FavoritesComponent favoritesOffers={favoritesOffers} /> : <FavoritesEmptyComponent />;
+  const content = favoritesOffers.length ? <Favorites favoritesOffers={favoritesOffers} /> : <FavoritesEmpty />;
   return (
     <div className={pageMainFavoritesClass}>
       <HeaderComponet />

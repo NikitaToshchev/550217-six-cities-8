@@ -10,7 +10,7 @@ type NearPlaceCardProps = {
   nearOffer: Offer,
 }
 
-function NearPlaceCardComponent({ nearOffer }: NearPlaceCardProps): JSX.Element {
+function NearPlaceCard({ nearOffer }: NearPlaceCardProps): JSX.Element {
   const { type, title, price, rating, isPremium, isFavorite, previewImage, id } = nearOffer;
   const bookmarkButtonClass = isFavorite
     ? 'place-card__bookmark-button place-card__bookmark-button--active button'
@@ -86,4 +86,4 @@ function NearPlaceCardComponent({ nearOffer }: NearPlaceCardProps): JSX.Element 
   );
 }
 
-export default NearPlaceCardComponent;
+export default NearPlaceCard;

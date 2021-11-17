@@ -4,7 +4,7 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 import { logoutAction } from '../../store/actions/api-actions';
 import { getAuthorizationStatus, getUserData } from '../../store/selectors/selectors';
 
-function HeaderComponet(): JSX.Element {
+function Header(): JSX.Element {
 
   const authorizationStatus = useSelector(getAuthorizationStatus);
   const userData = useSelector(getUserData);
@@ -63,5 +63,5 @@ function HeaderComponet(): JSX.Element {
   );
 }
 
-export default HeaderComponet;
+export default Header;
 
