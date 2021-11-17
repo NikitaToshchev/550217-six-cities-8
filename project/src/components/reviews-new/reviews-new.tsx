@@ -1,29 +1,28 @@
 import { FormEvent, useState, ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ratingStars } from '../../const';
-import { fetchCommentsAction, postCommentsAction } from '../../store/actions/api-actions';
-import { getOfferById } from '../../store/selectors/selectors';
+import { postCommentsAction } from '../../store/actions/api-actions';
+import { getIsPostCommentLoadingStatus, getOfferById } from '../../store/selectors/selectors';
 import { CommentPost } from '../../types/commentPost';
 import { ReviewsItemForm } from '../../types/reviews-item-form';
 import RatingInputComponent from '../rating-input/rating-input';
 
 function ReviewNewComponent(): JSX.Element {
   const offerById = useSelector(getOfferById);
+  const postCommentLoading = useSelector(getIsPostCommentLoadingStatus);
+
   const dispatch = useDispatch();
 
   const onSubmit = (commentPost: CommentPost) => {
     dispatch(postCommentsAction(commentPost));
-    dispatch(fetchCommentsAction(commentPost.id as string));
   };
 
   const [formState, setFormState] = useState<{ [key: string]: ReviewsItemForm }>({
     rating: {
       value: '0',
-      isValid: false,
     },
     review: {
       value: '',
-      isValid: false,
       minValue: 50,
       maxValue: 300,
     },
@@ -55,22 +54,22 @@ function ReviewNewComponent(): JSX.Element {
   const handleChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = evt.target;
 
-    let isValid = false;
-    if (name === 'review' && formState.review.maxValue && formState.review.minValue) {
-      isValid = Boolean(value.length >= formState.review.minValue && value.length < formState.review.maxValue);
-    } else {
-      isValid = Boolean(value);
-    }
-
     setFormState({
       ...formState,
       [name]: {
         ...formState[name],
         value,
-        isValid,
       },
     });
   };
+
+  const buttonText = postCommentLoading ? 'Submitting' : 'Submit';
+
+  const isDisabled =
+    formState.rating.value === '0'
+    || formState.review.value.length < 50
+    || formState.review.value.length > 300
+    || postCommentLoading;
 
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={handleFormSubmit}>
@@ -96,9 +95,9 @@ function ReviewNewComponent(): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={!formState.review.isValid || !formState.rating.isValid}
+          disabled={isDisabled}
         >
-          Submit
+          {buttonText}
         </button>
       </div>
     </form>

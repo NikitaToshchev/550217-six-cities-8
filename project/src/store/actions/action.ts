@@ -125,3 +125,36 @@ export const postCommentFailure = createAction(
     payload: error,
   }),
 );
+
+export const loadFavoriteOffersRequest = createAction(ActionType.LoadFavoriteOffersRequest);
+
+export const loadFavoriteOffersSuccess = createAction(
+  ActionType.LoadFavoriteOffersSuccess, (favoriteOffers: Offer[]) => ({
+    payload: {
+      favoriteOffers,
+    },
+  }),
+);
+
+export const loadFavoriteOffersFailure = createAction(
+  ActionType.LoadFavoriteOffersFailure, (error: string | null) => ({
+    payload: error,
+  }),
+);
+
+export const postFavoriteRequest = createAction(ActionType.PostFavoriteRequest);
+
+export const postFavoriteSuccess = createAction(
+  ActionType.PostFavoriteSuccess, (id: number, status: boolean) => ({
+    payload: {
+      id,
+      status,
+    },
+  }),
+);
+
+export const postFavoriteFailure = createAction(
+  ActionType.PostFavoriteFailure, (error: string | null) => ({
+    payload: error,
+  }),
+);

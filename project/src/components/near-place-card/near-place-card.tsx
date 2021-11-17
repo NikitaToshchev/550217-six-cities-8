@@ -1,29 +1,52 @@
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { postFavorititeAction } from '../../store/actions/api-actions';
+import { getAuthorizationStatus } from '../../store/selectors/selectors';
 import { Offer } from '../../types/offer';
 import { getRating } from '../../utils/utils';
 
 type NearPlaceCardProps = {
   nearOffer: Offer,
-  handleActiveCard: (offer: Offer | null) => void,
 }
 
-function NearPlaceCardComponent({ nearOffer, handleActiveCard }: NearPlaceCardProps): JSX.Element {
+function NearPlaceCardComponent({ nearOffer }: NearPlaceCardProps): JSX.Element {
   const { type, title, price, rating, isPremium, isFavorite, previewImage, id } = nearOffer;
   const bookmarkButtonClass = isFavorite
     ? 'place-card__bookmark-button place-card__bookmark-button--active button'
     : 'place-card__bookmark-button button';
   const getPremiumMark = isPremium ? <div className="place-card__mark"><span>Premium</span></div> : '';
   const offerRating = getRating(rating);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const handleFavoriteBthClick = (offer: Offer) => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(postFavorititeAction(offer.id, !offer.isFavorite));
+    } else {
+      history.push(AppRoute.SignIn);
+    }
+  };
+
+  const handleScroll = () => {
+    window.scrollTo(0, 0);
+  };
 
   return (
-    <article className="near-places__card place-card"
-      onMouseEnter={() => handleActiveCard(nearOffer)}
-      onMouseLeave={() => handleActiveCard(null)}
-    >
+
+    <article className="near-places__card place-card">
       {getPremiumMark}
       <div className="near-places__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${id}`}>
-          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place view" />
+          <img
+            className="place-card__image"
+            src={previewImage}
+            width="260" height="200"
+            alt="Place view"
+            onClick={() => handleScroll()}
+          />
         </Link>
       </div>
       <div className="place-card__info">
@@ -32,7 +55,11 @@ function NearPlaceCardComponent({ nearOffer, handleActiveCard }: NearPlaceCardPr
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={bookmarkButtonClass} type="button">
+          <button
+            className={bookmarkButtonClass}
+            type="button"
+            onClick={() => handleFavoriteBthClick(nearOffer)}
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark" />
             </svg>
@@ -46,7 +73,12 @@ function NearPlaceCardComponent({ nearOffer, handleActiveCard }: NearPlaceCardPr
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/${id}`}>{title}</Link>
+          <Link
+            to={`/offer/${id}`}
+            onClick={() => handleScroll()}
+          >
+            {title}
+          </Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

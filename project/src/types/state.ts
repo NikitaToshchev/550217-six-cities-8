@@ -19,6 +19,7 @@ export type DataReducerState = {
   offerById: Offer | null,
   nearOffers: Offer[],
   reviews: Review[],
+  favoriteOffers: Offer[],
   error: string | null,
   loadOffersLoading: boolean,
   loadNearOffersLoading: boolean,
@@ -26,6 +27,11 @@ export type DataReducerState = {
   loadOfferCommentsLoading: boolean,
   postCommentLoading: boolean,
   postCommentSuccess: boolean,
+  loadFavoriteOffersLoading: boolean,
+  postFavoriteLoading: boolean,
+  isOfferLoaded: boolean,
+  isNearOffersLoaded: boolean,
+  isCommentsLoaded: boolean,
 };
 
 export type MainReducerState = {

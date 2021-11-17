@@ -4,27 +4,37 @@ import RoomGalleryComponent from '../room-gallary/room-gallary';
 import RoomGoodsComponent from '../room-goods/room-goods';
 import ReviewsComponent from '../reviews/reviews';
 import NearPlacesComponent from '../near-places/near-places';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import Map from '../map/map';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { getRating } from '../../utils/utils';
 import { useDispatch, useSelector } from 'react-redux';
-import { MAX_IMAGES } from '../../const';
+import { AppRoute, AuthorizationStatus, MAX_COUNT_NEAR_OFFERS, MAX_IMAGES } from '../../const';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import { fetchCommentsAction, fetchNearOffersAction, fetchOfferByIdAction } from '../../store/actions/api-actions';
-import { getNearOffers, getOfferById } from '../../store/selectors/selectors';
+import { fetchCommentsAction, fetchNearOffersAction, fetchOfferByIdAction, postFavorititeAction } from '../../store/actions/api-actions';
+import { getAuthorizationStatus, getIsCommentsLoadedStatus, getIsNearOffersLoadedStatus, getIsOfferLoadedStatus, getNearOffers, getOfferById } from '../../store/selectors/selectors';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 function RoomScreen(): JSX.Element {
 
   const offerById = useSelector(getOfferById);
   const nearOffers = useSelector(getNearOffers);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const isOfferLoaded = useSelector(getIsOfferLoadedStatus);
+  const isNearOffersLoaded = useSelector(getIsNearOffersLoadedStatus);
+  const isCommentsLoaded = useSelector(getIsCommentsLoadedStatus);
 
   const { id } = useParams() as { id: string };
-  const [activeCard, setActiveCard] = useState<Offer | null>(null);
-  const handleActiveCard = (card: Offer | null): void => {
-    setActiveCard(card);
-  };
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  const handleFavoriteBthClick = (offer: Offer) => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(postFavorititeAction(offer.id, !offer.isFavorite));
+    } else {
+      history.push(AppRoute.SignIn);
+    }
+  };
 
   useEffect(() => {
     dispatch(fetchNearOffersAction(id));
@@ -32,11 +42,19 @@ function RoomScreen(): JSX.Element {
     dispatch(fetchCommentsAction(id));
   }, [id, dispatch]);
 
+  if (!isOfferLoaded || !isNearOffersLoaded || !isCommentsLoaded) {
+    return <LoadingScreen />;
+  }
+
   if (!offerById) {
     return <NotFoundScreen />;
   }
+
   const { images, isFavorite, title, isPremium, host, price, rating, bedrooms, maxAdults, type, goods, description } = offerById;
   const { name, avatarUrl, isPro } = host;
+
+  const nearOffersList = nearOffers.slice(0, MAX_COUNT_NEAR_OFFERS);
+  const offersForMap = [...nearOffersList, offerById];
 
   const offerRating = getRating(offerById.rating);
 
@@ -57,7 +75,11 @@ function RoomScreen(): JSX.Element {
               {isPremium ? <div className="property__mark"><span>Premium</span></div> : ''}
               <div className="property__name-wrapper">
                 <h1 className="property__name">{title}</h1>
-                <button className={bookmarkButtonClass} type="button">
+                <button
+                  className={bookmarkButtonClass}
+                  type="button"
+                  onClick={() => handleFavoriteBthClick(offerById)}
+                >
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
@@ -110,14 +132,13 @@ function RoomScreen(): JSX.Element {
           </div>
           <section className="property__map map">
             <Map
-              offers={nearOffers}
-              activeCard={activeCard}
+              offers={offersForMap}
+              activeCard={offerById}
             />
           </section>
         </section>
         <NearPlacesComponent
-          nearOffers={nearOffers}
-          handleActiveCard={handleActiveCard}
+          nearOffers={nearOffersList}
         />
       </main>
     </div>

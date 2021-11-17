@@ -6,9 +6,9 @@ export type Review = {
   user: {
     avatarUrl?: string,
     ['avatar_url']?: string,
-    id: string,
+    id?: string,
     isPro?: boolean,
     ['is_pro']?: boolean,
-    name: string,
+    name?: string,
   }
 };

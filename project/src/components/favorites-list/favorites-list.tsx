@@ -2,15 +2,15 @@ import { Offer } from '../../types/offer';
 import FavoritesItem from '../favorites-item/favorites-item';
 
 type FavorItemListProps = {
-  offers: Offer[],
+  favoritesOffers: Offer[],
   cities: string[],
 }
 
-function FavoriteListComponent({ cities, offers }: FavorItemListProps): JSX.Element {
+function FavoriteListComponent({ cities, favoritesOffers }: FavorItemListProps): JSX.Element {
 
   return (
     <ul className="favorites__list">
-      {cities.map((city) => <FavoritesItem city={city} offers={offers} key={city} />)}
+      {cities.map((city) => <FavoritesItem city={city} favoritesOffers={favoritesOffers} key={city} />)}
     </ul>
   );
 }
